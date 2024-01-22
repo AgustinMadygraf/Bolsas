@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="CSS/style.css"> 
 </head>
 <body>
-    <h1>Costos Operativos Mensuales</h1>
+    <?php
+    require "includes/header.php";
+    ?>
+    <h1>Costos Operativos Mensuales - Año 2023</h1>
     <?php
         $data = include('includes/GetData_2.php'); // Inclusión de los datos
 

@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="CSS/style.css"> 
 </head>
 <body>
+<?php
+    require "includes/header.php";
+    ?>
     <h1>Tabla de Asociados en bolsas</h1>
     <?php
         $data = include('includes/GetData.php'); // Inclusión de los datos
