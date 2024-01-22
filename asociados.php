@@ -12,7 +12,7 @@
     ?>
     <h1>Tabla de Asociados en bolsas</h1>
     <?php
-        $data = include('includes/GetData.php'); // Inclusión de los datos
+        $data = include('includes/GetData_0.php'); // Inclusión de los datos
 
         if (count($data) > 0) {
             echo "<table>";

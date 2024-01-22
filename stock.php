@@ -5,26 +5,20 @@
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-
 <?php
 require "includes/header.php";
-
 require_once 'Stock/conn.php';
-
 // Obtener los valores de los filtros
 $formatoFilter  = isset($_GET['Formato'])   ? $_GET['Formato']  : 'todos';
 $colorFilter    = isset($_GET['color'])     ? $_GET['color']    : 'todos';
 $gramajeFilter  = isset($_GET['gramaje'])   ? $_GET['gramaje']  : 'todos';
-
 // Construir la consulta según los filtros seleccionados
 $query = "SELECT * FROM tabla_1 WHERE 1=1";
 if ($formatoFilter  !== 'todos') { $query .= " AND formato  = '$formatoFilter'  ";}
 if ($colorFilter    !== 'todos') { $query .= " AND color    = '$colorFilter'    ";}
 if ($gramajeFilter  !== 'todos') { $query .= " AND gramaje  = '$gramajeFilter'  ";}
-
 $result = mysqli_query($conn, $query);
 ?>
-
 <h1>Registro y control stock bolsas de papel</h1>
 <form action="stock.php" method="GET" id="filtroForm">
     <table>
@@ -98,14 +92,11 @@ $result = mysqli_query($conn, $query);
         </tr>
     <?php } ?>
 </table>
-
 <?php mysqli_close($conn); ?>
-
 <script>
     function submitForm() {
         document.getElementById("filtroForm").submit();
     }
 </script>
-
 </body>
 </html>
