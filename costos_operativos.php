@@ -1,4 +1,20 @@
 <!--costos_operativos.php-->
+<?php
+require "includes/header.php";
+
+function obtenerDatosCosto($conexion) {
+    $sql = "SELECT Nombre, Total FROM costos_operativos ORDER BY Total DESC";
+    $resultado = $conexion->query($sql);
+    $datos = [["Nombre", "Total"]]; // Encabezado para Google Charts
+
+    if ($resultado->num_rows > 0) {
+        while($fila = $resultado->fetch_assoc()) {
+            $datos[] = [$fila["Nombre"], floatval($fila["Total"])];
+        }
+    }
+    return $datos;
+            }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,7 +25,6 @@
 <body>
 <h1>Costos Operativos Mensuales - Año 2023</h1>
 <?php
-    require "includes/header.php";
     $data = include('includes/GetData_2.php'); // Inclusión de los datos
     if (count($data) > 0) {
         echo "<table>";
@@ -30,21 +45,8 @@
             else {
                 echo "No se encontraron registros en la tabla.";
             }
-            function obtenerDatosCosto($conexion) {
-                $sql = "SELECT Nombre, Total FROM costos_operativos ORDER BY Total DESC";
-                $resultado = $conexion->query($sql);
-                $datos = [];
-            
-                if ($resultado->num_rows > 0) {
-                    $contador = 1;
-                    while($fila = $resultado->fetch_assoc()) {
-                        $datos[] = [$contador . " - " . $fila["Nombre"], floatval($fila["Total"])];
-                        $contador++;
-                    }
-                }
-                return $datos;
-            }
-            
+
+             
             try {
                 $conexion = new mysqli($server, $usuario, $pass, 'bolsas');
                 if ($conexion->connect_error) {
