@@ -50,94 +50,179 @@ El objetivo es analizar un proyecto de software para identificar áreas específ
 ## Estructura de Carpetas y Archivos
 ```bash
 Bolsas/
-    bolsas.sql
-    index.php
+    asociados.php
     AMIS/
         00-Prompt-for-ProjectAnalysis.md
+    CSS/
+        style.css
+    database/
+        bolsas.sql
+    includes/
+        conn.php
+        GetData.php
+        header.php
 ```
 
 
 ## Contenido de Archivos Seleccionados
 
-### C:\AppServ\www\Bolsas\bolsas.sql
+### C:\AppServ\www\Bolsas\asociados.php
 ```plaintext
-INSERT INTO \`excedente\_repartible\_2023\` \(\`Legajo\`, \`Apellido\`, \`Nombre\`, \`Enero\`, \`Febrero\`, \`Marzo\`, \`Abril\`, \`Mayo\`, \`Junio\`, \`Julio\`, \`Agosto\`, \`Septiembre\`, \`Octubre\`, \`Noviembre\`\) VALUES
-\(1456, 'Hogas', 'Mariana Soledad', '50232.00', '39222.00', '52244.00', '52244.28', '84344.38', '84738.89', '98939.16', NULL, NULL, '222724.00', '245340.00'\);
-```
-
-### C:\AppServ\www\Bolsas\index.php
-```plaintext
+<\!--asociados.php-->
 <\!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Tabla de Empleados</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <title>Tabla de Asociados</title>
+    <link rel="stylesheet" href="CSS/style.css"> 
 </head>
 <body>
     <h1>Tabla de Asociados en bolsas</h1>
     <?php
-    // Conexión a la base de datos
-    $servername = "localhost";
-    $username = "root";
-    $password = "12345678";
-    $dbname = "bolsas";
+        $data = include\('includes/GetData.php'\); // Inclusión de los datos
 
-    $conn = new mysqli\($servername, $username, $password, $dbname\);
+        if \(count\($data\) > 0\) {
+            echo "<table>";
+            echo "<tr><th>Legajo</th><th>Apellido</th><th>Nombre</th><th>Enero</th><th>Febrero</th><th>Marzo</th><th>Abril</th><th>Mayo</th><th>Junio</th><th>Julio</th><th>Agosto</th><th>Septiembre</th><th>Octubre</th><th>Noviembre</th></tr>";
+            
+            foreach \($data as $row\) {
+                echo "<tr>";
+                echo "<td>" . $row\["Legajo"\] . "</td>";
+                echo "<td>" . $row\["Apellido"\] . "</td>";
+                echo "<td>" . $row\["Nombre"\] . "</td>";
+                echo "<td>" . $row\["Enero"\] . "</td>";
+                echo "<td>" . $row\["Febrero"\] . "</td>";
+                echo "<td>" . $row\["Marzo"\] . "</td>";
+                echo "<td>" . $row\["Abril"\] . "</td>";
+                echo "<td>" . $row\["Mayo"\] . "</td>";
+                echo "<td>" . $row\["Junio"\] . "</td>";
+                echo "<td>" . $row\["Julio"\] . "</td>";
+                echo "<td>" . $row\["Agosto"\] . "</td>";
+                echo "<td>" . $row\["Septiembre"\] . "</td>";
+                echo "<td>" . $row\["Octubre"\] . "</td>";
+                echo "<td>" . $row\["Noviembre"\] . "</td>";
+                echo "</tr>"; }
+                echo "</table>";
+            } else {
+                echo "No se encontraron registros en la tabla.";
+                    }
 
-    if \($conn->connect\_error\) {
-        die\("La conexión a la base de datos falló: " . $conn->connect\_error\);
+$stmt->close\(\);
+$conn->close\(\);
+?>
+```
+
+### C:\AppServ\www\Bolsas\CSS\style.css
+```plaintext
+body {
+    font-family: Arial, sans-serif; /\* Fuente más moderna y legible \*/
+    background-color: #f4f4f4; /\* Color de fondo suave para la página \*/
+    color: #333; /\* Color del texto \*/
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+    background-color: #ffffff; /\* Fondo blanco para la tabla \*/
+    box-shadow: 0 0 10px rgba\(0,0,0,0.1\); /\* Sombra suave alrededor de la tabla \*/
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #e9e9e9; /\* Color de fondo para las cabeceras \*/
+    color: #000; /\* Color del texto para las cabeceras \*/
+}
+
+tr:nth-child\(even\) {
+    background-color: #f2f2f2; /\* Color de fondo para filas alternas \*/
+}
+
+tr:hover {
+    background-color: #ddd; /\* Efecto hover para las filas \*/
+}
+
+@media screen and \(max-width: 600px\) {
+    table {
+        width: 100%; /\* Ajuste para dispositivos móviles \*/
     }
+}
 
-    // Consulta SQL para obtener los datos de la tabla
-    $sql = "SELECT \* FROM excedente\_repartible\_2023";
-    $result = $conn->query\($sql\);
+```
 
-    if \($result->num\_rows > 0\) {
-        echo "<table>";
-        echo "<tr><th>Legajo</th><th>Apellido</th><th>Nombre</th><th>Enero</th><th>Febrero</th><th>Marzo</th><th>Abril</th><th>Mayo</th><th>Junio</th><th>Julio</th><th>Agosto</th><th>Septiembre</th><th>Octubre</th><th>Noviembre</th></tr>";
-        
-        while\($row = $result->fetch\_assoc\(\)\) {
-            echo "<tr>";
-            echo "<td>" . $row\["Legajo"\] . "</td>";
-            echo "<td>" . $row\["Apellido"\] . "</td>";
-            echo "<td>" . $row\["Nombre"\] . "</td>";
-            echo "<td>" . $row\["Enero"\] . "</td>";
-            echo "<td>" . $row\["Febrero"\] . "</td>";
-            echo "<td>" . $row\["Marzo"\] . "</td>";
-            echo "<td>" . $row\["Abril"\] . "</td>";
-            echo "<td>" . $row\["Mayo"\] . "</td>";
-            echo "<td>" . $row\["Junio"\] . "</td>";
-            echo "<td>" . $row\["Julio"\] . "</td>";
-            echo "<td>" . $row\["Agosto"\] . "</td>";
-            echo "<td>" . $row\["Septiembre"\] . "</td>";
-            echo "<td>" . $row\["Octubre"\] . "</td>";
-            echo "<td>" . $row\["Noviembre"\] . "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-    } else {
-        echo "No se encontraron registros en la tabla.";
+### C:\AppServ\www\Bolsas\database\bolsas.sql
+```plaintext
+INSERT INTO \`costos\_operativos\` \(\`Nombre\`, \`Enero\`, \`Febrero\`, \`Marzo\`, \`Abril\`, \`Mayo\`, \`Junio\`, \`Julio\`, \`Agosto\`, \`Septiembre\`, \`Octubre\`, \`Noviembre\`, \`Diciembre\`\) VALUES
+\('RETIRO ASOCIADOS', '838234.00', '969355.00', '988284.00', '988285.81', '1530631.94', '1327002.56', '1632309.79', '377025.98', '473667.01', '3852074.00', '3998004.00', '5808000.00'\);
+INSERT INTO \`excedente\_repartible\_2023\` \(\`Legajo\`, \`Apellido\`, \`Nombre\`, \`Enero\`, \`Febrero\`, \`Marzo\`, \`Abril\`, \`Mayo\`, \`Junio\`, \`Julio\`, \`Agosto\`, \`Septiembre\`, \`Octubre\`, \`Noviembre\`\) VALUES
+\(1456, 'Hogas', 'Mariana Soledad', '50232.00', '39222.00', '52244.00', '52244.28', '84344.38', '84738.89', '98939.16', NULL, NULL, '222724.00', '245340.00'\);
+```
+
+### C:\AppServ\www\Bolsas\includes\conn.php
+```plaintext
+<\!-- includes/conn.php -->
+<?php
+$server = "localhost";
+$usuario = "root";
+$pass = "12345678";
+$dbname = "bolsas"; // Incluye el nombre de la base de datos
+?>
+
+```
+
+### C:\AppServ\www\Bolsas\includes\GetData.php
+```plaintext
+<?php
+require 'conn.php'; 
+
+$conn = new mysqli\($server, $usuario, $pass, 'bolsas'\); 
+
+if \($conn->connect\_error\) {
+    die\("La conexión a la base de datos falló: " . $conn->connect\_error\);
+}
+
+$stmt = $conn->prepare\("SELECT Legajo, Apellido, Nombre, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre FROM excedente\_repartible\_2023"\);
+$stmt->execute\(\);
+$result = $stmt->get\_result\(\);
+
+$data = \[\];
+if \($result->num\_rows > 0\) {
+    while\($row = $result->fetch\_assoc\(\)\) {
+        $data\[\] = $row;
     }
+}
 
-    // Cerrar la conexión a la base de datos
-    $conn->close\(\);
-    ?>
-</body>
-</html>
+$stmt->close\(\);
+$conn->close\(\);
+
+return $data;
+?>
+
+```
+
+### C:\AppServ\www\Bolsas\includes\header.php
+```plaintext
+<?php 
+//header.php
+
+echo '<\!DOCTYPE html><html><head> <meta charset="UTF-8"> <link rel="stylesheet" type="text/css" href="CSS/index.css"> <link rel="stylesheet" type="text/css" href="CSS/header.css"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"> <link rel="icon" href="/imagenes/favicon.ico" type="image/x-icon"> </head><body>';
+echo "<header> <br><br><br> <div class='topnav'> <ul>";
+
+// Identificar la página actual
+$paginaActual = basename\($\_SERVER\['PHP\_SELF'\]\);
+
+// Clase para el enlace activo
+$claseActiva = "class='active'";
+
+echo "<li><a href='index.php' ".\($paginaActual == 'index.php' ? $claseActiva : ""\).">Inicio</a></li>";
+echo "<li><a href='PanelControlModbus.php' ".\($paginaActual == 'PanelControlModbus.php' ? $claseActiva : ""\).">Estado del Equipo</a></li>";
+echo "<li><a href='/phpMyAdmin/' target='\_blank'>PHP MyAdmin</a></li>";
+
+echo "</ul></div></header>";
 
 ```

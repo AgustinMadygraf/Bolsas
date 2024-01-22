@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `costos_muerto`
 --
 
-CREATE TABLE `costos_muerto` (
+CREATE TABLE `costos_operativos` (
   `Nombre` varchar(255) NOT NULL,
   `Enero` decimal(10,2) DEFAULT NULL,
   `Febrero` decimal(10,2) DEFAULT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `costos_muerto` (
 -- Volcado de datos para la tabla `costos_muerto`
 --
 
-INSERT INTO `costos_muerto` (`Nombre`, `Enero`, `Febrero`, `Marzo`, `Abril`, `Mayo`, `Junio`, `Julio`, `Agosto`, `Septiembre`, `Octubre`, `Noviembre`, `Diciembre`) VALUES
+INSERT INTO `costos_operativos` (`Nombre`, `Enero`, `Febrero`, `Marzo`, `Abril`, `Mayo`, `Junio`, `Julio`, `Agosto`, `Septiembre`, `Octubre`, `Noviembre`, `Diciembre`) VALUES
 ('ENERGÍA', '10000.00', '10000.00', '10000.00', '10000.00', '10000.00', '9309.16', '8642.16', '8860.53', '9166.42', '9166.42', '9166.42', '9166.42'),
 ('INGRESOS x VENTAS', '2112876.46', '1989044.00', '1753811.40', '1262354.29', '771333.00', '1116105.67', '2364639.00', '2603461.89', '4454292.25', '1678702.30', '2298153.00', '3535258.60'),
 ('OTROS', '296269.00', '770995.10', '544109.36', '310742.67', '217800.00', '158579.31', '221650.00', '824305.00', '918426.30', '878194.06', '0.00', '1327351.30'),

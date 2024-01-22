@@ -1,4 +1,4 @@
-<!--includes/GetData.php-->
+<!--includes/GetData_2.php-->
 <?php
 require 'conn.php'; 
 
@@ -8,7 +8,7 @@ if ($conn->connect_error) {
     die("La conexión a la base de datos falló: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("SELECT Legajo, Apellido, Nombre, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre FROM excedente_repartible_2023");
+$stmt = $conn->prepare("SELECT * FROM costos_operativos");
 $stmt->execute();
 $result = $stmt->get_result();
 
