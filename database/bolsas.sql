@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `costos_muerto`
+-- Estructura de tabla para la tabla `costos_operativos`
 --
 
 CREATE TABLE `costos_operativos` (
@@ -45,16 +45,22 @@ CREATE TABLE `costos_operativos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Volcado de datos para la tabla `costos_muerto`
+-- Volcado de datos para la tabla `costos_operativos`
 --
 
 INSERT INTO `costos_operativos` (`Nombre`, `Enero`, `Febrero`, `Marzo`, `Abril`, `Mayo`, `Junio`, `Julio`, `Agosto`, `Septiembre`, `Octubre`, `Noviembre`, `Diciembre`) VALUES
 ('ENERGÍA', '10000.00', '10000.00', '10000.00', '10000.00', '10000.00', '9309.16', '8642.16', '8860.53', '9166.42', '9166.42', '9166.42', '9166.42'),
-('INGRESOS x VENTAS', '2112876.46', '1989044.00', '1753811.40', '1262354.29', '771333.00', '1116105.67', '2364639.00', '2603461.89', '4454292.25', '1678702.30', '2298153.00', '3535258.60'),
 ('OTROS', '296269.00', '770995.10', '544109.36', '310742.67', '217800.00', '158579.31', '221650.00', '824305.00', '918426.30', '878194.06', '0.00', '1327351.30'),
 ('PAPEL', '0.00', '0.00', '0.00', '1743000.00', '0.00', '0.00', '0.00', '5991608.82', '0.00', '0.00', '0.00', '0.00'),
 ('PUBLICIDAD', '0.00', '0.00', '0.00', '0.00', '0.00', '254100.00', '254100.00', '254100.00', '310002.00', '310002.00', '310002.00', '310002.00'),
 ('RETIRO ASOCIADOS', '838234.00', '969355.00', '988284.00', '988285.81', '1530631.94', '1327002.56', '1632309.79', '377025.98', '473667.01', '3852074.00', '3998004.00', '5808000.00');
+
+--
+-- Indices de la tabla `costos_muerto`
+--
+ALTER TABLE `costos_operativos`
+  ADD PRIMARY KEY (`Nombre`);
+
 
 -- --------------------------------------------------------
 
@@ -105,15 +111,6 @@ INSERT INTO `excedente_repartible_2023` (`Legajo`, `Apellido`, `Nombre`, `Enero`
 (1446, 'Almarante', 'Nicolas', '38979.00', '43032.00', '48821.00', '48821.17', '77098.56', '88588.84', '115917.66', NULL, NULL, '234599.00', '212130.00'),
 (1456, 'Hogas', 'Mariana Soledad', '50232.00', '39222.00', '52244.00', '52244.28', '84344.38', '84738.89', '98939.16', NULL, NULL, '222724.00', '245340.00');
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `costos_muerto`
---
-ALTER TABLE `costos_muerto`
-  ADD PRIMARY KEY (`Nombre`);
 
 --
 -- Indices de la tabla `excedente_repartible_2023`
@@ -125,3 +122,6 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+--('INGRESOS x VENTAS', '2112876.46', '1989044.00', '1753811.40', '1262354.29', '771333.00', '1116105.67', '2364639.00', '2603461.89', '4454292.25', '1678702.30', '2298153.00', '3535258.60'),

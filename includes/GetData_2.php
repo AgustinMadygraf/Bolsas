@@ -13,10 +13,18 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 $data = [];
+$totales = array_fill_keys(['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], 0);
+
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
+        foreach ($row as $mes => $valor) {
+            if ($mes != 'Nombre' && $valor != NULL) {
+                $totales[$mes] += $valor;
+            }
+        }
         $data[] = $row;
     }
+    $data[] = array_merge(['Nombre' => 'Total'], $totales); // Añade los totales al final de $data
 }
 
 $stmt->close();
