@@ -33,7 +33,7 @@
     ?>
 </head>
 <body>
-<div class='topnav'>
+<div class='topnav2'>
     <ul>
         <li class="<?php echo (basename($_SERVER['PHP_SELF']) == '../stock.php')       ? 'active' : ''; ?>">   <a href='../stock.php'                                             >Ir a Stock    </a></li>
         <li class="<?php echo (basename($_SERVER['PHP_SELF']) == 'busqueda.php')    ? 'active' : ''; ?>">   <a href='busqueda.php?ID_formato=   <?php echo $ID_formato;?>'  >Búsqueda       </a></li>
