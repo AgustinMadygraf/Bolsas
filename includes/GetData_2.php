@@ -1,7 +1,6 @@
 <!--includes/GetData_2.php-->
 <?php
 require 'conn.php'; 
-
 $conn = new mysqli($server, $usuario, $pass, 'bolsas'); 
 
 if ($conn->connect_error) {
@@ -11,7 +10,6 @@ if ($conn->connect_error) {
 $stmt = $conn->prepare("SELECT * FROM costos_operativos");
 $stmt->execute();
 $result = $stmt->get_result();
-
 $data = [];
 $totales = array_fill_keys(['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'], 0);
 
