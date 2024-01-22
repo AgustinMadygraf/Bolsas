@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 22-01-2024 a las 13:55:32
+-- Tiempo de generación: 22-01-2024 a las 15:46:16
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -42,7 +42,7 @@ CREATE TABLE `costos_operativos` (
   `Octubre` decimal(10,2) DEFAULT NULL,
   `Noviembre` decimal(10,2) DEFAULT NULL,
   `Diciembre` decimal(10,2) DEFAULT NULL,
-  `Total` decimal(10,2) AS (COALESCE(`Enero`, 0) + COALESCE(`Febrero`, 0) + COALESCE(`Marzo`, 0) + COALESCE(`Abril`, 0) + COALESCE(`Mayo`, 0) + COALESCE(`Junio`, 0) + COALESCE(`Julio`, 0) + COALESCE(`Agosto`, 0) + COALESCE(`Septiembre`, 0) + COALESCE(`Octubre`, 0) + COALESCE(`Noviembre`, 0) + COALESCE(`Diciembre`, 0)) STORED
+  `Total` decimal(10,2) GENERATED ALWAYS AS ((((((((((((coalesce(`Enero`,0) + coalesce(`Febrero`,0)) + coalesce(`Marzo`,0)) + coalesce(`Abril`,0)) + coalesce(`Mayo`,0)) + coalesce(`Junio`,0)) + coalesce(`Julio`,0)) + coalesce(`Agosto`,0)) + coalesce(`Septiembre`,0)) + coalesce(`Octubre`,0)) + coalesce(`Noviembre`,0)) + coalesce(`Diciembre`,0))) STORED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -50,18 +50,11 @@ CREATE TABLE `costos_operativos` (
 --
 
 INSERT INTO `costos_operativos` (`Nombre`, `Enero`, `Febrero`, `Marzo`, `Abril`, `Mayo`, `Junio`, `Julio`, `Agosto`, `Septiembre`, `Octubre`, `Noviembre`, `Diciembre`) VALUES
-('RETIRO ASOCIADOS', '838234.00', '969355.00', '988284.00', '988285.81', '1530631.94', '1327002.56', '1632309.79', '377025.98', '473667.01', '3852074.00', '3998004.00', '5808000.00'),
-('PAPEL', '0.00', '0.00', '0.00', '1743000.00', '0.00', '0.00', '0.00', '5991608.82', '0.00', '0.00', '0.00', '0.00'),
-('OTROS', '296269.00', '770995.10', '544109.36', '310742.67', '217800.00', '158579.31', '221650.00', '824305.00', '918426.30', '878194.06', '0.00', '1327351.30'),
-('PUBLICIDAD', '0.00', '0.00', '0.00', '0.00', '0.00', '254100.00', '254100.00', '254100.00', '310002.00', '310002.00', '310002.00', '310002.00'),
-('ENERGÍA', '10000.00', '10000.00', '10000.00', '10000.00', '10000.00', '9309.16', '8642.16', '8860.53', '9166.42', '9166.42', '9166.42', '9166.42');
-
---
--- Indices de la tabla `costos_muerto`
---
-ALTER TABLE `costos_operativos`
-  ADD PRIMARY KEY (`Nombre`);
-
+('1 - RETIRO ASOCIADOS', '838234.00', '969355.00', '988284.00', '988285.81', '1530631.94', '1327002.56', '1632309.79', '377025.98', '473667.01', '3852074.00', '3998004.00', '5808000.00'),
+('2 - PAPEL', '0.00', '0.00', '0.00', '1743000.00', '0.00', '0.00', '0.00', '5991608.82', '0.00', '0.00', '0.00', '0.00'),
+('3 - OTROS', '296269.00', '770995.10', '544109.36', '310742.67', '217800.00', '158579.31', '221650.00', '824305.00', '918426.30', '878194.06', '0.00', '1327351.30'),
+('4 - PUBLICIDAD', '0.00', '0.00', '0.00', '0.00', '0.00', '254100.00', '254100.00', '254100.00', '310002.00', '310002.00', '310002.00', '310002.00'),
+('5 - ENERGÍA', '10000.00', '10000.00', '10000.00', '10000.00', '10000.00', '9309.16', '8642.16', '8860.53', '9166.42', '9166.42', '9166.42', '9166.42');
 
 -- --------------------------------------------------------
 
@@ -112,6 +105,15 @@ INSERT INTO `excedente_repartible_2023` (`Legajo`, `Apellido`, `Nombre`, `Enero`
 (1446, 'Almarante', 'Nicolas', '38979.00', '43032.00', '48821.00', '48821.17', '77098.56', '88588.84', '115917.66', NULL, NULL, '234599.00', '212130.00'),
 (1456, 'Hogas', 'Mariana Soledad', '50232.00', '39222.00', '52244.00', '52244.28', '84344.38', '84738.89', '98939.16', NULL, NULL, '222724.00', '245340.00');
 
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `costos_operativos`
+--
+ALTER TABLE `costos_operativos`
+  ADD PRIMARY KEY (`Nombre`);
 
 --
 -- Indices de la tabla `excedente_repartible_2023`
@@ -123,6 +125,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
---('INGRESOS x VENTAS', '2112876.46', '1989044.00', '1753811.40', '1262354.29', '771333.00', '1116105.67', '2364639.00', '2603461.89', '4454292.25', '1678702.30', '2298153.00', '3535258.60'),

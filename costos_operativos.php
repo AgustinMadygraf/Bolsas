@@ -39,6 +39,8 @@
         error_log("Error: " . $e->getMessage());
         // Manejo del error
     }
+//echo "<br><br><br><br>datosJson:<br><br>".$datosJson."<br><br><br><br>";
+
     $conexion->close();
     include 'includes/chart.php';        
     ?>
