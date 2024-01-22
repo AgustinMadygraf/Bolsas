@@ -12,7 +12,7 @@ $claseActiva = "class='active'";
 echo "<li><a href='/Bolsas/index.php' ".($paginaActual == 'Bolsas/index.php' ? $claseActiva : "").">Inicio</a></li>";
 echo "<li><a href='/Bolsas/asociados.php' ".($paginaActual == 'Bolsas/asociados.php' ? $claseActiva : "").">asociados</a></li>";
 echo "<li><a href='/Bolsas/costos_operativos.php' ".($paginaActual == 'Bolsas/costos_operativos.php' ? $claseActiva : "").">Costos Operativos</a></li>";
-echo "<li><a href='/Bolsas/ingresos.php' ".($paginaActual == 'Bolsas/ingresos.php' ? $claseActiva : "").">ingresos</a></li>";
+echo "<li><a href='/Bolsas/ventas.php' ".($paginaActual == 'Bolsas/ventas.php' ? $claseActiva : "").">Ventas</a></li>";
 echo "<li><a href='/Bolsas/stock.php' ".($paginaActual == 'Bolsas/stock.php' ? $claseActiva : "").">Stock</a></li>";
 echo "<li><a href='/Bolsas/lista_precios.php' ".($paginaActual == 'Bolsas/lista_precios.php' ? $claseActiva : "").">Lista Precios</a></li>";
 echo "<li><a href='/Bolsas//phpMyAdmin/' target='_blank'>PHP MyAdmin</a></li>";
