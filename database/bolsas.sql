@@ -41,7 +41,8 @@ CREATE TABLE `costos_operativos` (
   `Septiembre` decimal(10,2) DEFAULT NULL,
   `Octubre` decimal(10,2) DEFAULT NULL,
   `Noviembre` decimal(10,2) DEFAULT NULL,
-  `Diciembre` decimal(10,2) DEFAULT NULL
+  `Diciembre` decimal(10,2) DEFAULT NULL,
+  `Total` decimal(10,2) AS (COALESCE(`Enero`, 0) + COALESCE(`Febrero`, 0) + COALESCE(`Marzo`, 0) + COALESCE(`Abril`, 0) + COALESCE(`Mayo`, 0) + COALESCE(`Junio`, 0) + COALESCE(`Julio`, 0) + COALESCE(`Agosto`, 0) + COALESCE(`Septiembre`, 0) + COALESCE(`Octubre`, 0) + COALESCE(`Noviembre`, 0) + COALESCE(`Diciembre`, 0)) STORED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -49,11 +50,11 @@ CREATE TABLE `costos_operativos` (
 --
 
 INSERT INTO `costos_operativos` (`Nombre`, `Enero`, `Febrero`, `Marzo`, `Abril`, `Mayo`, `Junio`, `Julio`, `Agosto`, `Septiembre`, `Octubre`, `Noviembre`, `Diciembre`) VALUES
-('ENERGÍA', '10000.00', '10000.00', '10000.00', '10000.00', '10000.00', '9309.16', '8642.16', '8860.53', '9166.42', '9166.42', '9166.42', '9166.42'),
-('OTROS', '296269.00', '770995.10', '544109.36', '310742.67', '217800.00', '158579.31', '221650.00', '824305.00', '918426.30', '878194.06', '0.00', '1327351.30'),
+('RETIRO ASOCIADOS', '838234.00', '969355.00', '988284.00', '988285.81', '1530631.94', '1327002.56', '1632309.79', '377025.98', '473667.01', '3852074.00', '3998004.00', '5808000.00'),
 ('PAPEL', '0.00', '0.00', '0.00', '1743000.00', '0.00', '0.00', '0.00', '5991608.82', '0.00', '0.00', '0.00', '0.00'),
+('OTROS', '296269.00', '770995.10', '544109.36', '310742.67', '217800.00', '158579.31', '221650.00', '824305.00', '918426.30', '878194.06', '0.00', '1327351.30'),
 ('PUBLICIDAD', '0.00', '0.00', '0.00', '0.00', '0.00', '254100.00', '254100.00', '254100.00', '310002.00', '310002.00', '310002.00', '310002.00'),
-('RETIRO ASOCIADOS', '838234.00', '969355.00', '988284.00', '988285.81', '1530631.94', '1327002.56', '1632309.79', '377025.98', '473667.01', '3852074.00', '3998004.00', '5808000.00');
+('ENERGÍA', '10000.00', '10000.00', '10000.00', '10000.00', '10000.00', '9309.16', '8642.16', '8860.53', '9166.42', '9166.42', '9166.42', '9166.42');
 
 --
 -- Indices de la tabla `costos_muerto`
