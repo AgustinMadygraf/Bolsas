@@ -27,7 +27,7 @@ function obtenerDatosCosto($conexion) {
 <?php
     $data = include('includes/GetData_2.php'); // Inclusión de los datos
     if (count($data) > 0) {
-        echo "<table>";
+        echo '<table border="1" class="responsive-table">';
         echo "<tr><th>Nombre</th><th>Enero</th><th>Febrero</th><th>Marzo</th><th>Abril</th><th>Mayo</th><th>Junio</th><th>Julio</th><th>Agosto</th><th>Septiembre</th><th>Octubre</th><th>Noviembre</th><th>Diciembre</th><th>Total</th></tr>";
         foreach ($data as $row) {
             echo "<tr>";
@@ -60,9 +60,11 @@ function obtenerDatosCosto($conexion) {
                 $datosJson = "[]";
             }
             
-            echo "<br><br><br><br>datosJson:<br><br>".$datosJson."<br><br><br><br>";
+            //echo "<br><br><br><br>datosJson:<br><br>".$datosJson."<br><br><br><br>";
             $conexion->close();
+            
             include 'includes/chart.php'; 
+            include 'includes/table.php'; 
                   
     ?>
 </body>

@@ -31,3 +31,6 @@
     </style>
 </head>
 <body>
+    <div id="piechart" style="width: 100%; max-width: 900px; height: 500px;" role="img" aria-label="Gráfico circular mostrando las horas por centro de costo"></div>
+</body>
+</html>
