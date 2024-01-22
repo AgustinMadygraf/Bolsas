@@ -30,19 +30,38 @@
             else {
                 echo "No se encontraron registros en la tabla.";
             }
-        function obtenerDatosCosto($conexion) {       
-    }
-    try {
-        //
-        $datosJson = json_encode($datosGrafico);
-    } catch (Exception $e) {
-        error_log("Error: " . $e->getMessage());
-        // Manejo del error
-    }
-//echo "<br><br><br><br>datosJson:<br><br>".$datosJson."<br><br><br><br>";
-
-    $conexion->close();
-    include 'includes/chart.php';        
+            function obtenerDatosCosto($conexion) {
+                $sql = "SELECT Nombre, Total FROM costos_operativos ORDER BY Total DESC";
+                $resultado = $conexion->query($sql);
+                $datos = [];
+            
+                if ($resultado->num_rows > 0) {
+                    $contador = 1;
+                    while($fila = $resultado->fetch_assoc()) {
+                        $datos[] = [$contador . " - " . $fila["Nombre"], floatval($fila["Total"])];
+                        $contador++;
+                    }
+                }
+                return $datos;
+            }
+            
+            try {
+                $conexion = new mysqli($server, $usuario, $pass, 'bolsas');
+                if ($conexion->connect_error) {
+                    throw new Exception("Fallo en la conexión: " . $conexion->connect_error);
+                }
+                $datosGrafico = obtenerDatosCosto($conexion);
+                $datosJson = json_encode($datosGrafico);
+            } catch (Exception $e) {
+                error_log("Error: " . $e->getMessage());
+                // Manejo del error
+                $datosJson = "[]";
+            }
+            
+            echo "<br><br><br><br>datosJson:<br><br>".$datosJson."<br><br><br><br>";
+            $conexion->close();
+            include 'includes/chart.php'; 
+                  
     ?>
 </body>
 </html>
