@@ -1,4 +1,4 @@
-<!--costos_operativos.php-->
+<!--costos_operativos-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,7 +17,11 @@
             
             foreach ($data as $row) {
                 echo "<tr>";
-                foreach ($row as $cell) {
+                foreach ($row as $key => $cell) {
+                    // Formatea los números con separadores de miles y decimales
+                    if ($key != 'Nombre' && $cell != NULL) {
+                        $cell = number_format($cell, 2, '.', ',');
+                    }
                     echo "<td>" . $cell . "</td>";
                 }
                 echo "</tr>";
