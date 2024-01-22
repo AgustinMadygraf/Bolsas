@@ -36,3 +36,256 @@ tr:hover {
         width: 100%; /* Ajuste para dispositivos móviles */
     }
 }
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f5f5f5;
+}
+
+/* Estilos específicos para la tabla */
+table tr:hover {
+    background-color: #f9f9f9;
+}
+
+table td a {
+    color: #3366cc;
+    text-decoration: none;
+}
+
+table td a:hover {
+    text-decoration: underline;
+}
+/*-----------------------CONTENT--------------*/
+
+div.content {
+    margin-left: 250px;
+    padding: 1px 16px;
+  
+  }
+  
+  @media screen and (max-width: 750px) {
+  
+    div.content {margin-left: 0;
+                padding: 220px 16px;}
+              }
+  
+  
+  @media screen and (max-width: 690px) { div.content {padding: 1px 8px;}        }
+  @media screen and (max-width: 680px) { div.content {padding: 1px 6px;}        }
+  @media screen and (max-width: 670px) { div.content {padding: 1px 4px;}        }
+  @media screen and (max-width: 660px) { div.content {padding: 1px 2px;}        }
+  @media screen and (max-width: 650px) {div.content {padding: 1px 1px;}        }
+  
+  
+  /*---------------------------TOPNAV--------------------------*/
+  
+   .topnav ul {
+             list-style-type: none;
+             margin: 0;
+             padding: 0;
+             overflow: hidden;
+             background-color: #333;
+             position: fixed;
+             top: 0;
+             width: 100%;                     }
+  
+  .topnav li {  float: left;
+                font-size: 16px;
+                     }
+  
+  .topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 12px 8px;
+    text-decoration: none;
+  }
+  
+  .topnav li a:hover:not(.active) {
+    background-color: #111;
+  }
+  
+  .topnav .active {
+    background-color: #4CAF50;
+  }
+  
+  
+  body {
+    font-family: Arial, sans-serif; /* Fuente más moderna y legible */
+    background-color: #f4f4f4; /* Color de fondo suave para la página */
+    color: #333; /* Color del texto */
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+    background-color: #ffffff; /* Fondo blanco para la tabla */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra suave alrededor de la tabla */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #e9e9e9; /* Color de fondo para las cabeceras */
+    color: #000; /* Color del texto para las cabeceras */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo para filas alternas */
+}
+
+tr:hover {
+    background-color: #ddd; /* Efecto hover para las filas */
+}
+
+@media screen and (max-width: 600px) {
+    table {
+        width: 100%; /* Ajuste para dispositivos móviles */
+    }
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f5f5f5;
+}
+
+/* Estilos específicos para la tabla */
+table tr:hover {
+    background-color: #f9f9f9;
+}
+
+table td a {
+    color: #3366cc;
+    text-decoration: none;
+}
+
+table td a:hover {
+    text-decoration: underline;
+}
+/*-----------------------CONTENT--------------*/
+
+div.content {
+    margin-left: 250px;
+    padding: 1px 16px;
+  
+  }
+  
+  @media screen and (max-width: 750px) {
+  
+    div.content {margin-left: 0;
+                padding: 220px 16px;}
+              }
+  
+  
+  @media screen and (max-width: 690px) { div.content {padding: 1px 8px;}        }
+  @media screen and (max-width: 680px) { div.content {padding: 1px 6px;}        }
+  @media screen and (max-width: 670px) { div.content {padding: 1px 4px;}        }
+  @media screen and (max-width: 660px) { div.content {padding: 1px 2px;}        }
+  @media screen and (max-width: 650px) {div.content {padding: 1px 1px;}        }
+  
+  
+  /*---------------------------TOPNAV--------------------------*/
+  
+   .topnav ul {
+             list-style-type: none;
+             margin: 0;
+             padding: 0;
+             overflow: hidden;
+             background-color: #333;
+             position: fixed;
+             top: 0;
+             width: 100%;                     }
+  
+  .topnav li {  float: left;
+                font-size: 16px;
+                     }
+  
+  .topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 12px 8px;
+    text-decoration: none;
+  }
+  
+  .topnav li a:hover:not(.active) {
+    background-color: #111;
+  }
+  
+  .topnav .active {
+    background-color: #4CAF50;
+  }
+  
+  
+  @media screen and (max-width: 1275px) { .topnav li {font-size: 15px;         }}
+  @media screen and (max-width: 1200px) { .topnav li {font-size: 14px;         }}
+  @media screen and (max-width: 1150px) { .topnav li {font-size: 13px;         }}
+  @media screen and (max-width: 1100px) { .topnav li {font-size: 12px;         }}
+  @media screen and (max-width: 1075px) { .topnav li {font-size: 11px;         }}
+  @media screen and (max-width: 1010px) { .topnav li {font-size: 10px;         }}
+  @media screen and (max-width: 995px) { .topnav li {font-size: 9px;         }}
+  
+  
+  
+  
+  .alert-danger{color:#721c24;background-color:#f8d7da;border-color:#f5c6cb}
+  .alert-danger hr{border-top-color:#f1b0b7}
+  .alert-danger .alert-link{color:#491217}
+  
+  
+  
+  .alert-danger{color:#721c24;background-color:#f8d7da;border-color:#f5c6cb}
+  .alert-danger hr{border-top-color:#f1b0b7}
+  .alert-danger .alert-link{color:#491217}
+  

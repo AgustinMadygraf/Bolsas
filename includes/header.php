@@ -14,8 +14,12 @@ echo "<li><a href='index.php' ".($paginaActual == 'index.php' ? $claseActiva : "
 echo "<li><a href='asociados.php' ".($paginaActual == 'asociados.php' ? $claseActiva : "").">asociados</a></li>";
 echo "<li><a href='costos_operativos.php' ".($paginaActual == 'costos_operativos.php' ? $claseActiva : "").">Costos Operativos</a></li>";
 echo "<li><a href='ingresos.php' ".($paginaActual == 'ingresos.php' ? $claseActiva : "").">ingresos</a></li>";
+echo "<li><a href='stock.php' ".($paginaActual == 'stock.php' ? $claseActiva : "").">Stock</a></li>";
+echo "<li><a href='lista_precios.php' ".($paginaActual == 'lista_precios.php' ? $claseActiva : "").">Lista Precios</a></li>";
 echo "<li><a href='/phpMyAdmin/' target='_blank'>PHP MyAdmin</a></li>";
 
 echo "</ul></div></header>";
+
+
 
 
