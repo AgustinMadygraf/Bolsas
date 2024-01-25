@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 22-01-2024 a las 15:46:16
+-- Tiempo de generación: 25-01-2024 a las 15:45:30
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -105,6 +105,36 @@ INSERT INTO `excedente_repartible_2023` (`Legajo`, `Apellido`, `Nombre`, `Enero`
 (1446, 'Almarante', 'Nicolas', '38979.00', '43032.00', '48821.00', '48821.17', '77098.56', '88588.84', '115917.66', NULL, NULL, '234599.00', '212130.00'),
 (1456, 'Hogas', 'Mariana Soledad', '50232.00', '39222.00', '52244.00', '52244.28', '84344.38', '84738.89', '98939.16', NULL, NULL, '222724.00', '245340.00');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ventas`
+--
+
+CREATE TABLE `ventas` (
+  `Nombre` varchar(255) NOT NULL,
+  `Enero` decimal(10,2) DEFAULT NULL,
+  `Febrero` decimal(10,2) DEFAULT NULL,
+  `Marzo` decimal(10,2) DEFAULT NULL,
+  `Abril` decimal(10,2) DEFAULT NULL,
+  `Mayo` decimal(10,2) DEFAULT NULL,
+  `Junio` decimal(10,2) DEFAULT NULL,
+  `Julio` decimal(10,2) DEFAULT NULL,
+  `Agosto` decimal(10,2) DEFAULT NULL,
+  `Septiembre` decimal(10,2) DEFAULT NULL,
+  `Octubre` decimal(10,2) DEFAULT NULL,
+  `Noviembre` decimal(10,2) DEFAULT NULL,
+  `Diciembre` decimal(10,2) DEFAULT NULL,
+  `Total` decimal(10,2) GENERATED ALWAYS AS ((((((((((((coalesce(`Enero`,0) + coalesce(`Febrero`,0)) + coalesce(`Marzo`,0)) + coalesce(`Abril`,0)) + coalesce(`Mayo`,0)) + coalesce(`Junio`,0)) + coalesce(`Julio`,0)) + coalesce(`Agosto`,0)) + coalesce(`Septiembre`,0)) + coalesce(`Octubre`,0)) + coalesce(`Noviembre`,0)) + coalesce(`Diciembre`,0))) STORED
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`Nombre`, `Enero`, `Febrero`, `Marzo`, `Abril`, `Mayo`, `Junio`, `Julio`, `Agosto`, `Septiembre`, `Octubre`, `Noviembre`, `Diciembre`) VALUES
+('INGRESOS', '2112876.46', '1989044.00', '1753811.40', '1262354.29', '771333.00', '1116105.67', '2364639.00', '2603461.89', '4454292.25', '1678702.30', '2298153.00', '3535258.60');
+
 --
 -- Índices para tablas volcadas
 --
@@ -120,6 +150,12 @@ ALTER TABLE `costos_operativos`
 --
 ALTER TABLE `excedente_repartible_2023`
   ADD PRIMARY KEY (`Legajo`);
+
+--
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD PRIMARY KEY (`Nombre`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
