@@ -25,16 +25,6 @@ if ($gramajeFilter !== 'todos') {
     $params[] = $gramajeFilter;
 }
 
-// Construir la consulta base con ordenación
-$query = "SELECT * FROM tabla_1";
-$query2 = "SELECT * FROM listado_precios";
-
-// Agregar condiciones si existen
-if (!empty($conditions)) {
-    $query .= " WHERE " . implode(" AND ", $conditions);
-}
-
-// Resto del código...
 
 // Construir la consulta base con ordenación y JOIN para unir las tablas
 $query = "SELECT t1.*, t2.precio_u_sIVA FROM tabla_1 t1 

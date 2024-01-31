@@ -170,5 +170,10 @@ CREATE TABLE `listado_precios` (
 
 -- Inserción de datos de ejemplo
 INSERT INTO `listado_precios` (`ID_listado`, `ID_formato`, `cantidad`, `precio_u_sIVA`) VALUES 
-(1, 2, 5000, 79.97),
-(2, 2, 10000, 78.68);
+(1, 2, 5000,  79.97),
+(2, 2, 10000, 78.68),
+(3, 1, 5000,  63.66),
+(4, 1, 10000, 61.74),
+
+
+;
