@@ -45,6 +45,12 @@ for ($i = 0; $i < count($params); $i++) {
 }
 $stmt->execute();
 $result = $stmt->get_result();
+
+// Función para crear enlaces
+function crearEnlace($id_formato, $texto) {
+    return '<a href="Stock/busqueda.php?ID_formato=' . $id_formato . '">' . htmlspecialchars($texto) . '</a>';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -122,14 +128,14 @@ $result = $stmt->get_result();
     </tr>
     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
         <tr>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['ID_formato'];    ?> </td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['formato'];       ?>  </td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['color'];         ?>  </td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['gramaje'];       ?>  </td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['cantidades'];    ?>  </td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['fechatiempo'];   ?>  </td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>">                                      </td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>">                                      </td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['ID_formato']); ?>  </td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['formato']);    ?>  </td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['color']);      ?>  </td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['gramaje']);    ?>  </td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['cantidades']); ?>  </td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['fechatiempo']); ?> </td>
+            <td>                                                                    </td>
+            <td>                                                                    </td>
         </tr>
     <?php } ?>
 </table>
