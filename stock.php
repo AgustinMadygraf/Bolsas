@@ -27,24 +27,32 @@ if ($gramajeFilter !== 'todos') {
 
 // Construir la consulta base con ordenación
 $query = "SELECT * FROM tabla_1";
+$query2 = "SELECT * FROM listado_precios";
 
 // Agregar condiciones si existen
 if (!empty($conditions)) {
     $query .= " WHERE " . implode(" AND ", $conditions);
 }
 
-// Agregar ordenación por 'cantidades' de mayor a menor
-$query .= " ORDER BY cantidades DESC";
+// Resto del código...
 
-// Preparar y ejecutar la consulta
+// Construir la consulta base con ordenación y JOIN para unir las tablas
+$query = "SELECT t1.*, t2.precio_u_sIVA FROM tabla_1 t1 
+          LEFT JOIN listado_precios t2 ON t1.ID_formato = t2.ID_formato";
+
+if (!empty($conditions)) {
+    $query .= " WHERE " . implode(" AND ", $conditions);
+}
+
+$query .= " ORDER BY t1.cantidades DESC";
+
 $stmt = $conn->prepare($query);
-
-// Vincular parámetros y ejecutar
 for ($i = 0; $i < count($params); $i++) {
     $stmt->bind_param("s", $params[$i]);
 }
 $stmt->execute();
 $result = $stmt->get_result();
+
 
 // Función para crear enlaces
 function crearEnlace($id_formato, $texto) {
@@ -117,26 +125,26 @@ function crearEnlace($id_formato, $texto) {
 <br>
 <table>
     <tr>
-        <th>ID_formato      </th>
-        <th>Formato         </th>
-        <th>Color           </th>
-        <th>Gramaje         </th>
-        <th>Cantidades      </th>
-        <th>Fecha           </th>
-        <th>Valor unitario  </th>
-        <th>Valor total  </th>
+        <th>ID_formato</th>
+        <th>Formato</th>
+        <th>Color</th>
+        <th>Gramaje</th>
+        <th>Cantidades</th>
+        <th>Fecha</th>
+        <th>Valor unitario</th>
+        <th>Valor total</th>
     </tr>
     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-        <tr>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['ID_formato']); ?>  </td>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['formato']);    ?>  </td>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['color']);      ?>  </td>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['gramaje']);    ?>  </td>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['cantidades']); ?>  </td>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['fechatiempo']); ?> </td>
-            <td>                                                                    </td>
-            <td>                                                                    </td>
-        </tr>
+    <tr>
+        <td><?php echo crearEnlace($row['ID_formato'], $row['ID_formato']); ?>  </td>
+        <td><?php echo crearEnlace($row['ID_formato'], $row['formato']);    ?>  </td>
+        <td><?php echo crearEnlace($row['ID_formato'], $row['color']);      ?>  </td>
+        <td><?php echo crearEnlace($row['ID_formato'], $row['gramaje']);    ?>  </td>
+        <td><?php echo crearEnlace($row['ID_formato'], $row['cantidades']); ?>  </td>
+        <td><?php echo crearEnlace($row['ID_formato'], $row['fechatiempo']); ?> </td>
+        <td><?php echo $row['precio_u_sIVA']; ?></td>
+        <td>                                                                    </td>
+    </tr>
     <?php } ?>
 </table>
 <?php mysqli_close($conn); ?>

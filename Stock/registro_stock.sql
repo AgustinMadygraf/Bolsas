@@ -22,19 +22,6 @@ SET time_zone = "+00:00";
 -- Base de datos: `registro_stock`
 --
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `listado_precios`
---
-
-CREATE TABLE `listado_precios` (
-  `ID_listado` int(11) NOT NULL,
-  `ID_formato` int(11) DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL,
-  `precio_unitario` decimal(8,2) DEFAULT NULL,
-  `manija` varchar(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -83,6 +70,27 @@ INSERT INTO `tabla_1` (`ID_formato`, `formato`, `color`, `gramaje`, `cantidades`
 (98,  '22 X 10 X 20', 'MARRON', 100,    741,    b'0' ),
 (99,  '12 X 08 X 26', 'MARRON', 100,    1295,   b'0' );
 
+--
+-- Indices de la tabla `tabla_1`
+--
+ALTER TABLE `tabla_1`
+  ADD PRIMARY KEY (`ID_formato`);
+
+--
+--
+-- AUTO_INCREMENT de la tabla `tabla_1`
+--
+ALTER TABLE `tabla_1`
+  MODIFY `ID_formato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+
+
+
+
+
+
+
+
 -- --------------------------------------------------------
 
 --
@@ -122,20 +130,8 @@ INSERT INTO `tabla_2` (`ID_registro`, `ID_formato`, `papel`, `fecha`, `pedido`, 
 -- Índices para tablas volcadas
 --
 
---
--- Indices de la tabla `listado_precios`
---
-ALTER TABLE `listado_precios`
-  ADD PRIMARY KEY (`ID_listado`),
-  ADD KEY `ID_formato` (`ID_formato`);
 
---
--- Indices de la tabla `tabla_1`
---
-ALTER TABLE `tabla_1`
-  ADD PRIMARY KEY (`ID_formato`);
 
---
 -- Indices de la tabla `tabla_2`
 --
 ALTER TABLE `tabla_2`
@@ -145,17 +141,7 @@ ALTER TABLE `tabla_2`
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
---
--- AUTO_INCREMENT de la tabla `listado_precios`
---
-ALTER TABLE `listado_precios`
-  MODIFY `ID_listado` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT de la tabla `tabla_1`
---
-ALTER TABLE `tabla_1`
-  MODIFY `ID_formato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `tabla_2`
@@ -167,13 +153,22 @@ ALTER TABLE `tabla_2`
 -- Restricciones para tablas volcadas
 --
 
---
--- Filtros para la tabla `listado_precios`
---
-ALTER TABLE `listado_precios`
-  ADD CONSTRAINT `listado_precios_ibfk_1` FOREIGN KEY (`ID_formato`) REFERENCES `tabla_1` (`ID_formato`);
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- --------------------------------------------------------
+
+-- Creación de la tabla `listado_precios`
+CREATE TABLE `listado_precios` (
+  `ID_listado` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_formato` int(11),
+  `cantidad` int(11),
+  `precio_u_sIVA` decimal(8,2),
+  PRIMARY KEY (`ID_listado`),
+  FOREIGN KEY (`ID_formato`) REFERENCES `tabla_1` (`ID_formato`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Inserción de datos de ejemplo
+INSERT INTO `listado_precios` (`ID_listado`, `ID_formato`, `cantidad`, `precio_u_sIVA`) VALUES 
+(1, 2, 5000, 79.97),
+(2, 2, 10000, 78.68);
