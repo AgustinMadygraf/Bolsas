@@ -111,11 +111,14 @@ $result = $stmt->get_result();
 <br>
 <table>
     <tr>
-        <th>ID_formato     </th>
-        <th>Formato     </th>
-        <th>Color       </th>
-        <th>Gramaje     </th>
-        <th>Cantidades  </th>
+        <th>ID_formato      </th>
+        <th>Formato         </th>
+        <th>Color           </th>
+        <th>Gramaje         </th>
+        <th>Cantidades      </th>
+        <th>Fecha           </th>
+        <th>Valor unitario  </th>
+        <th>Valor total  </th>
     </tr>
     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
         <tr>
@@ -124,6 +127,7 @@ $result = $stmt->get_result();
             <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['color'];       ?></td>
             <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['gramaje'];     ?></td>
             <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['cantidades'];  ?></td>
+            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['fechatiempo'];  ?></td>
         </tr>
     <?php } ?>
 </table>
