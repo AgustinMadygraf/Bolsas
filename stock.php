@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Stock bolsas</title>
-    <link rel="stylesheet" href="CSS/style.css">
-</head>
-<body>
+
 <?php
 require "includes/header.php";
 require_once 'Stock/conn.php';
@@ -12,13 +6,54 @@ require_once 'Stock/conn.php';
 $formatoFilter  = isset($_GET['Formato'])   ? $_GET['Formato']  : 'todos';
 $colorFilter    = isset($_GET['color'])     ? $_GET['color']    : 'todos';
 $gramajeFilter  = isset($_GET['gramaje'])   ? $_GET['gramaje']  : 'todos';
-// Construir la consulta según los filtros seleccionados
-$query = "SELECT * FROM tabla_1 WHERE 1=1";
-if ($formatoFilter  !== 'todos') { $query .= " AND formato  = '$formatoFilter'  ";}
-if ($colorFilter    !== 'todos') { $query .= " AND color    = '$colorFilter'    ";}
-if ($gramajeFilter  !== 'todos') { $query .= " AND gramaje  = '$gramajeFilter'  ";}
-$result = mysqli_query($conn, $query);
+
+// Inicializar arreglo para condiciones
+$conditions = [];
+$params = [];
+
+// Agregar condiciones según los filtros seleccionados
+if ($formatoFilter !== 'todos') {
+    $conditions[] = "formato = ?";
+    $params[] = $formatoFilter;
+}
+if ($colorFilter !== 'todos') {
+    $conditions[] = "color = ?";
+    $params[] = $colorFilter;
+}
+if ($gramajeFilter !== 'todos') {
+    $conditions[] = "gramaje = ?";
+    $params[] = $gramajeFilter;
+}
+
+// Construir la consulta base con ordenación
+$query = "SELECT * FROM tabla_1";
+
+// Agregar condiciones si existen
+if (!empty($conditions)) {
+    $query .= " WHERE " . implode(" AND ", $conditions);
+}
+
+// Agregar ordenación por 'cantidades' de mayor a menor
+$query .= " ORDER BY cantidades DESC";
+
+// Preparar y ejecutar la consulta
+$stmt = $conn->prepare($query);
+
+// Vincular parámetros y ejecutar
+for ($i = 0; $i < count($params); $i++) {
+    $stmt->bind_param("s", $params[$i]);
+}
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock bolsas</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
 <h1>Registro y control stock bolsas de papel</h1>
 <form action="stock.php" method="GET" id="filtroForm">
     <table>
