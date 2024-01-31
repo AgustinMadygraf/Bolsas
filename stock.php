@@ -113,6 +113,9 @@ function crearEnlace($id_formato, $texto) {
     <input type="submit" value="filtrar" style="display: none;">
 </form>
 <br>
+
+
+
 <table>
     <tr>
         <th>ID_formato</th>
@@ -124,19 +127,39 @@ function crearEnlace($id_formato, $texto) {
         <th>Valor unitario</th>
         <th>Valor total</th>
     </tr>
-    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-    <tr>
-        <td><?php echo crearEnlace($row['ID_formato'], $row['ID_formato']); ?>  </td>
-        <td><?php echo crearEnlace($row['ID_formato'], $row['formato']);    ?>  </td>
-        <td><?php echo crearEnlace($row['ID_formato'], $row['color']);      ?>  </td>
-        <td><?php echo crearEnlace($row['ID_formato'], $row['gramaje']);    ?>  </td>
-        <td><?php echo crearEnlace($row['ID_formato'], $row['cantidades']); ?>  </td>
-        <td><?php echo crearEnlace($row['ID_formato'], $row['fechatiempo']); ?> </td>
-        <td><?php echo $row['precio_u_sIVA']; ?></td>
-        <td>                                                                    </td>
-    </tr>
+
+    <?php
+    $totalSuma = 0;
+    while ($row = mysqli_fetch_assoc($result)) { ?>
+        <tr>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['ID_formato']); ?></td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['formato']); ?></td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['color']); ?></td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['gramaje']); ?></td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['cantidades']); ?></td>
+            <td><?php echo crearEnlace($row['ID_formato'], $row['fechatiempo']); ?></td>
+            <td><?php echo $row['precio_u_sIVA']; ?></td>
+            <td>
+                <?php
+                    // Calcular el valor total si el precio unitario está disponible
+                    if (isset($row['precio_u_sIVA'])) {
+                        $valorTotal = $row['cantidades'] * $row['precio_u_sIVA'];
+                        echo number_format($valorTotal, 2, '.', ',');
+                        $totalSuma += $valorTotal; // Sumar al total
+                    } else {
+                        echo 'No disponible';
+                    }
+                ?>
+            </td>
+        </tr>
     <?php } ?>
+    <tr>
+        <td colspan="7" style="text-align: right;">Suma Total</td>
+        <td><?php echo number_format($totalSuma, 2, '.', ','); ?></td>
+    </tr>
 </table>
+
+
 <?php mysqli_close($conn); ?>
 <script>
     function submitForm() {
