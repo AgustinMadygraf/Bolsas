@@ -122,12 +122,14 @@ $result = $stmt->get_result();
     </tr>
     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
         <tr>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['ID_formato'];     ?></td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['formato'];     ?></td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['color'];       ?></td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['gramaje'];     ?></td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['cantidades'];  ?></td>
-            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['fechatiempo'];  ?></td>
+            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['ID_formato'];    ?> </td>
+            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['formato'];       ?>  </td>
+            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['color'];         ?>  </td>
+            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['gramaje'];       ?>  </td>
+            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['cantidades'];    ?>  </td>
+            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>"><?php echo $row['fechatiempo'];   ?>  </td>
+            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>">                                      </td>
+            <td><a href="Stock/busqueda.php?ID_formato=<?php echo $row['ID_formato']; ?>">                                      </td>
         </tr>
     <?php } ?>
 </table>
