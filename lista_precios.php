@@ -7,6 +7,7 @@
     
     $fechas = getArraySQL($sqlFechas);
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
