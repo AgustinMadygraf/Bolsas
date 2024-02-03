@@ -35,9 +35,11 @@
                 <th>Color</th>
                 <th>Gramaje</th>
                 <th>Cantidad</th>
-                <th>Fecha</th>
+                <th>Fecha inventario</th>
                 <th>Valor Unitario</th>
+                <th>Fecha lista precio</th>
                 <th>Valor Total</th>
+
             </tr>
         </thead>
         <tbody>
@@ -49,12 +51,13 @@
 
                 echo "<tr>";
                 echo "<td>" . crearEnlace($row['ID_formato'], $row['ID_formato']) . "</td>";
-                echo "<td>" . $row['formato'] . "</td>";
-                echo "<td>" . $row['color'] . "</td>";
-                echo "<td>" . $row['gramaje'] . "</td>";
-                echo "<td>" . $row['cantidades'] . "</td>";
-                echo "<td>" . $row['fechatiempo'] . "</td>"; // Ajusta según tu estructura de base de datos
+                echo "<td>" . $row['formato']       . "</td>";
+                echo "<td>" . $row['color']         . "</td>";
+                echo "<td>" . $row['gramaje']." gr" . "</td>";
+                echo "<td>" . $row['cantidades']    . "</td>";
+                echo "<td>" . $row['fechatiempo']   . "</td>"; 
                 echo "<td>" . (isset($row['precio_u_sIVA']) ? $row['precio_u_sIVA'] : 'No disponible') . "</td>";
+                echo "<td>" . $row['fecha']         . "</td>";
                 echo "<td>" . $valorTotalFormatted . "</td>";
                 echo "</tr>";
 
