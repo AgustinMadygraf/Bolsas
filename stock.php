@@ -104,11 +104,11 @@ function crearEnlace($id_formato, $texto) {
     foreach ($data as $row) { // Utiliza $data en lugar de mysqli_fetch_assoc($result)
         echo "<tr>";
         echo "<td>" . crearEnlace($row['ID_formato'], $row['ID_formato']) . "</td>";
-        echo "<td>" . $row['formato'] . "</td>";
-        echo "<td>" . $row['color'] . "</td>";
-        echo "<td>" . $row['gramaje'] . "</td>";
-        echo "<td>" . $row['cantidades'] . "</td>";
-        echo "<td>" . $row['fechatiempo'] . "</td>"; // Asegúrate de que esta columna exista en tu DB o ajusta según sea necesario
+        echo "<td>" . crearEnlace($row['ID_formato'], $row['formato']) . "</td>";
+        echo "<td>" . crearEnlace($row['ID_formato'], $row['color']) . "</td>";
+        echo "<td>" . crearEnlace($row['ID_formato'], $row['gramaje']) . "</td>";
+        echo "<td>" . crearEnlace($row['ID_formato'], $row['cantidades']) . "</td>";
+        echo "<td>" . crearEnlace($row['ID_formato'], $row['fechatiempo']) . "</td>"; // Asegúrate de que esta columna exista en tu DB o ajusta según sea necesario
         $valorUnitario = isset($row['precio_u_sIVA']) ? $row['precio_u_sIVA'] : 'No disponible';
         echo "<td>" . $valorUnitario . "</td>";
         if (isset($row['precio_u_sIVA'])) {
@@ -126,6 +126,7 @@ function crearEnlace($id_formato, $texto) {
         <td><?php echo number_format($totalSuma, 2, '.', ','); ?></td>
     </tr>
 </table>
+
 
 
 
