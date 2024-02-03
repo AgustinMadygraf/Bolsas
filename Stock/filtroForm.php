@@ -4,6 +4,7 @@
             <th>Formato:</th>
             <th>Color:</th>
             <th>Gramaje:</th>
+            <th>Fecha listado precio:</th>
         </tr>
         <tr>
             <td>
@@ -44,6 +45,12 @@
                     <option value="100" <?php echo $gramajeFilter === '100' ? 'selected' : ''; ?>>100</option>
                 </select>
             </td>
+            <td>
+            <select name="fechaSeleccionada">
+                <?php foreach ($fechas as $fecha) {
+                    echo '<option value="'.$fecha['fecha'].'">'.$fecha['fecha'].'</option>';} ?>
+            </select>
+            </td>            
         </tr>
     </table>
     <br>

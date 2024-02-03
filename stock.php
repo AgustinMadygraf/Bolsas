@@ -2,6 +2,12 @@
     require "includes/header.php";
     require_once 'Stock/conn.php';
     require_once 'Stock/stockFunctions.php';
+        include 'includes/db_funtions.php'; 
+    
+    // Obtener fechas únicas de listado_precios
+    $sqlFechas = "SELECT DISTINCT fecha FROM listado_precios ORDER BY fecha DESC";
+    
+    $fechas = getArraySQL($sqlFechas);
 
     // Obtener los valores de los filtros desde la URL
     $formatoFilter = isset($_GET['Formato']) ? $_GET['Formato'] : 'todos';
@@ -51,11 +57,11 @@
 
                 echo "<tr>";
                 echo "<td>" . crearEnlace($row['ID_formato'], $row['ID_formato']) . "</td>";
-                echo "<td>" . $row['formato']       . "</td>";
-                echo "<td>" . $row['color']         . "</td>";
-                echo "<td>" . $row['gramaje']." gr" . "</td>";
-                echo "<td>" . $row['cantidades']    . "</td>";
-                echo "<td>" . $row['fechatiempo']   . "</td>"; 
+                echo "<td>" . crearEnlace($row['ID_formato'], $row['formato'])       . "</td>";
+                echo "<td>" . crearEnlace($row['ID_formato'], $row['color'])         . "</td>";
+                echo "<td>" . crearEnlace($row['ID_formato'], $row['gramaje']." gr") . "</td>";
+                echo "<td>" . crearEnlace($row['ID_formato'], $row['cantidades'])    . "</td>";
+                echo "<td>" . crearEnlace($row['ID_formato'], $row['fechatiempo'])   . "</td>"; 
                 echo "<td>" . (isset($row['precio_u_sIVA']) ? $row['precio_u_sIVA'] : 'No disponible') . "</td>";
                 echo "<td>" . $row['fecha']         . "</td>";
                 echo "<td>" . $valorTotalFormatted . "</td>";
@@ -67,7 +73,7 @@
             }
             ?>
             <tr>
-                <td colspan="7" style="text-align: right;"><strong>Suma Total</strong></td>
+                <td colspan="8" style="text-align: right;"><strong>Suma Total</strong></td>
                 <td><?php echo number_format($totalSuma, 2, '.', ','); ?></td>
             </tr>
         </tbody>

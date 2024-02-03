@@ -16,7 +16,7 @@ function obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter) {
     // Prepara la base de la consulta SQL.
     $query = "SELECT t1.*, t2.precio_u_sIVA, t2.fecha FROM tabla_1 t1
               LEFT JOIN listado_precios t2 ON t1.ID_formato = t2.ID_formato";
-    echo "<br>query: <br> $query";
+    
     // Arrays para condiciones SQL y sus parámetros.
     $conditions = [];
     $params = [];

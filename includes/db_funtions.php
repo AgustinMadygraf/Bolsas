@@ -7,8 +7,6 @@ function conectarBD() {
     $conexion = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
     if (!$conexion) {
         die('Error en la conexión de la base de datos: ' . mysqli_connect_error());
-        echo "Fallo al conectar a la base de datos.<br>";
-
     }
     return $conexion;
 }
@@ -36,4 +34,3 @@ function getArraySQL($sql) {
     return $rawdata;
 }
 
-?>
