@@ -27,13 +27,11 @@ if ($gramajeFilter !== 'todos') {
 
 
 // Construir la consulta base con ordenación y JOIN para unir las tablas
-$query = "SELECT t1.*, t2.precio_u_sIVA FROM tabla_1 t1
-          LEFT JOIN listado_precios t2 ON t1.ID_formato = t2.ID_formato
-          WHERE 1=1";
+$query = "SELECT t1.*, t2.precio_u_sIVA FROM tabla_1 t1 
+          LEFT JOIN listado_precios t2 ON t1.ID_formato = t2.ID_formato";
 
-if ($formatoFilter !== 'todos') {
-    $query .= " AND formato = ?";
-    $params[] = $formatoFilter;
+if (!empty($conditions)) {
+    $query .= " WHERE " . implode(" AND ", $conditions);
 }
 
 $query .= " ORDER BY t1.cantidades DESC";
