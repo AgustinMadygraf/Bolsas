@@ -2,46 +2,18 @@
 <?php
 require "includes/header.php";
 require_once 'Stock/conn.php';
+require_once 'Stock/stockFunctions.php';
 // Obtener los valores de los filtros
 $formatoFilter  = isset($_GET['Formato'])   ? $_GET['Formato']  : 'todos';
 $colorFilter    = isset($_GET['color'])     ? $_GET['color']    : 'todos';
 $gramajeFilter  = isset($_GET['gramaje'])   ? $_GET['gramaje']  : 'todos';
 
-// Inicializar arreglo para condiciones
-$conditions = [];
-$params = [];
+// Llamar a obtenerDatosStock() con los filtros
+$data = obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter);
 
-// Agregar condiciones según los filtros seleccionados
-if ($formatoFilter !== 'todos') {
-    $conditions[] = "formato = ?";
-    $params[] = $formatoFilter;
-}
-if ($colorFilter !== 'todos') {
-    $conditions[] = "color = ?";
-    $params[] = $colorFilter;
-}
-if ($gramajeFilter !== 'todos') {
-    $conditions[] = "gramaje = ?";
-    $params[] = $gramajeFilter;
-}
+//print_r($data); 
+//var_dump($data);
 
-
-// Construir la consulta base con ordenación y JOIN para unir las tablas
-$query = "SELECT t1.*, t2.precio_u_sIVA FROM tabla_1 t1 
-          LEFT JOIN listado_precios t2 ON t1.ID_formato = t2.ID_formato";
-
-if (!empty($conditions)) {
-    $query .= " WHERE " . implode(" AND ", $conditions);
-}
-
-$query .= " ORDER BY t1.cantidades DESC";
-
-$stmt = $conn->prepare($query);
-for ($i = 0; $i < count($params); $i++) {
-    $stmt->bind_param("s", $params[$i]);
-}
-$stmt->execute();
-$result = $stmt->get_result();
 
 
 // Función para crear enlaces
@@ -115,7 +87,6 @@ function crearEnlace($id_formato, $texto) {
 <br>
 
 
-
 <table>
     <tr>
         <th>ID_formato</th>
@@ -130,34 +101,33 @@ function crearEnlace($id_formato, $texto) {
 
     <?php
     $totalSuma = 0;
-    while ($row = mysqli_fetch_assoc($result)) { ?>
-        <tr>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['ID_formato']); ?></td>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['formato']); ?></td>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['color']); ?></td>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['gramaje']); ?></td>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['cantidades']); ?></td>
-            <td><?php echo crearEnlace($row['ID_formato'], $row['fechatiempo']); ?></td>
-            <td><?php echo $row['precio_u_sIVA']; ?></td>
-            <td>
-                <?php
-                    // Calcular el valor total si el precio unitario está disponible
-                    if (isset($row['precio_u_sIVA'])) {
-                        $valorTotal = $row['cantidades'] * $row['precio_u_sIVA'];
-                        echo number_format($valorTotal, 2, '.', ',');
-                        $totalSuma += $valorTotal; // Sumar al total
-                    } else {
-                        echo 'No disponible';
-                    }
-                ?>
-            </td>
-        </tr>
-    <?php } ?>
+    foreach ($data as $row) { // Utiliza $data en lugar de mysqli_fetch_assoc($result)
+        echo "<tr>";
+        echo "<td>" . crearEnlace($row['ID_formato'], $row['ID_formato']) . "</td>";
+        echo "<td>" . $row['formato'] . "</td>";
+        echo "<td>" . $row['color'] . "</td>";
+        echo "<td>" . $row['gramaje'] . "</td>";
+        echo "<td>" . $row['cantidades'] . "</td>";
+        echo "<td>" . $row['fechatiempo'] . "</td>"; // Asegúrate de que esta columna exista en tu DB o ajusta según sea necesario
+        $valorUnitario = isset($row['precio_u_sIVA']) ? $row['precio_u_sIVA'] : 'No disponible';
+        echo "<td>" . $valorUnitario . "</td>";
+        if (isset($row['precio_u_sIVA'])) {
+            $valorTotal = $row['cantidades'] * $row['precio_u_sIVA'];
+            echo "<td>" . number_format($valorTotal, 2, '.', ',') . "</td>";
+            $totalSuma += $valorTotal;
+        } else {
+            echo "<td>No disponible</td>";
+        }
+        echo "</tr>";
+    }
+    ?>
     <tr>
         <td colspan="7" style="text-align: right;">Suma Total</td>
         <td><?php echo number_format($totalSuma, 2, '.', ','); ?></td>
     </tr>
 </table>
+
+
 
 
 <?php mysqli_close($conn); ?>
