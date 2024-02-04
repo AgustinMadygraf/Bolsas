@@ -1,3 +1,4 @@
+<!--Stock/filtroForm.php-->
 <form action="stock.php" method="GET" id="filtroForm">
     <table>
         <tr>

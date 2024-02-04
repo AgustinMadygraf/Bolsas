@@ -1,3 +1,4 @@
+<!--stock.php-->
 <?php
     require "includes/header.php";
     require_once 'Stock/conn.php';
