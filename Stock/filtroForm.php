@@ -4,7 +4,8 @@
             <th>Formato:</th>
             <th>Color:</th>
             <th>Gramaje:</th>
-            <th>Fecha listado precio:</th>
+            <th>Listado precio Fecha:</th>
+            <th>Listado precio Cantidades:</th>
         </tr>
         <tr>
             <td>
@@ -50,7 +51,13 @@
                 <?php foreach ($fechas as $fecha) {
                     echo '<option value="'.$fecha['fecha'].'">'.$fecha['fecha'].'</option>';} ?>
             </select>
-            </td>            
+            </td>      
+            <td>
+                <select name="cantidades" onchange="submitForm()">
+                    <option value="5000" >5000</option>
+                    <option value="10000" >10000</option>
+                </select>
+            </td>      
         </tr>
     </table>
     <br>

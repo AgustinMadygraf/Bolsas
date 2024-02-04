@@ -44,6 +44,7 @@
                 <th>Fecha inventario</th>
                 <th>Valor Unitario</th>
                 <th>Fecha lista precio</th>
+                <th>Precio cantidad</th>
                 <th>Valor Total</th>
 
             </tr>
@@ -64,6 +65,7 @@
                 echo "<td>" . crearEnlace($row['ID_formato'], $row['fechatiempo'])   . "</td>"; 
                 echo "<td>" . (isset($row['precio_u_sIVA']) ? $row['precio_u_sIVA'] : 'No disponible') . "</td>";
                 echo "<td>" . $row['fecha']         . "</td>";
+                echo "<td>" . $row['cantidad']         . "</td>";
                 echo "<td>" . $valorTotalFormatted . "</td>";
                 echo "</tr>";
 
