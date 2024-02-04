@@ -14,9 +14,10 @@
     $formatoFilter = isset($_GET['Formato']) ? $_GET['Formato'] : 'todos';
     $colorFilter = isset($_GET['color']) ? $_GET['color'] : 'todos';
     $gramajeFilter = isset($_GET['gramaje']) ? $_GET['gramaje'] : 'todos';
+    $cantidadSeleccionada = isset($_GET['cantidades']) ? $_GET['cantidades'] : 'todos';
 
     // Llamar a la función para obtener los datos de stock con los filtros aplicados
-    $data = obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter);
+    $data = obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter, $fechaSeleccionada, $cantidadSeleccionada);
 
     // Función para crear enlaces a la página de búsqueda con filtros aplicados
     function crearEnlace($id_formato, $texto) {

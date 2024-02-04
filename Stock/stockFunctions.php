@@ -10,10 +10,10 @@ require_once 'conn.php';
  * @param string $gramajeFilter Filtro para el gramaje, 'todos' para no aplicar filtro.
  * @return array Resultados de la consulta como un array asociativo.
  */
-function obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter) {
-    global $conn; // Utiliza la conexión global a la base de datos.
+function obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter, $fechaSeleccionada, $cantidadSeleccionada) {
+    global $conn;
+    
 
-    // Prepara la base de la consulta SQL.
     $query = "SELECT t1.*, t2.precio_u_sIVA, t2.fecha, t2.cantidad FROM tabla_1 t1
               LEFT JOIN listado_precios t2 ON t1.ID_formato = t2.ID_formato";
     
@@ -37,6 +37,12 @@ function obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter) {
         $conditions[] = "t1.gramaje = ?";
         $params[] = $gramajeFilter;
         $param_types .= "s";
+    }
+
+    if (!empty($cantidadSeleccionada) && $cantidadSeleccionada != 'todos') {
+        $conditions[] = "t2.cantidad = ?";
+        $params[] = $cantidadSeleccionada;
+        $param_types .= "i"; // 'i' indica que el parámetro es un entero
     }
 
     // Combina las condiciones en la consulta SQL si existen.
