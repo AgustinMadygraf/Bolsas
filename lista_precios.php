@@ -43,6 +43,7 @@ if (isset($_GET['fechaSeleccionada'])) {
     ?>
     <table border="1" class="responsive-table">
         <tr>
+            <th>ID_formato</th>
             <th>Formato</th>
             <th>Color</th>
             <th>Gramaje</th>
@@ -52,6 +53,7 @@ if (isset($_GET['fechaSeleccionada'])) {
         <?php
         foreach ($resultados as $resultado) {
             echo "<tr>
+                    <td>{$resultado['ID_formato']}</td>            
                     <td>{$resultado['formato']}</td>
                     <td>{$resultado['color']}</td>
                     <td>{$resultado['gramaje']}</td>
