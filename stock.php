@@ -24,6 +24,7 @@ function formatearFecha($fecha, $formato = 'd/m/Y') {
 
 function mostrarTabla($data) {
     $totalSuma = 0;
+    $cant_total = 0;
     foreach ($data as $row) {
         // Aquí reutilizamos la lógica para formatear y mostrar los datos
         $valorTotalFormatted = 'No disponible';
@@ -31,10 +32,12 @@ function mostrarTabla($data) {
             $valorTotal = $row['cantidades'] * $row['precio_u_sIVA'];
             $valorTotalFormatted = is_numeric($valorTotal) ? number_format($valorTotal, 2, '.', ',') : $valorTotal;
             $totalSuma += $valorTotal;
+            $cant_total += $row['cantidades'];
+
         }
         echo "<tr>";
         // Usamos htmlspecialchars para evitar XSS
-        echo "<td>" . htmlspecialchars($row['ID_formato']) . "</td>";
+        echo "<td><a href='Stock/busqueda.php?ID_formato=" . htmlspecialchars($row['ID_formato']) . "'>" . htmlspecialchars($row['ID_formato']) . "</a></td>";
         echo "<td>" . htmlspecialchars($row['formato']) . "</td>";
         echo "<td>" . htmlspecialchars($row['color']) . "</td>";
         echo "<td>" . htmlspecialchars($row['gramaje']) . " gr</td>";
@@ -46,8 +49,8 @@ function mostrarTabla($data) {
         echo "<td>" . htmlspecialchars($valorTotalFormatted) . "</td>";
         echo "</tr>";
     }
-    // Suma total
-    echo "<tr><td colspan='8' style='text-align: right;'><strong>Suma Total</strong></td><td>" . number_format($totalSuma, 2, '.', ',') . "</td></tr>";
+    echo "<tr><td colspan='4' style='text-align: right;'><strong>Cantidad Total</strong></td><td>$cant_total</td>";
+    echo "<td colspan='3' style='text-align: right;'><strong>Valor Total</strong></td><td>" . number_format($totalSuma, 2, '.', ',') . "</td></tr>";
 }
 
 ?>
@@ -74,7 +77,7 @@ function mostrarTabla($data) {
                 <th>Valor Unitario</th>
                 <th>Fecha lista precio</th>
                 <th>Precio cantidad</th>
-                <th>Valor Total</th>
+                <th>Valor SubTotal</th>
             </tr>
         </thead>
         <tbody>
