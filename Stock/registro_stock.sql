@@ -169,7 +169,7 @@ CREATE TABLE `listado_precios` (
   `ID_formato` int(11),
   `cantidad` int(11),
   `precio_u_sIVA` decimal(8,2),
-  `fecha` date,
+  `fecha_listado` date,
   PRIMARY KEY (`ID_listado`),
   FOREIGN KEY (`ID_formato`) REFERENCES `tabla_1` (`ID_formato`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
