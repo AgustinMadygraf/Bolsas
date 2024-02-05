@@ -52,7 +52,7 @@ function obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter, $fechaS
 
     $query .= " ORDER BY t1.cantidades DESC"; // Ordena los resultados.
 
-    echo "<br>query: <br> $query <br>";
+    //echo "<br>query: <br> $query <br>";
 
     // Prepara la consulta SQL.
     $stmt = $conn->prepare($query);

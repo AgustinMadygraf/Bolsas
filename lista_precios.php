@@ -1,18 +1,18 @@
 <?php
-    require "includes/header.php";
-    include 'includes/db_funtions.php'; 
-    
-    // Obtener fechas únicas de listado_precios
-    $sqlFechas = "SELECT DISTINCT fecha FROM listado_precios ORDER BY fecha DESC";
-    
-    $fechas = getArraySQL($sqlFechas);
+require "includes/header.php";
+require 'includes/db_functions.php'; // Asegúrate de que el nombre del archivo sea correcto y coincida con el nombre real.
+
+// Obtener fechas únicas de listado_precios
+$sqlFechas = "SELECT DISTINCT fecha FROM listado_precios ORDER BY fecha DESC";
+
+$fechas = getArraySQL($sqlFechas);
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Costos Operativos</title>
+    <title>Listado de Precios</title> <!-- Cambié el título para reflejar el contenido de la página -->
     <link rel="stylesheet" href="CSS/style.css"> 
 </head>
 <body>
@@ -28,8 +28,6 @@
     </select>
     <input type="submit" value="Filtrar">
 </form>
-
-
 
 <?php
 if (isset($_GET['fechaSeleccionada'])) {
@@ -66,3 +64,5 @@ if (isset($_GET['fechaSeleccionada'])) {
     <?php
 }
 ?>
+</body>
+</html>
