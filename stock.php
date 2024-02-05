@@ -1,28 +1,55 @@
-<!--stock.php-->
 <?php
-    require "includes/header.php";
-    require_once 'Stock/conn.php';
-    require_once 'Stock/stockFunctions.php';
-        include 'includes/db_functions.php'; 
-    
-    // Obtener fechas únicas de listado_precios
-    $sqlFechas = "SELECT DISTINCT fecha FROM listado_precios ORDER BY fecha DESC";
-    
-    $fechas = getArraySQL($sqlFechas);
+require "includes/header.php";
+require_once 'Stock/conn.php';
+require_once 'Stock/stockFunctions.php';
+include 'includes/db_functions.php'; 
 
-    // Obtener los valores de los filtros desde la URL
-    $formatoFilter = isset($_GET['Formato']) ? $_GET['Formato'] : 'todos';
-    $colorFilter = isset($_GET['color']) ? $_GET['color'] : 'todos';
-    $gramajeFilter = isset($_GET['gramaje']) ? $_GET['gramaje'] : 'todos';
-    $cantidadSeleccionada = isset($_GET['cantidades']) ? $_GET['cantidades'] : 'todos';
+function obtenerFiltrosDesdeURL() {
+    return [
+        'formatoFilter' => $_GET['Formato'] ?? 'todos',
+        'colorFilter' => $_GET['color'] ?? 'todos',
+        'gramajeFilter' => $_GET['gramaje'] ?? 'todos',
+        'cantidadSeleccionada' => $_GET['cantidades'] ?? 'todos',
+    ];
+}
 
-    // Llamar a la función para obtener los datos de stock con los filtros aplicados
-    $data = obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter, $fechaSeleccionada, $cantidadSeleccionada);
+$fechas = getArraySQL("SELECT DISTINCT fecha FROM listado_precios ORDER BY fecha DESC");
+$filtros = obtenerFiltrosDesdeURL();
+$data = obtenerDatosStock($filtros['formatoFilter'], $filtros['colorFilter'], $filtros['gramajeFilter'], $filtros['cantidadSeleccionada']);
 
-    // Función para crear enlaces a la página de búsqueda con filtros aplicados
-    function crearEnlace($id_formato, $texto) {
-        return '<a href="Stock/busqueda.php?ID_formato=' . $id_formato . '">' . htmlspecialchars($texto) . '</a>';
+function formatearFecha($fecha, $formato = 'd/m/Y') {
+    $objFecha = new DateTime($fecha);
+    return $objFecha->format($formato);
+}
+
+function mostrarTabla($data) {
+    $totalSuma = 0;
+    foreach ($data as $row) {
+        // Aquí reutilizamos la lógica para formatear y mostrar los datos
+        $valorTotalFormatted = 'No disponible';
+        if (isset($row['precio_u_sIVA'])) {
+            $valorTotal = $row['cantidades'] * $row['precio_u_sIVA'];
+            $valorTotalFormatted = is_numeric($valorTotal) ? number_format($valorTotal, 2, '.', ',') : $valorTotal;
+            $totalSuma += $valorTotal;
+        }
+        echo "<tr>";
+        // Usamos htmlspecialchars para evitar XSS
+        echo "<td>" . htmlspecialchars($row['ID_formato']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['formato']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['color']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['gramaje']) . " gr</td>";
+        echo "<td>" . htmlspecialchars($row['cantidades']) . "</td>";
+        echo "<td>" . formatearFecha($row['fechatiempo'], 'H:i d/m/Y') . "</td>";
+        echo "<td>" . htmlspecialchars($valorTotalFormatted) . "</td>";
+        echo "<td>" . formatearFecha($row['fecha']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['cantidad']) . "</td>";
+        echo "<td>" . htmlspecialchars($valorTotalFormatted) . "</td>";
+        echo "</tr>";
     }
+    // Suma total
+    echo "<tr><td colspan='8' style='text-align: right;'><strong>Suma Total</strong></td><td>" . number_format($totalSuma, 2, '.', ',') . "</td></tr>";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -48,42 +75,10 @@
                 <th>Fecha lista precio</th>
                 <th>Precio cantidad</th>
                 <th>Valor Total</th>
-
             </tr>
         </thead>
         <tbody>
-            <?php
-            $totalSuma = 0;
-            foreach ($data as $row) {
-                $valorTotal = isset($row['precio_u_sIVA']) ? $row['cantidades'] * $row['precio_u_sIVA'] : 'No disponible';
-                $valorTotalFormatted = is_numeric($valorTotal) ? number_format($valorTotal, 2, '.', ',') : $valorTotal;
-                $fechaInventario = new DateTime($row['fechatiempo']);
-                $fechaInventarioFormateada = $fechaInventario->format('H:i d/m/Y'); // Formato de fecha inventario           
-                $fechaListaPrecio = new DateTime($row['fecha']);
-                $fechaListaPrecioFormateada = $fechaListaPrecio->format('d/m/Y'); // Formato de fecha lista de precios a 'dd/mm/yyyy'
-            
-                echo "<tr>";
-                echo "<td>" . crearEnlace($row['ID_formato'], $row['ID_formato']) . "</td>";
-                echo "<td>" . crearEnlace($row['ID_formato'], $row['formato'])       . "</td>";
-                echo "<td>" . crearEnlace($row['ID_formato'], $row['color'])         . "</td>";
-                echo "<td>" . crearEnlace($row['ID_formato'], $row['gramaje']." gr") . "</td>";
-                echo "<td>" . crearEnlace($row['ID_formato'], $row['cantidades'])    . "</td>";
-                echo "<td>" . $fechaInventarioFormateada . "</td>"; 
-                echo "<td>" . (isset($row['precio_u_sIVA']) ? $row['precio_u_sIVA'] : 'No disponible') . "</td>";
-                echo "<td>" . $fechaListaPrecioFormateada . "</td>"; // Fecha lista de precios formateada a 'dd/mm/yyyy'
-                echo "<td>" . $row['cantidad']         . "</td>";
-                echo "<td>" . $valorTotalFormatted . "</td>";
-                echo "</tr>";
-
-                if (is_numeric($valorTotal)) {
-                    $totalSuma += $valorTotal;
-                }
-            }
-            ?>
-            <tr>
-                <td colspan="8" style="text-align: right;"><strong>Suma Total</strong></td>
-                <td><?php echo number_format($totalSuma, 2, '.', ','); ?></td>
-            </tr>
+            <?php mostrarTabla($data); ?>
         </tbody>
     </table>
 

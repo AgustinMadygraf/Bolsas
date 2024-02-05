@@ -1,89 +1,75 @@
 <?php
-// Stock/stockFunctions.php
 require_once 'conn.php';
 
 /**
- * Obtiene datos de stock filtrados por formato, color y gramaje.
+ * Obtiene datos de stock filtrados por formato, color, gramaje, y cantidad seleccionada.
  *
  * @param string $formatoFilter Filtro para el formato, 'todos' para no aplicar filtro.
  * @param string $colorFilter Filtro para el color, 'todos' para no aplicar filtro.
  * @param string $gramajeFilter Filtro para el gramaje, 'todos' para no aplicar filtro.
+ * @param string $cantidadSeleccionada Filtro para la cantidad seleccionada, 'todos' para no aplicar filtro.
  * @return array Resultados de la consulta como un array asociativo.
  */
-function obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter, $fechaSeleccionada, $cantidadSeleccionada) {
-    global $conn;
-    
+function obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter, $cantidadSeleccionada) {
+    $conexion = conectarBD(); // Asumiendo que conectarBD() devuelve una conexión mysqli válida
 
     $query = "SELECT t1.*, t2.precio_u_sIVA, t2.fecha, t2.cantidad FROM tabla_1 t1
               LEFT JOIN listado_precios t2 ON t1.ID_formato = t2.ID_formato";
-    
+
     // Arrays para condiciones SQL y sus parámetros.
     $conditions = [];
     $params = [];
-    $param_types = "";
 
     // Agrega condiciones basadas en los filtros.
     if ($formatoFilter !== 'todos') {
         $conditions[] = "t1.formato = ?";
         $params[] = $formatoFilter;
-        $param_types .= "s"; // 's' indica que el parámetro es una cadena (string).
     }
     if ($colorFilter !== 'todos') {
         $conditions[] = "t1.color = ?";
         $params[] = $colorFilter;
-        $param_types .= "s";
     }
     if ($gramajeFilter !== 'todos') {
         $conditions[] = "t1.gramaje = ?";
         $params[] = $gramajeFilter;
-        $param_types .= "s";
     }
-
     if (!empty($cantidadSeleccionada) && $cantidadSeleccionada != 'todos') {
         $conditions[] = "t2.cantidad = ?";
         $params[] = $cantidadSeleccionada;
-        $param_types .= "i"; // 'i' indica que el parámetro es un entero
     }
 
-    // Combina las condiciones en la consulta SQL si existen.
     if (!empty($conditions)) {
         $query .= " WHERE " . implode(" AND ", $conditions);
     }
 
-    $query .= " ORDER BY t1.cantidades DESC"; // Ordena los resultados.
+    $query .= " ORDER BY t1.cantidades DESC";
 
-    //echo "<br>query: <br> $query <br>";
+    // Preparar consulta
+    $stmt = $conexion->prepare($query);
 
-    // Prepara la consulta SQL.
-    $stmt = $conn->prepare($query);
-
-    // Verifica si la preparación fue exitosa.
+    // Verificar si la preparación fue exitosa
     if (!$stmt) {
-        // Manejo del error de preparación.
-        die("Error al preparar la consulta: " . $conn->error);
+        die("Error al preparar la consulta: " . $conexion->error);
     }
 
-    // Vincula parámetros a la consulta si es necesario.
+    // Vincular parámetros a la consulta si es necesario
     if (!empty($params)) {
-        $stmt->bind_param($param_types, ...$params);
+        $stmt->bind_param(str_repeat("s", count($params)), ...$params);
     }
 
-    // Ejecuta la consulta.
-    if (!$stmt->execute()) {
-        // Manejo del error de ejecución.
-        die("Error al ejecutar la consulta: " . $stmt->error);
-    }
+    // Ejecutar la consulta
+    $stmt->execute();
 
     $result = $stmt->get_result();
     $data = [];
 
-    // Recolecta los resultados.
     while ($row = $result->fetch_assoc()) {
         $data[] = $row;
     }
 
-    // Cierra el statement.
+    // Cierra el statement y la conexión
     $stmt->close();
+    desconectarBD($conexion);
 
     return $data;
 }
