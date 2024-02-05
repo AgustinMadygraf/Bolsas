@@ -58,7 +58,10 @@
                 $valorTotal = isset($row['precio_u_sIVA']) ? $row['cantidades'] * $row['precio_u_sIVA'] : 'No disponible';
                 $valorTotalFormatted = is_numeric($valorTotal) ? number_format($valorTotal, 2, '.', ',') : $valorTotal;
                 $fechaInventario = new DateTime($row['fechatiempo']);
-                $fechaInventarioFormateada = $fechaInventario->format('H:i d/m/Y');
+                $fechaInventarioFormateada = $fechaInventario->format('H:i d/m/Y'); // Formato de fecha inventario           
+                $fechaListaPrecio = new DateTime($row['fecha']);
+                $fechaListaPrecioFormateada = $fechaListaPrecio->format('d/m/Y'); // Formato de fecha lista de precios a 'dd/mm/yyyy'
+            
                 echo "<tr>";
                 echo "<td>" . crearEnlace($row['ID_formato'], $row['ID_formato']) . "</td>";
                 echo "<td>" . crearEnlace($row['ID_formato'], $row['formato'])       . "</td>";
@@ -67,7 +70,7 @@
                 echo "<td>" . crearEnlace($row['ID_formato'], $row['cantidades'])    . "</td>";
                 echo "<td>" . $fechaInventarioFormateada . "</td>"; 
                 echo "<td>" . (isset($row['precio_u_sIVA']) ? $row['precio_u_sIVA'] : 'No disponible') . "</td>";
-                echo "<td>" . $row['fecha']         . "</td>";
+                echo "<td>" . $fechaListaPrecioFormateada . "</td>"; // Fecha lista de precios formateada a 'dd/mm/yyyy'
                 echo "<td>" . $row['cantidad']         . "</td>";
                 echo "<td>" . $valorTotalFormatted . "</td>";
                 echo "</tr>";
