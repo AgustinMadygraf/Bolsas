@@ -10,6 +10,7 @@ function obtenerFiltrosDesdeURL() {
         'colorFilter' => $_GET['color'] ?? 'todos',
         'gramajeFilter' => $_GET['gramaje'] ?? 'todos',
         'cantidadSeleccionada' => $_GET['cantidades'] ?? 'todos',
+        'fechaListadoFilter' => $_GET['fechaListado'] ?? 'todos', 
     ];
 }
 
