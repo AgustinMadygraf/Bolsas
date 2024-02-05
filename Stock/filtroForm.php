@@ -50,7 +50,7 @@
             <td>
             <select name="fechaSeleccionada">
                 <?php foreach ($fechas as $fecha) {
-                    echo '<option value="'.$fecha['fecha'].'">'.$fecha['fecha'].'</option>';} ?>
+                    echo '<option value="'.$fecha['fecha_listado'].'">'.$fecha['fecha_listado'].'</option>';} ?>
             </select>
             </td>      
             <td>

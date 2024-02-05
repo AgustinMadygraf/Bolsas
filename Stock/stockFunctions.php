@@ -13,7 +13,7 @@ require_once 'conn.php';
 function obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter, $cantidadSeleccionada) {
     $conexion = conectarBD(); // Asumiendo que conectarBD() devuelve una conexión mysqli válida
 
-    $query = "SELECT t1.*, t2.precio_u_sIVA, t2.fecha, t2.cantidad FROM tabla_1 t1
+    $query = "SELECT t1.*, t2.precio_u_sIVA, t2.fecha_listado, t2.cantidad FROM tabla_1 t1
               LEFT JOIN listado_precios t2 ON t1.ID_formato = t2.ID_formato";
 
     // Arrays para condiciones SQL y sus parámetros.

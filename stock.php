@@ -13,7 +13,7 @@ function obtenerFiltrosDesdeURL() {
     ];
 }
 
-$fechas = getArraySQL("SELECT DISTINCT fecha FROM listado_precios ORDER BY fecha DESC");
+$fechas = getArraySQL("SELECT DISTINCT fecha_listado FROM listado_precios ORDER BY fecha_listado DESC");
 $filtros = obtenerFiltrosDesdeURL();
 $data = obtenerDatosStock($filtros['formatoFilter'], $filtros['colorFilter'], $filtros['gramajeFilter'], $filtros['cantidadSeleccionada']);
 
@@ -46,7 +46,7 @@ function mostrarTabla($data) {
         echo "<td>" . htmlspecialchars($row['cantidades']) . "</td>";
         echo "<td>" . formatearFecha($row['fechatiempo'], 'H:i d/m/Y') . "</td>";
         echo "<td>" . htmlspecialchars($valorTotalFormatted) . "</td>";
-        echo "<td>" . formatearFecha($row['fecha']) . "</td>";
+        echo "<td>" . formatearFecha($row['fecha_listado']) . "</td>";
         echo "<td>" . htmlspecialchars($row['cantidad']) . "</td>";
         echo "<td>" . htmlspecialchars($valorTotalFormatted) . "</td>";
         echo "</tr>";
