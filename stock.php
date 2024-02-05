@@ -32,7 +32,9 @@ function mostrarTabla($data) {
             $valorTotal = $row['cantidades'] * $row['precio_u_sIVA'];
             $valorTotalFormatted = is_numeric($valorTotal) ? number_format($valorTotal, 2, '.', ',') : $valorTotal;
             $totalSuma += $valorTotal;
-            $cant_total += $row['cantidades'];
+            if (isset($row['cantidades']) && is_numeric($row['cantidades'])) {
+                $cant_total += $row['cantidades'];
+            }
 
         }
         echo "<tr>";
@@ -49,7 +51,7 @@ function mostrarTabla($data) {
         echo "<td>" . htmlspecialchars($valorTotalFormatted) . "</td>";
         echo "</tr>";
     }
-    echo "<tr><td colspan='4' style='text-align: right;'><strong>Cantidad Total</strong></td><td>$cant_total</td>";
+    echo "<tr><td colspan='4' style='text-align: right;'><strong>Cantidad Total</strong></td><td>" . number_format($cant_total, 0, '.', ',') . "</td>";
     echo "<td colspan='3' style='text-align: right;'><strong>Valor Total</strong></td><td>" . number_format($totalSuma, 2, '.', ',') . "</td></tr>";
 }
 
