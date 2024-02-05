@@ -3,7 +3,7 @@ require "includes/header.php";
 require 'includes/db_functions.php'; // Asegúrate de que el nombre del archivo sea correcto y coincida con el nombre real.
 
 // Obtener fechas únicas de listado_precios
-$sqlFechas = "SELECT DISTINCT fecha FROM listado_precios ORDER BY fecha DESC";
+$sqlFechas = "SELECT DISTINCT fecha_listado FROM listado_precios ORDER BY fecha_listado DESC";
 
 $fechas = getArraySQL($sqlFechas);
 ?>
@@ -22,7 +22,7 @@ $fechas = getArraySQL($sqlFechas);
     <select name="fechaSeleccionada">
         <?php
         foreach ($fechas as $fecha) {
-            echo '<option value="'.$fecha['fecha'].'">'.$fecha['fecha'].'</option>';
+            echo '<option value="'.$fecha['fecha_listado'].'">'.$fecha['fecha_listado'].'</option>';
         }
         ?>
     </select>
@@ -35,7 +35,7 @@ if (isset($_GET['fechaSeleccionada'])) {
     $sql = "SELECT t1.formato, t1.color, t1.gramaje, lp.cantidad, lp.precio_u_sIVA 
             FROM listado_precios lp 
             INNER JOIN tabla_1 t1 ON lp.ID_formato = t1.ID_formato 
-            WHERE lp.fecha = '$fechaSeleccionada'
+            WHERE lp.fecha_listado = '$fechaSeleccionada'
             ORDER BY color DESC";
     $resultados = getArraySQL($sql);
     ?>
