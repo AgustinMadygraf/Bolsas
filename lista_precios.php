@@ -32,7 +32,7 @@ $fechas = getArraySQL($sqlFechas);
 <?php
 if (isset($_GET['fechaSeleccionada'])) {
     $fechaSeleccionada = $_GET['fechaSeleccionada'];
-    $sql = "SELECT t1.formato, t1.color, t1.gramaje, lp.cantidad, lp.precio_u_sIVA 
+    $sql = "SELECT t1.ID_formato, t1.formato, t1.color, t1.gramaje, lp.cantidad, lp.precio_u_sIVA 
             FROM listado_precios lp 
             INNER JOIN tabla_1 t1 ON lp.ID_formato = t1.ID_formato 
             WHERE lp.fecha_listado = '$fechaSeleccionada'
@@ -51,7 +51,7 @@ if (isset($_GET['fechaSeleccionada'])) {
         <?php
         foreach ($resultados as $resultado) {
             echo "<tr>
-                    <td>{$resultado['ID_formato']}</td>            
+                    <td>{$resultado['ID_formato']}</td>  <!-- acá está vacío en lugar de ver el ID_formato -->          
                     <td>{$resultado['formato']}</td>
                     <td>{$resultado['color']}</td>
                     <td>{$resultado['gramaje']}</td>

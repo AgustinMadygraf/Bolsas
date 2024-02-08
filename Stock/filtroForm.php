@@ -7,7 +7,8 @@
             <th>Gramaje:</th>
             <th>Listado precio Fecha:</th>
             <th>Listado precio Cantidades:</th>
-            <th> </th>
+            <th><input type="submit" value="Filtrar"></th>
+
         </tr>
         <tr>
             <td>
@@ -60,9 +61,15 @@
                     <option value="10000" >10000</option>
                 </select>
             </td>      
-            <td><input type="submit" value="Filtrar"></td>
         </tr>
-        <tr</tr>
+
+        <td><?php echo strval($filtros['formatoFilter']); ?></td>
+        <td><?php echo strval($filtros['colorFilter']); ?></td>
+        <td><?php echo strval($filtros['gramajeFilter']); ?></td>
+        <td><?php echo strval($filtros['fechaListadoFilter']); ?></td>
+        <td><?php echo strval($filtros['cantidadSeleccionada']); ?></td>
+        <tr>
+        </tr>
     </table>
     
 </form>
