@@ -6,14 +6,17 @@ require_once 'Stock/stockFunctions.php';
 include 'includes/db_functions.php'; 
 
 function obtenerFiltrosDesdeURL() {
+    $cantidadSeleccionadaDefault = '10000'; // Establece el valor por defecto a 10000
+    $fechaListadoFilterDefault = '24-02-01'; // Establece el valor por defecto a 10000
     return [
-        'formatoFilter' => $_GET['Formato'] ?? 'todos',
-        'colorFilter' => $_GET['color'] ?? 'todos',
-        'gramajeFilter' => $_GET['gramaje'] ?? 'todos',
-        'cantidadSeleccionada' => $_GET['cantidades'] ?? 'todos',
-        'fechaListadoFilter' => $_GET['fechaSeleccionada'] ?? 'todos',
+        'formatoFilter'         => $_GET['Formato']     ?? 'todos',
+        'colorFilter'           => $_GET['color']       ?? 'todos',
+        'gramajeFilter'         => $_GET['gramaje']     ?? 'todos',
+        'cantidadSeleccionada'  => !empty($_GET['cantidades'])          ? $_GET['cantidades']           : $cantidadSeleccionadaDefault,
+        'fechaListadoFilter'    => !empty($_GET['fechaSeleccionada'])   ? $_GET['fechaSeleccionada']    : $fechaListadoFilterDefault,
     ];
 }
+
 
 $fechas = getArraySQL("SELECT DISTINCT fecha_listado FROM listado_precios ORDER BY fecha_listado DESC");
 $filtros = obtenerFiltrosDesdeURL();
@@ -67,7 +70,7 @@ function mostrarTabla($data) {
         echo "</tr>";
     }
     echo "<tr><td colspan='4' style='text-align: right;'><strong>Cantidad Total</strong></td><td>" . number_format($cant_total, 0, '.', ',') . "</td>";
-    echo "<td colspan='3' style='text-align: right;'><strong>Valor Total</strong></td><td>" . number_format($totalSuma, 2, '.', ',') . "</td></tr>";
+    echo "<td colspan='4' style='text-align: right;'><strong>Valor Total</strong></td><td>" . number_format($totalSuma, 2, '.', ',') . "</td></tr>";
 }
 
 
