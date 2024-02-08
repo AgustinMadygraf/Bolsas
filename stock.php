@@ -6,7 +6,7 @@ require_once 'Stock/stockFunctions.php';
 include 'includes/db_functions.php'; 
 
 function obtenerFiltrosDesdeURL() {
-    $cantidadSeleccionadaDefault = '10000'; 
+    $cantidadSeleccionadaDefault = '5000'; 
     $fechaListadoFilterDefault = '24-02-01';
     return [
         'formatoFilter'         => $_GET['Formato']     ?? 'todos',
