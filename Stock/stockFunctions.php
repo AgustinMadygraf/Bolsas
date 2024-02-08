@@ -52,6 +52,8 @@ function obtenerDatosStock($formatoFilter, $colorFilter, $gramajeFilter, $cantid
     // Ordena los resultados
     $query .= " ORDER BY t1.cantidades DESC";
 
+    //echo "<br><br><br>query=<br>$query<br><br>";
+
     // Prepara y ejecuta la consulta
     $stmt = $conexion->prepare($query);
     if (!$stmt) {
