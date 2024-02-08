@@ -6,8 +6,8 @@ require_once 'Stock/stockFunctions.php';
 include 'includes/db_functions.php'; 
 
 function obtenerFiltrosDesdeURL() {
-    $cantidadSeleccionadaDefault = '10000'; // Establece el valor por defecto a 10000
-    $fechaListadoFilterDefault = '24-02-01'; // Establece el valor por defecto a 10000
+    $cantidadSeleccionadaDefault = '10000'; 
+    $fechaListadoFilterDefault = '24-02-01';
     return [
         'formatoFilter'         => $_GET['Formato']     ?? 'todos',
         'colorFilter'           => $_GET['color']       ?? 'todos',
@@ -63,10 +63,10 @@ function mostrarTabla($data) {
         echo "<td>" . htmlspecialchars($row['gramaje']) . " gr</td>";
         echo "<td>" . htmlspecialchars($row['cantidades']) . "</td>";
         echo "<td>" . formatearFecha($row['fechatiempo'], 'H:i d/m/Y') . "</td>";
-        echo "<td>" . $precioUnitarioFormatted . "</td>"; // Muestra el precio unitario correctamente
+        echo "<td>" . $precioUnitarioFormatted . "</td>"; 
         echo "<td>" . formatearFecha($row['fecha_listado']) . "</td>";
         echo "<td>" . htmlspecialchars($row['cantidad']) . "</td>";
-        echo "<td>" . $valorTotalFormatted . "</td>"; // Mantiene el subtotal correcto
+        echo "<td>" . $valorTotalFormatted . "</td>"; 
         echo "</tr>";
     }
     echo "<tr><td colspan='4' style='text-align: right;'><strong>Cantidad Total</strong></td><td>" . number_format($cant_total, 0, '.', ',') . "</td>";
