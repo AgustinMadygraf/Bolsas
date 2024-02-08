@@ -1,3 +1,4 @@
+<!--stock.php-->
 <?php
 require "includes/header.php";
 require_once 'Stock/conn.php';
@@ -10,19 +11,20 @@ function obtenerFiltrosDesdeURL() {
         'colorFilter' => $_GET['color'] ?? 'todos',
         'gramajeFilter' => $_GET['gramaje'] ?? 'todos',
         'cantidadSeleccionada' => $_GET['cantidades'] ?? 'todos',
-        'fechaListadoFilter' => $_GET['fechaListado'] ?? 'todos', 
+        'fechaListadoFilter' => $_GET['fechaSeleccionada'] ?? 'todos',
     ];
 }
 
 $fechas = getArraySQL("SELECT DISTINCT fecha_listado FROM listado_precios ORDER BY fecha_listado DESC");
 $filtros = obtenerFiltrosDesdeURL();
 $data = obtenerDatosStock(
-    $filtros['formatoFilter'], 
-    $filtros['colorFilter'], 
-    $filtros['gramajeFilter'], 
-    $filtros['cantidadSeleccionada'],
-    $filtros['fechaListadoFilter'] // Añadir el nuevo filtro aquí
+    strval($filtros['formatoFilter']), 
+    strval($filtros['colorFilter']), 
+    strval($filtros['gramajeFilter']), 
+    strval($filtros['cantidadSeleccionada']),
+    strval($filtros['fechaListadoFilter']) 
 );
+
 
 function formatearFecha($fecha, $formato = 'd/m/Y') {
     $objFecha = new DateTime($fecha);
@@ -101,10 +103,6 @@ function mostrarTabla($data) {
         </tbody>
     </table>
 
-    <script>
-        function submitForm() {
-            document.getElementById("filtroForm").submit();
-        }
-    </script>
+
 </body>
 </html>

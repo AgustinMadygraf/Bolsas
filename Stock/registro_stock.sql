@@ -175,7 +175,7 @@ CREATE TABLE `listado_precios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Inserción de datos de ejemplo
-INSERT INTO `listado_precios` (`ID_listado`, `ID_formato`, `cantidad`, `precio_u_sIVA`,`fecha` ) VALUES 
+INSERT INTO `listado_precios` (`ID_listado`, `ID_formato`, `cantidad`, `precio_u_sIVA`,`fecha_listado` ) VALUES 
 (1,   1,  5000,   63.66,    '2023-12-01' ),
 (2,   2,  5000,   79.97,    '2023-12-01' ),
 (3,   3,  5000,   88.38,    '2023-12-01' ),

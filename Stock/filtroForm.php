@@ -7,6 +7,7 @@
             <th>Gramaje:</th>
             <th>Listado precio Fecha:</th>
             <th>Listado precio Cantidades:</th>
+            <th> </th>
         </tr>
         <tr>
             <td>
@@ -34,7 +35,7 @@
                 </select>
             </td>
             <td>
-                <select name="color" onchange="submitForm()">
+                <select name="color" onchange="submitForm()" value="sda">
                     <option value="todos" <?php echo $colorFilter === 'todos' ? 'selected' : ''; ?>>Todos</option>
                     <option value="Marrón" <?php echo $colorFilter === 'Marrón' ? 'selected' : ''; ?>>Marrón</option>
                     <option value="Blanco" <?php echo $colorFilter === 'Blanco' ? 'selected' : ''; ?>>Blanco</option>
@@ -48,7 +49,7 @@
                 </select>
             </td>
             <td>
-            <select name="fechaSeleccionada">
+            <select name="fechaSeleccionada"  onchange="submitForm()">
                 <?php foreach ($fechas as $fecha) {
                     echo '<option value="'.$fecha['fecha_listado'].'">'.$fecha['fecha_listado'].'</option>';} ?>
             </select>
@@ -59,8 +60,9 @@
                     <option value="10000" >10000</option>
                 </select>
             </td>      
+            <td><input type="submit" value="Filtrar"></td>
         </tr>
+        <tr</tr>
     </table>
-    <br>
-    <input type="submit" value="Filtrar" style="display: none;">
+    
 </form>
