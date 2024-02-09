@@ -82,7 +82,6 @@ $datosCostos = [
 ];
 
 $datosJson2 = json_encode($datosCostos);
-echo '<h1>Costos Mensuales - Año 2023 valores actualizados a diciembre 2023</h1>';
 echo '<table>';
 echo '    <thead>';
 echo '        <tr>';
