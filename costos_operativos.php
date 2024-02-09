@@ -70,7 +70,7 @@ function obtenerDatosCosto($conexion) {
 
 
 <br><br><br><br><br>
-<h1>Costos Mensuales - Año 2023 valores actualizados a diciembre 2023</h1>
+<h1>Costos - Año 2023 valores actualizados a diciembre 2023</h1>
 <?php
 $datosCostos = [
     ["Descripción" => "Retiro asociados", "Valor" => "26855849.61"],

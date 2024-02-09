@@ -67,6 +67,39 @@ function obtenerDatosCosto($conexion) {
             include 'includes/table.php'; 
                   
     ?>
+<h1>Ventas Mensuales - Año 2023 valores actualizados a diciembre 2023</h1>
+<?php
+$datosVentas = [
+    ["Descripción" => "Ventas", "Valor" => "38403282.65"],
+    ["Descripción" => "Stock", "Valor" => "24525291.56"]
+];
+
+// Calcular el total
+$total = array_sum(array_column($datosVentas, 'Valor'));
+
+echo '<table>';
+echo '    <thead>';
+echo '        <tr>';
+echo '            <th>Descripción</th>';
+echo '            <th>Valor anual actualizado dic 2023</th>';
+echo '            <th>Porcentaje [%]</th>';
+echo '        </tr>';
+echo '    </thead>';
+echo '    <tbody>';
+
+foreach ($datosVentas as $venta) {
+    $porcentaje = ($venta['Valor'] / $total) * 100; // Calcular el porcentaje
+    echo "<tr>";
+    echo "<td>{$venta['Descripción']}</td>";
+    echo "<td>$" . number_format($venta['Valor'], 2, '.', ',') . "</td>"; // Formatear el valor como moneda
+    echo "<td>" . number_format($porcentaje, 2, '.', ',') . "%</td>"; // Formatear el porcentaje
+    echo "</tr>";
+}
+
+echo '    <tr><td></td><td>Total</td><td>$' . number_format($total, 2, '.', ',') . '</td></tr>'; // Imprimir el total formateado
+echo '    </tbody>';
+echo '</table>';
+?>
 
 </body>
 
