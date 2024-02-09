@@ -67,40 +67,7 @@ function obtenerDatosCosto($conexion) {
             include 'includes/table.php'; 
                   
     ?>
-    <br><br><br><br><br>
-<h1>Ventas Mensuales - Año 2023 valores actualizados a diciembre 2023</h1>
-<table>
-    <thead>
-        <tr> 
-            <th>Descripción     </th>
-            <th>Valor actualizado dic 2023 </th>
-        </tr>
-    </thead>
-    <tr>
-        <td>Retiro asociados    </td>
-        <td>$26,855,849.61      </td>
-    </tr>
-    <tr>
-        <td>INGRESOS POR VENTAS </td>
-        <td>$38,403,282.65      </td>
-    </tr>  
-    <tr>
-        <td>PAPEL			    </td>
-        <td>$12,823,457.58      </td>
-    </tr> 
-    <tr>
-        <td>OTROS			    </td>
-        <td>$9,028,850.18       </td>
-    </tr>     
-    <tr>
-        <td>PUBLICIDAD (BURAKKO) </td>
-        <td>$2,002,308.00         </td>
-    </tr>     
-    <tr>
-        <td>ENERGÍA			    </td>
-        <td>$187,624.91         </td>
-    </tr>            
-</table>
+
 </body>
 
 </html>
