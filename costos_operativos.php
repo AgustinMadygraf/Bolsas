@@ -73,36 +73,40 @@ function obtenerDatosCosto($conexion) {
 <h1>Costos Mensuales - Año 2023 valores actualizados a diciembre 2023</h1>
 <?php
 $datosCostos = [
-    ["Descripción" => "Retiro asociados", "Valor" => "$26,855,849.61"],
-    ["Descripción" => "INGRESOS POR VENTAS", "Valor" => "$38,403,282.65"],
-    ["Descripción" => "PAPEL", "Valor" => "$12,823,457.58"],
-    ["Descripción" => "OTROS", "Valor" => "$9,028,850.18"],
-    ["Descripción" => "PUBLICIDAD (BURAKKO)", "Valor" => "$2,002,308.00"],
-    ["Descripción" => "ENERGÍA", "Valor" => "$187,624.91"]
+    ["Descripción" => "Retiro asociados", "Valor" => "26855849.61"],
+    ["Descripción" => "PAPEL", "Valor" => "12823457.58"],
+    ["Descripción" => "OTROS", "Valor" => "9028850.18"],
+    ["Descripción" => "PUBLICIDAD (BURAKKO)", "Valor" => "3184287.97"],
+    ["Descripción" => "ENERGÍA", "Valor" => "187624.91"]
 ];
 
-$datosJson2 = json_encode($datosCostos);
+// Calcular el total
+$total = array_sum(array_column($datosCostos, 'Valor'));
+
 echo '<table>';
 echo '    <thead>';
 echo '        <tr>';
 echo '            <th>Descripción</th>';
 echo '            <th>Valor anual actualizado dic 2023</th>';
+echo '            <th>Porcentaje [%]</th>';
 echo '        </tr>';
 echo '    </thead>';
 echo '    <tbody>';
 
 foreach ($datosCostos as $costo) {
+    $porcentaje = ($costo['Valor'] / $total) * 100; // Calcular el porcentaje
     echo "<tr>";
     echo "<td>{$costo['Descripción']}</td>";
-    echo "<td>{$costo['Valor']}</td>";
+    echo "<td>$" . number_format($costo['Valor'], 2, '.', ',') . "</td>"; // Formatear el valor como moneda
+    echo "<td>" . number_format($porcentaje, 2, '.', ',') . "%</td>"; // Formatear el porcentaje
     echo "</tr>";
 }
 
+echo '    <tr><td></td><td>Total</td><td>$' . number_format($total, 2, '.', ',') . '</td></tr>'; // Imprimir el total formateado
 echo '    </tbody>';
 echo '</table>';
-
-
 ?>
+
 
 
 </body>
