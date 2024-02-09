@@ -1,3 +1,4 @@
+<!--includes/db_functions.php-->
 <?php
 require 'conn.php';
 
