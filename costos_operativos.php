@@ -71,34 +71,40 @@ function obtenerDatosCosto($conexion) {
 
 <br><br><br><br><br>
 <h1>Costos Mensuales - Año 2023 valores actualizados a diciembre 2023</h1>
-<table>
-    <thead>
-        <tr> 
-            <th>Descripción     </th>
-            <th>Valor actualizado dic 2023 </th>
-        </tr>
-    </thead>
-    <tr>
-        <td>Retiro asociados    </td>
-        <td>$26,855,849.61      </td>
-    </tr>
-    <tr>
-        <td>PAPEL			    </td>
-        <td>$12,823,457.58      </td>
-    </tr> 
-    <tr>
-        <td>OTROS			    </td>
-        <td>$9,028,850.18       </td>
-    </tr>     
-    <tr>
-        <td>PUBLICIDAD (BURAKKO) </td>
-        <td>$2,002,308.00         </td>
-    </tr>     
-    <tr>
-        <td>ENERGÍA			    </td>
-        <td>$187,624.91         </td>
-    </tr>            
-</table>
+<?php
+$datosCostos = [
+    ["Descripción" => "Retiro asociados", "Valor" => "$26,855,849.61"],
+    ["Descripción" => "INGRESOS POR VENTAS", "Valor" => "$38,403,282.65"],
+    ["Descripción" => "PAPEL", "Valor" => "$12,823,457.58"],
+    ["Descripción" => "OTROS", "Valor" => "$9,028,850.18"],
+    ["Descripción" => "PUBLICIDAD (BURAKKO)", "Valor" => "$2,002,308.00"],
+    ["Descripción" => "ENERGÍA", "Valor" => "$187,624.91"]
+];
+
+$datosJson2 = json_encode($datosCostos);
+echo '<h1>Costos Mensuales - Año 2023 valores actualizados a diciembre 2023</h1>';
+echo '<table>';
+echo '    <thead>';
+echo '        <tr>';
+echo '            <th>Descripción</th>';
+echo '            <th>Valor anual actualizado dic 2023</th>';
+echo '        </tr>';
+echo '    </thead>';
+echo '    <tbody>';
+
+foreach ($datosCostos as $costo) {
+    echo "<tr>";
+    echo "<td>{$costo['Descripción']}</td>";
+    echo "<td>{$costo['Valor']}</td>";
+    echo "</tr>";
+}
+
+echo '    </tbody>';
+echo '</table>';
+
+
+?>
+
 
 </body>
 </html>
