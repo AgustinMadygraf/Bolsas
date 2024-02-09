@@ -38,29 +38,24 @@ function mostrarTabla($data) {
     $totalSuma = 0;
     $cant_total = 0;
     foreach ($data as $row) {
+        $valorTotalFormatted = 'No disponible';
+        $precioUnitarioFormatted = 'No disponible';
         if (isset($row['precio_u_sIVA'])) {
-            // Calcula el valor total para el subtotal
             $valorTotal = $row['cantidades'] * $row['precio_u_sIVA'];
             $valorTotalFormatted = is_numeric($valorTotal) ? number_format($valorTotal, 2, '.', ',') : $valorTotal;
-            $totalSuma += $valorTotal;
-            
-            // Actualiza el total de cantidades
-            if (isset($row['cantidades']) && is_numeric($row['cantidades'])) {
-                $cant_total += $row['cantidades'];
-            }
-            
-            // Formatea el precio unitario para mostrar
             $precioUnitarioFormatted = number_format($row['precio_u_sIVA'], 2, '.', ',');
-        } else {
-            $valorTotalFormatted = 'No disponible';
-            $precioUnitarioFormatted = 'No disponible';
+            $totalSuma += $valorTotal;
+            $cant_total += isset($row['cantidades']) && is_numeric($row['cantidades']) ? $row['cantidades'] : 0;
         }
         
+        $manijasTexto = isset($row['manijas']) && $row['manijas'] ? 'Sí' : 'No';
+
         echo "<tr>";
-        echo "<td><a href='Stock/busqueda.php?ID_formato=" . htmlspecialchars($row['ID_formato']) . "'>" . htmlspecialchars($row['ID_formato']) . "</a></td>";
+        echo "<td>" . htmlspecialchars($row['ID_formato']) . "</td>";
         echo "<td>" . htmlspecialchars($row['formato']) . "</td>";
         echo "<td>" . htmlspecialchars($row['color']) . "</td>";
         echo "<td>" . htmlspecialchars($row['gramaje']) . " gr</td>";
+        echo "<td>" . $manijasTexto . "</td>"; 
         echo "<td>" . htmlspecialchars($row['cantidades']) . "</td>";
         echo "<td>" . formatearFecha($row['fechatiempo'], 'H:i d/m/Y') . "</td>";
         echo "<td>" . $precioUnitarioFormatted . "</td>"; 
@@ -69,7 +64,7 @@ function mostrarTabla($data) {
         echo "<td>" . $valorTotalFormatted . "</td>"; 
         echo "</tr>";
     }
-    echo "<tr><td colspan='4' style='text-align: right;'><strong>Cantidad Total</strong></td><td>" . number_format($cant_total, 0, '.', ',') . "</td>";
+    echo "<tr><td colspan='5' style='text-align: right;'><strong>Cantidad Total</strong></td><td>" . number_format($cant_total, 0, '.', ',') . "</td>";
     echo "<td colspan='4' style='text-align: right;'><strong>Valor Total</strong></td><td>" . number_format($totalSuma, 2, '.', ',') . "</td></tr>";
 }
 
@@ -93,6 +88,7 @@ function mostrarTabla($data) {
                 <th>Formato</th>
                 <th>Color</th>
                 <th>Gramaje</th>
+                <th>Manijas</th>
                 <th>Cantidad</th>
                 <th>Fecha inventario</th>
                 <th>Valor Unitario</th>
