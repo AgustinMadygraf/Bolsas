@@ -74,8 +74,10 @@ function obtenerDatosCosto($conexion) {
 <?php
 $datosCostos = [
     ["Descripción" => "Retiro asociados", "Valor" => "26855849.61"],
-    ["Descripción" => "PAPEL", "Valor" => "12823457.58"],
-    ["Descripción" => "OTROS", "Valor" => "9028850.18"],
+    ["Descripción" => "Papel", "Valor" => "12823457.58"],
+    ["Descripción" => "Adhesivo", "Valor" => "3009616.67"],
+    ["Descripción" => "Cuerda Retoricida", "Valor" => "3009616.67"], //
+    ["Descripción" => "Corte de bobinas", "Valor" => "3009616.67"], //
     ["Descripción" => "PUBLICIDAD (BURAKKO)", "Valor" => "3184287.97"],
     ["Descripción" => "ENERGÍA", "Valor" => "187624.91"]
 ];
