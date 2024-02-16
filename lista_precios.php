@@ -56,7 +56,7 @@ $resultados = getArraySQL($sql);
         <th>Peso [gr]</th>
         <th>Costo Papel [ARS/Kg]</th>
         <th>Costo Marginal Papel</th>
-        <th>Costo_Malos_</th>
+        <th>Costo Desperdicio_Papel</th>
         <th>Costo Mano_de_obra</th>
         <th>Costo Adhesivo</th>
         <th>Costo Energético</th>
