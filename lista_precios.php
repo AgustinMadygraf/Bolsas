@@ -40,6 +40,17 @@ $sql = "SELECT t1.ID_formato, t1.formato, t1.color, t1.gramaje, lp.cantidad, lp.
 
 $resultados = getArraySQL($sql);
 ?>
+
+<table border="1" class="responsive-table">
+    <tr>
+        <th>Descripción</th>
+        <th>Costo Unitario</th>
+    </tr>
+    <tr>
+        <td>Papel</td>
+        <td>1250</td>
+</table>
+
 <table border="1" class="responsive-table">
     <tr>
         <th>ID_formato</th>
@@ -55,7 +66,7 @@ $resultados = getArraySQL($sql);
         <th>Desarrollo [cm]</th>
         <th>Peso [gr]</th>
         <th>Costo Papel [ARS/Kg]</th>
-        <th>Costo Marginal Papel</th>
+        <th>Costo_Marginal Papel</th>
         <th>Costo Desperdicio_Papel</th>
         <th>Costo Mano_de_obra</th>
         <th>Costo Adhesivo</th>
@@ -69,7 +80,7 @@ $resultados = getArraySQL($sql);
         $desarrollo = $resultado['alto']+$resultado['fuelle']/2+2;
         $superficie = ($ancho_bobina/100 ) * ($desarrollo/100) ;
         $peso = number_format(($superficie * $resultado['gramaje']), 1, '.', ''); // quiero tener un sólo decimal luego de la coma
-        $costo_papel = 1282.50;
+        $costo_papel = 1026;
         $costo_papel_bolsa = number_format(($costo_papel * $peso / 1000), 2, '.', ''); // Cálculo original
         $porcentaje = number_format(100* $costo_papel_bolsa/($resultado['precio_u_sIVA']*1.21),2) ;
         $costo_malos =  number_format($costo_papel_bolsa * 0.10,2);
