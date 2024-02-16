@@ -53,11 +53,14 @@ $resultados = getArraySQL($sql);
         <th>Alto bolsas</th>
         <th>Ancho bobina papel [cm]</th>
         <th>Desarrollo [cm]</th>
-        <th>Superficie [m2]</th>
         <th>Peso [gr]</th>
         <th>Costo Papel [ARS/Kg]</th>
         <th>Costo Marginal Papel</th>
         <th>Costo_Malos_</th>
+        <th>Costo Mano_de_obra</th>
+        <th>Costo Adhesivo</th>
+        <th>Costo Energético</th>
+        <th>Gastos Comerciales</th>
         <th>porcentaje papel sobre precio [%]</th>
     </tr>
     <?php
@@ -69,7 +72,11 @@ $resultados = getArraySQL($sql);
         $costo_papel = 1282.50;
         $costo_papel_bolsa = number_format(($costo_papel * $peso / 1000), 2, '.', ''); // Cálculo original
         $porcentaje = number_format(100* $costo_papel_bolsa/($resultado['precio_u_sIVA']*1.21),2) ;
-        $costo_malos = $costo_papel_bolsa * 0.10;
+        $costo_malos =  number_format($costo_papel_bolsa * 0.10,2);
+        $costo_mano_obra = 0;
+        $costo_adhesivo = 0;
+        $costo_energía = 0;        
+        $gastos_comerciales = 0;
         
         echo "<tr>
                 <td>{$resultado['ID_formato']}</td>
@@ -83,11 +90,14 @@ $resultados = getArraySQL($sql);
                 <td>{$resultado['alto']}</td>    
                 <td>{$ancho_bobina}</td>  
                 <td>{$desarrollo}</td>  
-                <td>{$superficie}</td>  
                 <td>{$peso}</td>      
                 <td>{$costo_papel}</td>
                 <td>{$costo_papel_bolsa} ARS</td>
                 <td> {$costo_malos} ARS</td>
+                <td> {$costo_mano_obra} ARS</td>
+                <td> {$costo_adhesivo} ARS</td>
+                <td> {$costo_energía} ARS</td>
+                <td> {$gastos_comerciales} ARS</td>
                 <td> {$porcentaje}%</td>
               </tr>";
     }
@@ -95,6 +105,7 @@ $resultados = getArraySQL($sql);
 </table>
 </body>
 </html>
+
 
 
 
