@@ -57,17 +57,19 @@ $resultados = getArraySQL($sql);
         <th>Peso [gr]</th>
         <th>Costo Papel [ARS/Kg]</th>
         <th>Costo Marginal Papel</th>
+        <th>Costo_Malos_</th>
         <th>porcentaje papel sobre precio [%]</th>
     </tr>
     <?php
     foreach ($resultados as $resultado) {
-        $ancho_bobina = 2*$resultado['ancho']+2*$resultado['fuelle']+4;
+        $ancho_bobina = 2*$resultado['ancho']+2*$resultado['fuelle']+3;
         $desarrollo = $resultado['alto']+$resultado['fuelle']/2+2;
         $superficie = ($ancho_bobina/100 ) * ($desarrollo/100) ;
         $peso = number_format(($superficie * $resultado['gramaje']), 1, '.', ''); // quiero tener un sólo decimal luego de la coma
         $costo_papel = 1282.50;
         $costo_papel_bolsa = number_format(($costo_papel * $peso / 1000), 2, '.', ''); // Cálculo original
         $porcentaje = number_format(100* $costo_papel_bolsa/($resultado['precio_u_sIVA']*1.21),2) ;
+        $costo_malos = $costo_papel_bolsa * 0.10;
         
         echo "<tr>
                 <td>{$resultado['ID_formato']}</td>
@@ -85,6 +87,7 @@ $resultados = getArraySQL($sql);
                 <td>{$peso}</td>      
                 <td>{$costo_papel}</td>
                 <td>{$costo_papel_bolsa} ARS</td>
+                <td> {$costo_malos} ARS</td>
                 <td> {$porcentaje}%</td>
               </tr>";
     }
