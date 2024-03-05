@@ -82,9 +82,10 @@ require "includes/header.php";
     }
     
 ?>
+<h2> Costo Fijo - Superficie</h2>
+
 <h2> Costo Fijo - Mano de obra</h2>
 
-<h2> Costo Fijo - Superficie</h2>
 
 </body>
 </html>
