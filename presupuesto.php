@@ -31,11 +31,13 @@ require "includes/header.php";
     visualizarTablaFija($data2);
     
     function visualizarTabla($data) {
+        $totalCostoMarginal = 0;
         if (count($data) > 0) {
             echo '<table border="1" class="responsive-table">';
             echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Unidad</th><th>KPI</th><th>Unidad KPI</th><th>Costo Marginal</th></tr>";
             foreach ($data as $row) {
                 $costoMarginal = floatval($row['Valor unitario']) * floatval($row['KPI']);
+                $totalCostoMarginal += $costoMarginal; 
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['Descripción']) . "</td>";
                 echo "<td>$" . number_format(floatval($row['Valor unitario']), 2, '.', ',') . "</td>"; 
@@ -45,7 +47,7 @@ require "includes/header.php";
                 echo "<td>$" . number_format($costoMarginal, 2, '.', ',') . "</td>";
                 echo "</tr>";
             }
-            echo "<tr><td>Total</td><td>$</td></tr>";//modificar acá
+            echo "<tr><td colspan='5'>Total</td><td>$".number_format($totalCostoMarginal, 2, '.', ',')."</td></tr>";
             echo "</table>";
         } else {
             echo "No se encontraron registros en la tabla.";
@@ -53,6 +55,7 @@ require "includes/header.php";
     }
 
     function visualizarTablaFija($data2) {
+        $totalCostoFijo = 0;
         if (count($data2) > 0) {
             echo '<table border="1" class="responsive-table">';
             echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Unidad</th><th>Potencia</th><th>Horas por día</th><th>Días por mes</th><th>Costo Fijo mensual</th></tr>"; 
@@ -60,7 +63,7 @@ require "includes/header.php";
                 $potenciaEnKw = floatval($row['Potencia']) / 1000; 
                 $consumoEnergiaMensualKwh = $potenciaEnKw * floatval($row['Horas por día']) * intval($row['Días por mes']);
                 $costoFijoMensual = $consumoEnergiaMensualKwh * floatval($row['Valor unitario']);
-    
+                $totalCostoFijo += $costoFijoMensual; 
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['Descripción']) . "</td>";
                 echo "<td>$" . number_format(floatval($row['Valor unitario']), 2, '.', ',') . "</td>"; 
@@ -71,7 +74,7 @@ require "includes/header.php";
                 echo "<td>$" . number_format($costoFijoMensual, 2, '.', ',') . "</td>";
                 echo "</tr>";
             }
-            echo "<tr><td>Total</td><td>$</td></tr>"; //modificar acá
+            echo "<tr><td colspan='6'>Total</td><td>$".number_format($totalCostoFijo, 2, '.', ',')."</td></tr>";
             echo "</table>";
         } else {
             echo "No se encontraron registros en la tabla.";
