@@ -15,18 +15,19 @@ require "includes/datos.php";
 
 <?php
     echo "<h2>Costo Marginal</h2>";
-
-    visualizarTabla($data);
-
+    visualizarTabla1($data1);
     echo "<h2>Costo fijo - Electrico</h2>";
-    visualizarTablaFija($data2);
+    visualizarTabla2($data2);
+    echo "<h2> Costo Fijo - Superficie</h2>";
+    visualizarTabla3($data3);
+    echo "<h2> Costo Fijo - Mano de obra</h2>";
     
-    function visualizarTabla($data) {
+    function visualizarTabla1($data1) {
         $totalCostoMarginal = 0;
-        if (count($data) > 0) {
+        if (count($data1) > 0) {
             echo '<table border="1" class="responsive-table">';
             echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Unidad</th><th>KPI</th><th>Unidad KPI</th><th>Costo Marginal</th></tr>";
-            foreach ($data as $row) {
+            foreach ($data1 as $row) {
                 $costoMarginal = floatval($row['Valor unitario']) * floatval($row['KPI']);
                 $totalCostoMarginal += $costoMarginal; 
                 echo "<tr>";
@@ -45,7 +46,7 @@ require "includes/datos.php";
         }
     }
 
-    function visualizarTablaFija($data2) {
+    function visualizarTabla2($data2) {
         $totalCostoFijo = 0;
         if (count($data2) > 0) {
             echo '<table border="1" class="responsive-table">';
@@ -73,9 +74,7 @@ require "includes/datos.php";
     }
     
 ?>
-<h2> Costo Fijo - Superficie</h2>
 
-<h2> Costo Fijo - Mano de obra</h2>
 
 
 </body>
