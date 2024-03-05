@@ -1,6 +1,29 @@
 <?php
 require "includes/header.php";
+
+if(isset($_GET['peso']) && !empty($_GET['peso'])) {
+    // Sanitiza el valor para asegurarse de que es un número
+    // Por ejemplo, si esperas un valor numérico, puedes hacerlo así:
+    $peso = filter_var($_GET['peso'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $peso = $peso/1000;
+
+    // Ahora puedes usar la variable $peso en tu script
+    // Por ejemplo, si necesitas pasarlo a otro script o usarlo en una función
+    require "includes/datos.php"; // Suponiendo que en este archivo necesitas usar $peso
+
+    // Código adicional que hace uso de $peso
+
+} else {
+    $peso = "0.042";
+    echo "Parámetro 'peso' no especificado. por defecto peso = $peso";
+    
+
+}
+
+
+
 require "includes/datos.php";
+
 ?>
 
 <!DOCTYPE html>
