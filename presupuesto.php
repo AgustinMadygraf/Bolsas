@@ -19,9 +19,10 @@ require "includes/datos.php";
     echo "<h2>Costo fijo - Electrico</h2>";
     visualizarTabla2($data2);
     echo "<h2> Costo Fijo - Superficie</h2>";
-    visualizarTabla3($data3);
+    //visualizarTabla3($data3);
     echo "<h2> Costo Fijo - Mano de obra</h2>";
-    
+    //visualizarTabla4($data4);
+
     function visualizarTabla1($data1) {
         $totalCostoMarginal = 0;
         if (count($data1) > 0) {
