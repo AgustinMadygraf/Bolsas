@@ -15,7 +15,7 @@ if(isset($_GET['peso']) && !empty($_GET['peso'])) {
 
 } else {
     $peso = "0.042";
-    echo "Parámetro 'peso' no especificado. por defecto peso = $peso";
+    echo "Parámetro 'peso' no especificado. por defecto peso = $peso gramos";
     
 
 }
