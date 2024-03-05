@@ -42,7 +42,7 @@ require "includes/datos.php";
     echo "<h2>Costo fijo - Electrico</h2>";
     visualizarTabla2($data2);
     echo "<h2> Costo Fijo - Superficie</h2>";
-    //visualizarTabla3($data3);
+    visualizarTabla3($data3);
     echo "<h2> Costo Fijo - Mano de obra</h2>";
     //visualizarTabla4($data4);
 
@@ -96,6 +96,41 @@ require "includes/datos.php";
             echo "No se encontraron registros en la tabla.";
         }
     }
+
+    function visualizarTabla3($data3) {
+        $totalCostoEspacio = 0; // Inicializar la suma total del costo
+    
+        if (count($data3) > 0) {
+            echo '<table border="1" class="responsive-table">';
+            // Corregir los encabezados de las columnas según los datos disponibles
+            echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Unidad</th><th>Superficie (M2)</th><th>Costo Mensual</th></tr>"; 
+    
+            foreach ($data3 as $row) {
+                // Calcular el costo mensual como el producto del valor unitario por la superficie
+                $costoMensual = floatval($row['Valor unitario']) * floatval($row['Superficie']);
+    
+                // Sumar al total del costo
+                $totalCostoEspacio += $costoMensual;
+    
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row['Descripción']) . "</td>";
+                echo "<td>$" . number_format(floatval($row['Valor unitario']), 2, '.', ',') . "</td>";
+                echo "<td>" . htmlspecialchars($row['Unidad']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['Superficie']) . "</td>";
+                // Mostrar el costo mensual calculado
+                echo "<td>$" . number_format($costoMensual, 2, '.', ',') . "</td>";
+                echo "</tr>";
+            }
+    
+            // Mostrar el total del costo fijo mensual
+            echo "<tr><td colspan='4'>Total</td><td>$" . number_format($totalCostoEspacio, 2, '.', ',') . "</td></tr>";
+            echo "</table>";
+        } else {
+            echo "No se encontraron registros en la tabla.";
+        }
+    }
+    
+
     
 ?>
 

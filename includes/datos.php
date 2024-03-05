@@ -12,4 +12,9 @@ $data1 = [
         ["Descripción" => "Energía Compresor",  "Valor unitario" =>  "50", "Unidad" => "$/kWh", "Potencia" => "400",    "Horas por día" => "8",               "Días por mes" => "20"],
         ["Descripción" => "Energía Iluminación","Valor unitario" =>  "50", "Unidad" => "$/kWh", "Potencia" => "2200",   "Horas por día" => "16",              "Días por mes" => "20"]
     ]; 
+    $data3 = [ 
+        ["Descripción" => "Bolsas",    "Valor unitario" =>  "2800", "Unidad" => "$/M2", "Superficie" => "500"],
+        ["Descripción" => "Galpon 1",    "Valor unitario" =>  "2800", "Unidad" => "$/M2", "Superficie" => "100"],
+        ["Descripción" => "Galpon 2",    "Valor unitario" =>  "2800", "Unidad" => "$/M2", "Superficie" => "100"]
+    ];
 ?>
