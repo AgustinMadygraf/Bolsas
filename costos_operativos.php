@@ -73,13 +73,13 @@ function obtenerDatosCosto($conexion) {
 <h1>Costos - Año 2023 valores actualizados a diciembre 2023</h1>
 <?php
 $datosCostos = [
-    ["Descripción" => "Retiro asociados", "Valor" => "32663849.61"],
-    ["Descripción" => "Papel", "Valor" => "12823457.58"],
-    ["Descripción" => "Adhesivo", "Valor" => "5351180.14"],
-    ["Descripción" => "Cuerda Retoricida", "Valor" => "4484009.74"], 
-    ["Descripción" => "PUBLICIDAD (BURAKKO)", "Valor" => "3184287.97"],
-    ["Descripción" => "Corte de bobinas", "Valor" => "864647.92"], 
-    ["Descripción" => "ENERGÍA", "Valor" => "196791.33"]
+    ["Descripción" => "Retiro asociados",       "Valor" => "32663849.61"],
+    ["Descripción" => "Papel",                  "Valor" => "12823457.58"],
+    ["Descripción" => "Adhesivo",               "Valor" => "5351180.14"],
+    ["Descripción" => "Cuerda Retoricida",      "Valor" => "4484009.74"], 
+    ["Descripción" => "PUBLICIDAD (BURAKKO)",   "Valor" => "3184287.97"],
+    ["Descripción" => "Corte de bobinas",       "Valor" => "864647.92"], 
+    ["Descripción" => "ENERGÍA",                "Valor" => "196791.33"]
 ];
 
 // Calcular el total
