@@ -15,7 +15,7 @@ echo "<li><a href='/Bolsas/costos_operativos.php' ".($paginaActual == 'Bolsas/co
 echo "<li><a href='/Bolsas/ventas.php' ".($paginaActual == 'Bolsas/ventas.php' ? $claseActiva : "").">Ventas</a></li>";
 echo "<li><a href='/Bolsas/stock.php' ".($paginaActual == 'Bolsas/stock.php' ? $claseActiva : "").">Stock</a></li>";
 echo "<li><a href='/Bolsas/lista_precios.php' ".($paginaActual == 'Bolsas/lista_precios.php' ? $claseActiva : "").">Lista Precios</a></li>";
-echo "<li><a href='/Bolsas/presupuesto.php' ".($paginaActual == 'Bolsas/presupuesto.php' ? $claseActiva : "").">Presupuesto</a></li>";
+echo "<li><a href='/Bolsas/presupuesto.php?peso=' ".($paginaActual == 'Bolsas/presupuesto.php?peso=' ? $claseActiva : "").">Presupuesto</a></li>";
 echo "<li><a href='/horas/index.php' ".($paginaActual == '/horas/index.php' ? $claseActiva : "").">Horas</a></li>";
 echo "<li><a href='/DigiRail/index.php' ".($paginaActual == '/DigiRail/index.php' ? $claseActiva : "").">DigiRail</a></li>";
 echo "<li><a href='/phpMyAdmin/' target='_blank'>PHP MyAdmin</a></li>";
