@@ -67,11 +67,6 @@ $resultados = getArraySQL($sql);
         <th>Peso [gr]</th>
         <th>Costo Papel [ARS/Kg]</th>
         <th>Costo_Marginal Papel</th>
-        <th>Costo Desperdicio_Papel</th>
-        <th>Costo Mano_de_obra</th>
-        <th>Costo Adhesivo</th>
-        <th>Costo Energético</th>
-        <th>Gastos Comerciales</th>
         <th>porcentaje papel sobre precio [%]</th>
     </tr>
     <?php
@@ -90,26 +85,21 @@ $resultados = getArraySQL($sql);
         $gastos_comerciales = 0;
         
         echo "<tr>
-                <td>{$resultado['ID_formato']}</td>
-                <td>{$resultado['formato']}</td>
-                <td>{$resultado['color']}</td>
-                <td>{$resultado['gramaje']}</td>
-                <td>{$resultado['cantidad']}</td>
-                <td>{$resultado['precio_u_sIVA']}</td>
-                <td>{$resultado['ancho']}</td>
-                <td>{$resultado['fuelle']}</td>  
-                <td>{$resultado['alto']}</td>    
-                <td>{$ancho_bobina}</td>  
+                <td>{$resultado['ID_formato']}      </td>
+                <td>{$resultado['formato']}         </td>
+                <td>{$resultado['color']}           </td>
+                <td>{$resultado['gramaje']}         </td>
+                <td>{$resultado['cantidad']}        </td>
+                <td>{$resultado['precio_u_sIVA']}   </td>
+                <td>{$resultado['ancho']}           </td>
+                <td>{$resultado['fuelle']}          </td>  
+                <td>{$resultado['alto']}            </td>    
+                <td>{$ancho_bobina}                 </td>  
                 <td>{$desarrollo}</td>  
-                <td>{$peso}</td>      
-                <td>{$costo_papel}</td>
-                <td>{$costo_papel_bolsa} ARS</td>
-                <td> {$costo_malos} ARS</td>
-                <td> {$costo_mano_obra} ARS</td>
-                <td> {$costo_adhesivo} ARS</td>
-                <td> {$costo_energía} ARS</td>
-                <td> {$gastos_comerciales} ARS</td>
-                <td> {$porcentaje}%</td>
+                <td><a href='presupuesto.php?peso=$peso&precio_venta={$resultado['precio_u_sIVA']}&ID_formato={$resultado['formato']}' target='_blank'>{$peso}</a>  </td>      
+                <td>{$costo_papel}                  </td>
+                <td>{$costo_papel_bolsa} ARS        </td>
+                <td> {$porcentaje}%                 </td>
               </tr>";
     }
     ?>
