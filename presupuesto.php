@@ -1,3 +1,4 @@
+<!--DataMaq/presupuestos.php-->
 <?php
 require "includes/header.php";
 
@@ -44,7 +45,9 @@ require "includes/datos.php";
     echo "<h2> Costo Fijo - Superficie</h2>";
     visualizarTabla3($data3);
     echo "<h2> Costo Fijo - Mano de obra</h2>";
-    //visualizarTabla4($data4);
+    visualizarTabla4($data4);
+    
+
 
     function visualizarTabla1($data1) {
         $totalCostoMarginal = 0;
@@ -131,6 +134,40 @@ require "includes/datos.php";
     }
     
 
+    function visualizarTabla4($data4) {
+        // Inicializar la suma total del costo de mano de obra
+        $totalCostoManoObra = 0;
+    
+        if (count($data4) > 0) {
+            echo '<table border="1" class="responsive-table">';
+            // Asegúrate de ajustar los encabezados de las columnas según tus necesidades
+            echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Unidad</th><th>Horas</th><th>Costo Total</th></tr>"; 
+    
+            foreach ($data4 as $row) {
+                // Calcular el costo total como el producto del valor unitario por las horas
+                $costoTotal = floatval($row['Valor unitario']) * floatval($row['Horas']);
+    
+                // Sumar al total general de costo de mano de obra
+                $totalCostoManoObra += $costoTotal;
+    
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row['Descripción']) . "</td>";
+                echo "<td>$" . number_format(floatval($row['Valor unitario']), 2, '.', ',') . "</td>";
+                echo "<td>" . htmlspecialchars($row['Unidad']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['Horas']) . "</td>";
+                // Mostrar el costo total calculado
+                echo "<td>$" . number_format($costoTotal, 2, '.', ',') . "</td>";
+                echo "</tr>";
+            }
+    
+            // Mostrar el total del costo de mano de obra
+            echo "<tr><td colspan='4'>Total</td><td>$" . number_format($totalCostoManoObra, 2, '.', ',') . "</td></tr>";
+            echo "</table>";
+        } else {
+            echo "No se encontraron registros en la tabla.";
+        }
+    }
+    
     
 ?>
 

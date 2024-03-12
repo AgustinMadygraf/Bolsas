@@ -1,4 +1,4 @@
-<!--datos.php-->
+<!--DataMaq/datos.php-->
 <?php
 $data1 = [ 
         ["Descripción" => "Papel marginal",         "Valor unitario" =>  "1026", "Unidad" => "$/kg",    "KPI" => "$peso", "Unidad KPI" => "Kg/bolsa"],
@@ -16,5 +16,11 @@ $data1 = [
         ["Descripción" => "Bolsas",    "Valor unitario" =>  "2800", "Unidad" => "$/M2", "Superficie" => "500"],
         ["Descripción" => "Galpon 1",    "Valor unitario" =>  "2800", "Unidad" => "$/M2", "Superficie" => "100"],
         ["Descripción" => "Galpon 2",    "Valor unitario" =>  "2800", "Unidad" => "$/M2", "Superficie" => "100"]
+    ];
+    $data4 = [ 
+        ["Descripción" => "Coordinación",                   "Valor unitario" =>  "2000", "Unidad" => "$/h", "Horas" => "500"],
+        ["Descripción" => "Confeccion de bolsas",           "Valor unitario" =>  "2000", "Unidad" => "$/h", "Horas" => "100"],
+        ["Descripción" => "Confeccion y pegado de manijas", "Valor unitario" =>  "2000", "Unidad" => "$/h", "Horas" => "100"],
+        ["Descripción" => "Armado de pedidos",              "Valor unitario" =>  "2000", "Unidad" => "$/h", "Horas" => "100"]
     ];
 ?>
