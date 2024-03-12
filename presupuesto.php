@@ -71,6 +71,7 @@ require "includes/datos.php";
         } else {
             echo "No se encontraron registros en la tabla.";
         }
+        return $costoMarginal;
     }
 
     function visualizarTabla2($data2) {
@@ -167,12 +168,20 @@ require "includes/datos.php";
             echo "No se encontraron registros en la tabla.";
         }
     }
-    $datosJson = json_encode([
-        ["Centro de Costo", "Horas"],
-        ["Producción", 1000],
-        ["Administración", 1500],
-        ["Ventas", 500]
-      ]);
+
+$CostoMarginal = visualizarTabla1($data1);
+$CostoMarginal = 20;
+$datosJson = json_encode([
+    ["Concepto", "Costo ($)"],
+    //["Papel", $CostoMarginal],
+    ["Papel", 20],
+    ["Energía", 1],
+    ["Pegamento", 2],
+    ["Mano de obra", 16],
+    ["Margen de contribución", 25]
+]);
+
+    
           include 'includes/chart.php'; 
     
 ?>
