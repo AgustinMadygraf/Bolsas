@@ -167,7 +167,13 @@ require "includes/datos.php";
             echo "No se encontraron registros en la tabla.";
         }
     }
-    
+    $datosJson = json_encode([
+        ["Centro de Costo", "Horas"],
+        ["Producción", 1000],
+        ["Administración", 1500],
+        ["Ventas", 500]
+      ]);
+          include 'includes/chart.php'; 
     
 ?>
 
