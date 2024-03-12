@@ -85,7 +85,7 @@ $resultados = getArraySQL($sql);
         $gastos_comerciales = 0;
         
         echo "<tr>
-                <td>{$resultado['ID_formato']}      </td>
+                <td><a href='presupuesto.php?peso=$peso&precio_venta={$resultado['precio_u_sIVA']}&ID_formato={$resultado['formato']}' target='_blank'>{$resultado['ID_formato']}</a></td>
                 <td>{$resultado['formato']}         </td>
                 <td>{$resultado['color']}           </td>
                 <td>{$resultado['gramaje']}         </td>
@@ -95,8 +95,8 @@ $resultados = getArraySQL($sql);
                 <td>{$resultado['fuelle']}          </td>  
                 <td>{$resultado['alto']}            </td>    
                 <td>{$ancho_bobina}                 </td>  
-                <td>{$desarrollo}</td>  
-                <td><a href='presupuesto.php?peso=$peso&precio_venta={$resultado['precio_u_sIVA']}&ID_formato={$resultado['formato']}' target='_blank'>{$peso}</a>  </td>      
+                <td>{$desarrollo}                   </td>  
+                <td>{$peso}                         </td>      
                 <td>{$costo_papel}                  </td>
                 <td>{$costo_papel_bolsa} ARS        </td>
                 <td> {$porcentaje}%                 </td>
