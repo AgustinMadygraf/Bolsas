@@ -51,6 +51,7 @@ require "includes/datos.php";
 
     function visualizarTabla1($data1) {
         $totalCostoMarginal = 0;
+        
         if (count($data1) > 0) {
             echo '<table border="1" class="responsive-table">';
             echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Unidad</th><th>KPI</th><th>Unidad KPI</th><th>Costo Marginal</th></tr>";
@@ -71,7 +72,10 @@ require "includes/datos.php";
         } else {
             echo "No se encontraron registros en la tabla.";
         }
-        return $costoMarginal;
+        $papel = $data1[0];
+        $CostoMarginalPapel = floatval($papel['Valor unitario']) * floatval($row['KPI']);
+        echo "<br><br><br>Costo Marginal papel: {$CostoMarginalPapel}<br><br><br><br>";
+        return $CostoMarginalPapel;
     }
 
     function visualizarTabla2($data2) {
@@ -112,16 +116,12 @@ require "includes/datos.php";
             foreach ($data3 as $row) {
                 // Calcular el costo mensual como el producto del valor unitario por la superficie
                 $costoMensual = floatval($row['Valor unitario']) * floatval($row['Superficie']);
-    
-                // Sumar al total del costo
                 $totalCostoEspacio += $costoMensual;
-    
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['Descripción']) . "</td>";
                 echo "<td>$" . number_format(floatval($row['Valor unitario']), 2, '.', ',') . "</td>";
                 echo "<td>" . htmlspecialchars($row['Unidad']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['Superficie']) . "</td>";
-                // Mostrar el costo mensual calculado
                 echo "<td>$" . number_format($costoMensual, 2, '.', ',') . "</td>";
                 echo "</tr>";
             }
@@ -156,11 +156,9 @@ require "includes/datos.php";
                 echo "<td>$" . number_format(floatval($row['Valor unitario']), 2, '.', ',') . "</td>";
                 echo "<td>" . htmlspecialchars($row['Unidad']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['Horas']) . "</td>";
-                // Mostrar el costo total calculado
                 echo "<td>$" . number_format($costoTotal, 2, '.', ',') . "</td>";
                 echo "</tr>";
             }
-    
             // Mostrar el total del costo de mano de obra
             echo "<tr><td colspan='4'>Total</td><td>$" . number_format($totalCostoManoObra, 2, '.', ',') . "</td></tr>";
             echo "</table>";
@@ -169,12 +167,10 @@ require "includes/datos.php";
         }
     }
 
-$CostoMarginal = visualizarTabla1($data1);
-$CostoMarginal = 20;
+$CostoMarginalPapel = visualizarTabla1($data1);
 $datosJson = json_encode([
     ["Concepto", "Costo ($)"],
-    //["Papel", $CostoMarginal],
-    ["Papel", 20],
+    ["Papel", $CostoMarginalPapel],
     ["Energía", 1],
     ["Pegamento", 2],
     ["Mano de obra", 16],
