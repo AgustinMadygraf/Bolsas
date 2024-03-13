@@ -3,22 +3,14 @@
 require "includes/header.php";
 
 if(isset($_GET['peso']) && !empty($_GET['peso'])) {
-    // Sanitiza el valor para asegurarse de que es un número
-    // Por ejemplo, si esperas un valor numérico, puedes hacerlo así:
     $peso = filter_var($_GET['peso'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $peso = $peso/1000;
+    $precio_venta = filter_var($_GET['precio_venta'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $peso = $peso/1000;  
 
-    // Ahora puedes usar la variable $peso en tu script
-    // Por ejemplo, si necesitas pasarlo a otro script o usarlo en una función
     require "includes/datos.php"; // Suponiendo que en este archivo necesitas usar $peso
-
-    // Código adicional que hace uso de $peso
-
 } else {
     $peso = "0.042";
     echo "Parámetro 'peso' no especificado. por defecto peso = $peso gramos";
-    
-
 }
 
 
@@ -38,8 +30,8 @@ require "includes/datos.php";
 <h1>Presupuestos</h1>
 
 <?php
-    echo "<h2>Costo Marginal</h2>";
-    visualizarTabla1($data1);
+    echo "<h2>Costos Variable</h2>";
+    visualizarTabla1($data1,$precio_venta);
     echo "<h2>Costo fijo - Electrico</h2>";
     visualizarTabla2($data2);
     echo "<h2> Costo Fijo - Superficie</h2>";
@@ -49,7 +41,7 @@ require "includes/datos.php";
     
 
 
-    function visualizarTabla1($data1) {
+    function visualizarTabla1($data1,$precio_venta) {
         $totalCostoMarginal = 0;
         
         if (count($data1) > 0) {
@@ -67,7 +59,12 @@ require "includes/datos.php";
                 echo "<td>$" . number_format($costoMarginal, 2, '.', ',') . "</td>";
                 echo "</tr>";
             }
-            echo "<tr><td colspan='5'>Total</td><td>$".number_format($totalCostoMarginal, 2, '.', ',')."</td></tr>";
+            echo "<tr><td colspan='5'><strong>Total Costo Variable      </strong></td><td><strong>$".number_format($totalCostoMarginal, 2, '.', ',')."</td></strong></tr>";
+            $MgCont =$precioVenta-$totalCostoMarginal;
+ 
+
+            echo "<tr><td colspan='5'><strong>Precio de venta           </strong></td><td>$" . number_format($precio_venta, 2, '.', ',') . "</td></tr>";
+            echo "<tr><td colspan='5'><strong>Margen de contribución    </strong></td><td>$".number_format($MgCont, 2, '.', ',')."</td></tr>";
             echo "</table>";
         } else {
             echo "No se encontraron registros en la tabla.";
