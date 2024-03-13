@@ -31,8 +31,7 @@ require "includes/datos.php";
 
 <?php
     echo "<h2>Costos Variable</h2>";
-    $CostoVariablePapel = visualizarTabla1($data1,$precio_venta);
-    $CostoVariableEnergia = visualizarTabla1($data1,$precio_venta);
+    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont) = visualizarTabla1($data1,$precio_venta);
     echo "<h2>Costo fijo - Electrico</h2>";
     visualizarTabla2($data2);
     echo "<h2> Costo Fijo - Superficie</h2>";
@@ -71,9 +70,11 @@ require "includes/datos.php";
             echo "No se encontraron registros en la tabla.";
         }
         $CostoVariablePapel = floatval($data1[0]['Valor unitario']) * floatval($data1[0]['KPI']);
-        $CostoVariableEnergia = floatval($data1[1]['Valor unitario']) * floatval($data1[1]['KPI']);
-        return $CostoVariablePapel;
-        return $CostoVariableEnergia;
+        $CostoVariableManoObra = floatval($data1[1]['Valor unitario']) * floatval($data1[1]['KPI']);
+        $CostoVariableEnergia = floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']);
+        $CostoVariableGluer = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
+        return array($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont);
+
     }
 
     function visualizarTabla2($data2) {
@@ -169,9 +170,9 @@ $datosJson = json_encode([
     ["Concepto", "Costo ($)"],
     ["Papel", $CostoVariablePapel],
     ["Energía", $CostoVariableEnergia],
-    ["Pegamento", 2],
-    ["Mano de obra", 16],
-    ["Margen de contribución", 25]
+    ["Pegamento", $CostoVariableGluer],
+    ["Mano de obra", $CostoVariableManoObra],
+    ["Margen de contribución", $MgCont]
 ]);
 
     
