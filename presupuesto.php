@@ -73,8 +73,7 @@ require "includes/datos.php";
             echo "No se encontraron registros en la tabla.";
         }
         $papel = $data1[0];
-        $CostoMarginalPapel = floatval($papel['Valor unitario']) * floatval($row['KPI']);
-        echo "<br><br><br>Costo Marginal papel: {$CostoMarginalPapel}<br><br><br><br>";
+        $CostoMarginalPapel = floatval($papel['Valor unitario']) * floatval($papel['KPI']);
         return $CostoMarginalPapel;
     }
 
