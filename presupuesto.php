@@ -27,29 +27,34 @@ require "includes/datos.php";
 </head>
 <body>
 <h1>Presupuesto - Formato bolsa: <?php echo $formato; ?></h1>
-
 <form action="presupuesto.php" method="GET">
     <label for="vel1"> Velocidad de la máquina:</label>
     <select name="vel">
-        <option value="40">40</option>
-        <option value="60">60</option>
-        <option value="80">80</option>
-        <option value="100">100</option>
+        <?php
+        $velocidades = [40, 60, 80, 100]; // Definir las velocidades disponibles
+        foreach ($velocidades as $velocidad) {
+            // Si $vel coincide con la velocidad actual, marcarla como seleccionada
+            echo '<option value="'.$velocidad.'"'.($vel == $velocidad ? ' selected' : '').'>'.$velocidad.'</option>';
+        }
+        ?>
     </select>
     <label for="vel2"> [bolsas por minuto]:</label>
+    
     <input type="hidden" name="peso" value="<?php echo $peso*1000; ?>">
     <input type="hidden" name="precio_venta" value="<?php echo $precio_venta; ?>">
     <input type="hidden" name="formato" value="<?php echo $formato; ?>">
-    <label for = "Trabajadores" ><br>Trabajadores </label>
+    <label for="Trabajadores"><br>Trabajadores: </label>
     <select name="Trabajadores">
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="8">8</option>
+        <?php
+        $opcionesTrabajadores = [4, 5, 6, 8]; // Definir las opciones de trabajadores disponibles
+        foreach ($opcionesTrabajadores as $opcion) {
+            // Si $Trabajadores coincide con la opción actual, marcarla como seleccionada
+            echo '<option value="'.$opcion.'"'.($Trabajadores == $opcion ? ' selected' : '').'>'.$opcion.'</option>';
+        }
+        ?>
     </select>
     <br>
     <input type="submit" value="Actualizar">
-
 </form>
 
 <?php
@@ -64,6 +69,10 @@ require "includes/datos.php";
         ["Margen de contribución", $MgCont]
     ]);
     include 'includes/chart.php'; 
+
+    echo "<h1>Margen de contribución por hora:$";
+    echo number_format($MgCont*($vel*60), 2, '.', ',');
+    echo "</h1>";
 
     echo "<h2>Costo fijo </h2>";
     //visualizarTabla0($data0);
