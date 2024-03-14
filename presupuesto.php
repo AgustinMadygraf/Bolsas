@@ -8,6 +8,7 @@ if(isset($_GET['peso']) && !empty($_GET['peso'])) {
     $formato        = filter_var($_GET['formato'        ], FILTER_SANITIZE_STRING);
     $vel            = filter_var($_GET['vel'            ], FILTER_SANITIZE_NUMBER_INT);
     $Trabajadores   = filter_var($_GET['Trabajadores'   ], FILTER_SANITIZE_NUMBER_INT);
+    $ComVent        = filter_var($_GET['ComVent'        ], FILTER_SANITIZE_NUMBER_INT);
     $peso = $peso/1000;  
 
     require "includes/datos.php"; // Suponiendo que en este archivo necesitas usar $peso
@@ -27,6 +28,7 @@ require "includes/datos.php";
 </head>
 <body>
 <h1>Presupuesto - Formato bolsa: <?php echo $formato; ?></h1>
+<?php echo "<br>Costo de Ventas: $ComVent %<br> ";?>
 <form action="presupuesto.php" method="GET">
     <label for="vel1"> Velocidad de la máquina:</label>
     <select name="vel">
@@ -54,11 +56,25 @@ require "includes/datos.php";
         ?>
     </select>
     <br>
+    <label for="Costo de venta"> Costo de venta: </label>
+    <select name="ComVent">
+    <?php
+    $opcionesComVent = [0, 5, 10, 15, 20]; // Definir las opciones de comisión de venta disponibles
+    foreach ($opcionesComVent as $opcion) {
+        // Si $ComVent coincide con la opción actual, marcarla como seleccionada
+        echo '<option value="'.$opcion.'"'.($ComVent == $opcion ? ' selected' : '').'>'.$opcion.'%</option>';
+    }
+    ?>
+</select>
+
+    <br><br>
     <input type="submit" value="Actualizar">
 </form>
 
 <?php
-    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont) = visualizarTabla1($data1,$precio_venta);
+    echo "<h2>Costos Variables</h2>";
+
+    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont) = VerTablaCostosVariables($data1,$precio_venta,$ComVent);
     $datosJson = json_encode([
         ["Concepto", "Costo ($)"],
         ["Papel", $CostoVariablePapel],
@@ -66,16 +82,20 @@ require "includes/datos.php";
         ["Pegamento", $CostoVariableGluer],
         ["Mano de obra", $CostoVariableManoObra],
         ["Margen de contribución", $MgCont]
-    ]);
-    echo "<h2>Costos Variable</h2>";
+    ]);    
+    echo "<h3>Margen de contribución por hora:$";
+    echo number_format($MgCont*($vel*60), 2, '.', ',');
+    echo "</h3>";
+    echo "Cantidad de horas para cubrir los costos fijos: ";
+    echo number_format($totalCostoFijo/($MgCont*($vel*60)), 2, '.', ',');
+    echo "<br>";
+
 
     include 'includes/chart.php'; 
 
-    echo "<h1>Margen de contribución por hora:$";
-    echo number_format($MgCont*($vel*60), 2, '.', ',');
-    echo "</h1>";
 
-    echo "<h2>Costo fijo </h2>";
+
+    echo "<h2>Costos fijo </h2>";
     //visualizarTabla0($data0);
 
     echo "<h3>Costo fijo - Electrico</h3>";
@@ -87,12 +107,12 @@ require "includes/datos.php";
     
 
 
-    function visualizarTabla1($data1,$precio_venta) {
+    function VerTablaCostosVariables($data1,$precio_venta,$ComVent) {
         $totalCostoMarginal = 0;
         
         if (count($data1) > 0) {
             echo '<table border="1" class="responsive-table">';
-            echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Fecha</th><th>Unidad</th><th>KPI</th><th>Unidad KPI</th><th>Costo Marginal</th></tr>";
+            echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Fecha</th><th>Unidad</th><th>KPI</th><th>Unidad KPI</th><th>Costo Variable</th></tr>";
             foreach ($data1 as $row) {
                 $costoMarginal = floatval($row['Valor unitario']) * floatval($row['KPI']);
                 $totalCostoMarginal += $costoMarginal; 
@@ -106,6 +126,8 @@ require "includes/datos.php";
                 echo "<td>$" . number_format($costoMarginal, 2, '.', ',') . "</td>";
                 echo "</tr>";
             }
+            $CostoVenta = $precio_venta * ($ComVent/100);
+            echo "<tr><td>Costo de Ventas </td><td> $ComVent %</td><td colspan='4'></td><td>$$CostoVenta</td></tr>";
             echo "<tr><td colspan='6'><strong>Total Costo Variable      </strong></td><td><strong>$".number_format($totalCostoMarginal, 2, '.', ',')."</td></strong></tr>";
             $MgCont =$precio_venta-$totalCostoMarginal;
  
