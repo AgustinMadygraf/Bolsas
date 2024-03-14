@@ -45,6 +45,8 @@ require "includes/datos.php";
     ]);
     include 'includes/chart.php'; 
 
+    echo "<h2>Costo fijo </h2>";
+    //visualizarTabla0($data0);
 
     echo "<h2>Costo fijo - Electrico</h2>";
     visualizarTabla2($data2);
