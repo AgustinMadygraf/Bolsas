@@ -1,10 +1,13 @@
 <!--DataMaq/datos.php-->
 <?php
+
+$KPI_ManoObra = $Trabajadores /($vel * 60);
+//$KPI_ManoObra = 0.00833;
 $data1 = [ 
-        ["Descripción" => "Papel",         "Valor unitario" =>  "1026", "Unidad" => "$/kg",    "KPI" => "$peso", "Unidad KPI" => "Kg/bolsa"],
-        ["Descripción" => "Mano de obra",  "Valor unitario" =>  "2000", "Unidad" => "$/hora",  "KPI" => "0.00833","Unidad KPI" => "horas/bolsa"],
-        ["Descripción" => "Energía",       "Valor unitario" =>    "50", "Unidad" => "$/kWh",   "KPI" => "0.0012", "Unidad KPI" => "kWh/bolsa"],
-        ["Descripción" => "Gluer",         "Valor unitario" =>     "0", "Unidad" => "$/kg",    "KPI" => "0",      "Unidad KPI" => "kg/bolsa"]
+["Descripción" => "Papel",                      "Valor unitario" =>  "1026", "Unidad" => "$/kg",    "KPI" => "$peso",           "Unidad KPI" => "Kg/bolsa"  ],
+["Descripción" => "Mano de obra ($Trabajadores personas)",  "Valor unitario" =>  "2000", "Unidad" => "$/hora",  "KPI" => "$KPI_ManoObra",   "Unidad KPI" => "horas/bolsa"],
+["Descripción" => "Energía",                    "Valor unitario" =>    "50", "Unidad" => "$/kWh",   "KPI" => "0.0012",          "Unidad KPI" => "kWh/bolsa" ],
+["Descripción" => "Gluer",                      "Valor unitario" =>     "0", "Unidad" => "$/kg",    "KPI" => "0",               "Unidad KPI" => "kg/bolsa"  ]
     ];   
 
     $data2 = [ 

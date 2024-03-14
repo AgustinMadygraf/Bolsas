@@ -85,7 +85,7 @@ $resultados = getArraySQL($sql);
         $gastos_comerciales = 0;
         
         echo "<tr>
-                <td><a href='presupuesto.php?peso=$peso&precio_venta={$resultado['precio_u_sIVA']}&formato={$resultado['formato']}' target='_blank'>{$resultado['ID_formato']}</a></td>
+                <td><a href='presupuesto.php?&vel=40peso=$peso&precio_venta={$resultado['precio_u_sIVA']}&formato={$resultado['formato']}' target='_blank'>{$resultado['ID_formato']}</a></td>
                 <td>{$resultado['formato']}         </td>
                 <td>{$resultado['color']}           </td>
                 <td>{$resultado['gramaje']}         </td>

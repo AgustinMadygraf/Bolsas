@@ -3,9 +3,11 @@
 require "includes/header.php";
 
 if(isset($_GET['peso']) && !empty($_GET['peso'])) {
-    $peso = filter_var($_GET['peso'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $precio_venta = filter_var($_GET['precio_venta'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $formato = filter_var($_GET['formato'], FILTER_SANITIZE_STRING);
+    $peso           = filter_var($_GET['peso'           ], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $precio_venta   = filter_var($_GET['precio_venta'   ], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $formato        = filter_var($_GET['formato'        ], FILTER_SANITIZE_STRING);
+    $vel            = filter_var($_GET['vel'            ], FILTER_SANITIZE_NUMBER_INT);
+    $Trabajadores   = filter_var($_GET['Trabajadores'   ], FILTER_SANITIZE_NUMBER_INT);
     $peso = $peso/1000;  
 
     require "includes/datos.php"; // Suponiendo que en este archivo necesitas usar $peso
@@ -13,11 +15,7 @@ if(isset($_GET['peso']) && !empty($_GET['peso'])) {
     $peso = "0.042";
     echo "Parámetro 'peso' no especificado. por defecto peso = $peso gramos";
 }
-
-
-
 require "includes/datos.php";
-
 ?>
 
 <!DOCTYPE html>
@@ -28,9 +26,31 @@ require "includes/datos.php";
     <link rel="stylesheet" href="CSS/style.css"> 
 </head>
 <body>
-<h1>Presupuesto </h1>
-<br>
-<h2>Formato bolsa: <?php echo $formato; ?></h2>
+<h1>Presupuesto - Formato bolsa: <?php echo $formato; ?></h1>
+
+<form action="presupuesto.php" method="GET">
+    <label for="vel1"> Velocidad de la máquina:</label>
+    <select name="vel">
+        <option value="40">40</option>
+        <option value="60">60</option>
+        <option value="80">80</option>
+        <option value="100">100</option>
+    </select>
+    <label for="vel2"> [bolsas por minuto]:</label>
+    <input type="hidden" name="peso" value="<?php echo $peso*1000; ?>">
+    <input type="hidden" name="precio_venta" value="<?php echo $precio_venta; ?>">
+    <input type="hidden" name="formato" value="<?php echo $formato; ?>">
+    <label for = "Trabajadores" ><br>Trabajadores </label>
+    <select name="Trabajadores">
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="8">8</option>
+    </select>
+    <br>
+    <input type="submit" value="Actualizar">
+
+</form>
 
 <?php
     echo "<h2>Costos Variable</h2>";
@@ -48,11 +68,11 @@ require "includes/datos.php";
     echo "<h2>Costo fijo </h2>";
     //visualizarTabla0($data0);
 
-    echo "<h2>Costo fijo - Electrico</h2>";
+    echo "<h3>Costo fijo - Electrico</h3>";
     visualizarTabla2($data2);
-    echo "<h2> Costo Fijo - Superficie</h2>";
+    echo "<h3> Costo Fijo - Superficie</h3>";
     visualizarTabla3($data3);
-    echo "<h2> Costo Fijo - Mano de obra</h2>";
+    echo "<h3> Costo Fijo - Mano de obra</h3>";
     visualizarTabla4($data4);
     
 
@@ -62,25 +82,26 @@ require "includes/datos.php";
         
         if (count($data1) > 0) {
             echo '<table border="1" class="responsive-table">';
-            echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Unidad</th><th>KPI</th><th>Unidad KPI</th><th>Costo Marginal</th></tr>";
+            echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Fecha</th><th>Unidad</th><th>KPI</th><th>Unidad KPI</th><th>Costo Marginal</th></tr>";
             foreach ($data1 as $row) {
                 $costoMarginal = floatval($row['Valor unitario']) * floatval($row['KPI']);
                 $totalCostoMarginal += $costoMarginal; 
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['Descripción']) . "</td>";
                 echo "<td>$" . number_format(floatval($row['Valor unitario']), 2, '.', ',') . "</td>"; 
+                echo "<td></td>"; 
                 echo "<td>" . htmlspecialchars($row['Unidad']) . "</td>"; 
                 echo "<td>" . htmlspecialchars($row['KPI']) . "</td>"; 
                 echo "<td>" . htmlspecialchars($row['Unidad KPI']) . "</td>";
                 echo "<td>$" . number_format($costoMarginal, 2, '.', ',') . "</td>";
                 echo "</tr>";
             }
-            echo "<tr><td colspan='5'><strong>Total Costo Variable      </strong></td><td><strong>$".number_format($totalCostoMarginal, 2, '.', ',')."</td></strong></tr>";
+            echo "<tr><td colspan='6'><strong>Total Costo Variable      </strong></td><td><strong>$".number_format($totalCostoMarginal, 2, '.', ',')."</td></strong></tr>";
             $MgCont =$precio_venta-$totalCostoMarginal;
  
 
-            echo "<tr><td colspan='5'><strong>Precio de venta           </strong></td><td>$" . number_format($precio_venta, 2, '.', ',') . "</td></tr>";
-            echo "<tr><td colspan='5'><strong>Margen de contribución    </strong></td><td>$".number_format($MgCont, 2, '.', ',')."</td></tr>";
+            echo "<tr><td colspan='6'><strong>Precio de venta           </strong></td><td>$" . number_format($precio_venta, 2, '.', ',') . "</td></tr>";
+            echo "<tr><td colspan='6'><strong>Margen de contribución    </strong></td><td>$".number_format($MgCont, 2, '.', ',')."</td></tr>";
             echo "</table>";
         } else {
             echo "No se encontraron registros en la tabla.";
