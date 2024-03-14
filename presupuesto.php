@@ -5,6 +5,7 @@ require "includes/header.php";
 if(isset($_GET['peso']) && !empty($_GET['peso'])) {
     $peso = filter_var($_GET['peso'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $precio_venta = filter_var($_GET['precio_venta'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $formato = filter_var($_GET['formato'], FILTER_SANITIZE_STRING);
     $peso = $peso/1000;  
 
     require "includes/datos.php"; // Suponiendo que en este archivo necesitas usar $peso
@@ -27,11 +28,24 @@ require "includes/datos.php";
     <link rel="stylesheet" href="CSS/style.css"> 
 </head>
 <body>
-<h1>Presupuestos</h1>
+<h1>Presupuesto </h1>
+<br>
+<h2>Formato bolsa: <?php echo $formato; ?></h2>
 
 <?php
     echo "<h2>Costos Variable</h2>";
     list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont) = visualizarTabla1($data1,$precio_venta);
+    $datosJson = json_encode([
+        ["Concepto", "Costo ($)"],
+        ["Papel", $CostoVariablePapel],
+        ["Energía", $CostoVariableEnergia],
+        ["Pegamento", $CostoVariableGluer],
+        ["Mano de obra", $CostoVariableManoObra],
+        ["Margen de contribución", $MgCont]
+    ]);
+    include 'includes/chart.php'; 
+
+
     echo "<h2>Costo fijo - Electrico</h2>";
     visualizarTabla2($data2);
     echo "<h2> Costo Fijo - Superficie</h2>";
@@ -71,7 +85,7 @@ require "includes/datos.php";
         }
         $CostoVariablePapel = floatval($data1[0]['Valor unitario']) * floatval($data1[0]['KPI']);
         $CostoVariableManoObra = floatval($data1[1]['Valor unitario']) * floatval($data1[1]['KPI']);
-        $CostoVariableEnergia = floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']);
+        $CostoVariableEnergia = 10*floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']);
         $CostoVariableGluer = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
         return array($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont);
 
@@ -166,17 +180,9 @@ require "includes/datos.php";
         }
     }
 
-$datosJson = json_encode([
-    ["Concepto", "Costo ($)"],
-    ["Papel", $CostoVariablePapel],
-    ["Energía", $CostoVariableEnergia],
-    ["Pegamento", $CostoVariableGluer],
-    ["Mano de obra", $CostoVariableManoObra],
-    ["Margen de contribución", $MgCont]
-]);
+
 
     
-          include 'includes/chart.php'; 
     
 ?>
 
