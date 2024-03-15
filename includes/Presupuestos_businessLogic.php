@@ -18,4 +18,27 @@ function getPresupuestoData(&$peso, &$precio_venta, &$formato, &$vel, &$Trabajad
     $Trabajadores = filter_var($_GET['Trabajadores'] ?? 4, FILTER_SANITIZE_NUMBER_INT);
     $ComVent = filter_var($_GET['ComVent'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
 }
+
+function calcularCostosVariables($data1, $precio_venta, $ComVent) {
+    $totalCostoMarginal = 0;
+    $costoVariables = [];
+
+    foreach ($data1 as $row) {
+        $costoMarginal = floatval($row['Valor unitario']) * floatval($row['KPI']);
+        $totalCostoMarginal += $costoMarginal;
+    }
+
+    $CostoVenta = $precio_venta * ($ComVent / 100);
+    $totalCostoVariable = $totalCostoMarginal + $CostoVenta;
+    $MgCont = $precio_venta - $totalCostoVariable;
+
+    $costoVariables['Papel'] = floatval($data1[0]['Valor unitario']) * floatval($data1[0]['KPI']);
+    $costoVariables['ManoObra'] = floatval($data1[1]['Valor unitario']) * floatval($data1[1]['KPI']);
+    $costoVariables['Energia'] = floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']);
+    $costoVariables['Gluer'] = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
+    $costoVariables['MargenContribucion'] = $MgCont;
+
+    return $costoVariables;
+}
+
 ?>
