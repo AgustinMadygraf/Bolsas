@@ -71,7 +71,7 @@ require "includes/datos.php";
         ["Costo de Ventas", $CostoVenta],
         ["Margen de contribución", $MgCont]
     ]);    
-    echo "<h3>Margen de contribución por hora:$";
+    echo "<h3>Margen de contribución por hora: $";
     echo number_format($MgCont*($vel*60), 2, '.', ',');
     echo "</h3>";
     echo "Cantidad de horas para cubrir los costos fijos: ";
@@ -140,7 +140,7 @@ require "includes/datos.php";
                 echo "<td>$" . number_format($costoFijoMensual, 2, '.', ',') . "</td>";
                 echo "</tr>";
             }
-            echo "<tr><td colspan='6'>Total</td><td>$".number_format($totalCostoFijo, 2, '.', ',')."</td></tr>";
+            echo "<tr><td colspan='6'>SubTotal</td><td>$".number_format($totalCostoFijo, 2, '.', ',')."</td></tr>";
             echo "</table>";
         } else {
             echo "No se encontraron registros en la tabla.";
@@ -167,7 +167,7 @@ require "includes/datos.php";
                 echo "</tr>";
             }
             // Mostrar el total del costo fijo mensual
-            echo "<tr><td colspan='4'>Total</td><td>$" . number_format($totalCostoEspacio, 2, '.', ',') . "</td></tr>";
+            echo "<tr><td colspan='4'>SubTotal</td><td>$" . number_format($totalCostoEspacio, 2, '.', ',') . "</td></tr>";
             echo "</table>";
         } else {
             echo "No se encontraron registros en la tabla.";
@@ -195,7 +195,7 @@ require "includes/datos.php";
                 echo "</tr>";
             }
             // Mostrar el total del costo de mano de obra
-            echo "<tr><td colspan='4'>Total</td><td>$" . number_format($totalCostoManoObra, 2, '.', ',') . "</td></tr>";
+            echo "<tr><td colspan='4'>Sub Total</td><td>$" . number_format($totalCostoManoObra, 2, '.', ',') . "</td></tr>";
             echo "</table>";
         } else {
             echo "No se encontraron registros en la tabla.";
