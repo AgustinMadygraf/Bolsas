@@ -2,20 +2,29 @@
 <?php
 require "includes/header.php";
 
-if(isset($_GET['peso']) && !empty($_GET['peso'])) {
-    $peso           = filter_var($_GET['peso'           ], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $precio_venta   = filter_var($_GET['precio_venta'   ], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $formato        = filter_var($_GET['formato'        ], FILTER_SANITIZE_STRING);
-    $vel            = filter_var($_GET['vel'            ], FILTER_SANITIZE_NUMBER_INT);
-    $Trabajadores   = filter_var($_GET['Trabajadores'   ], FILTER_SANITIZE_NUMBER_INT);
-    $ComVent        = filter_var($_GET['ComVent'        ], FILTER_SANITIZE_NUMBER_INT);
-    $peso = $peso/1000;  
+// Define una función para validar y sanitizar valores numéricos con precisión decimal
+function sanitizeAndValidateFloat($value, $default = 0, $scale = 2) {
+    // Filtra el valor usando FILTER_SANITIZE_NUMBER_FLOAT para eliminar caracteres no deseados
+    $filteredValue = filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-    require "includes/datos.php"; // Suponiendo que en este archivo necesitas usar $peso
-} else {
-    $peso = "0.042";
-    echo "Parámetro 'peso' no especificado. por defecto peso = $peso gramos";
+    // Verifica si el valor filtrado es numérico y retorna un valor formateado a la escala deseada
+    if (is_numeric($filteredValue)) {
+        return round((float)$filteredValue, $scale);
+    }
+
+    // Si el valor filtrado no es numérico, retorna un valor predeterminado
+    return $default;
 }
+
+// Aplicando la función a las entradas GET
+$peso = isset($_GET['peso']) ? sanitizeAndValidateFloat($_GET['peso'], 0.042, 3) : 0.042; // Asume un valor predeterminado de 0.042 si no está definido
+$peso = $peso / 1000; // Convertir a una unidad deseada si es necesario
+$precio_venta = isset($_GET['precio_venta']) ? sanitizeAndValidateFloat($_GET['precio_venta'], 0, 2) : 0;
+$formato = filter_var($_GET['formato'] ?? '', FILTER_SANITIZE_STRING);
+$vel = filter_var($_GET['vel'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
+$Trabajadores = filter_var($_GET['Trabajadores'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
+$ComVent = filter_var($_GET['ComVent'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
+
 require "includes/datos.php";
 ?>
 
