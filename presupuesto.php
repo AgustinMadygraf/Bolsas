@@ -98,27 +98,16 @@ require "includes/datos.php";
     echo "Cantidad de horas para cubrir los costos fijos: ";
     echo number_format($totalCostoFijo/($MgCont*($vel*60)), 2, '.', ',');
     echo "<br>";
-
-
     include 'includes/chart.php'; 
-
-
-
     echo "<h2>Costos fijo </h2>";
-    //visualizarTabla0($data0);
-
     echo "<h3>Costo fijo - Electrico</h3>";
     visualizarTabla2($data2);
     echo "<h3> Costo Fijo - Superficie</h3>";
     visualizarTabla3($data3);
     echo "<h3> Costo Fijo - Mano de obra</h3>";
     visualizarTabla4($data4);
-    
-
-
     function VerTablaCostosVariables($data1,$precio_venta,$ComVent) {
         $totalCostoMarginal = 0;
-        
         if (count($data1) > 0) {
             echo '<table border="1" class="responsive-table">';
             echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Fecha</th><th>Unidad</th><th>KPI</th><th>Unidad KPI</th><th>Costo Variable</th></tr>";
@@ -139,8 +128,6 @@ require "includes/datos.php";
             echo "<tr><td>Costo de Ventas </td><td> $ComVent %</td><td colspan='4'></td><td>$$CostoVenta</td></tr>";
             echo "<tr><td colspan='6'><strong>Total Costo Variable      </strong></td><td><strong>$".number_format($totalCostoMarginal, 2, '.', ',')."</td></strong></tr>";
             $MgCont =$precio_venta-$totalCostoMarginal;
- 
-
             echo "<tr><td colspan='6'><strong>Precio de venta           </strong></td><td>$" . number_format($precio_venta, 2, '.', ',') . "</td></tr>";
             echo "<tr><td colspan='6'><strong>Margen de contribución    </strong></td><td>$".number_format($MgCont, 2, '.', ',')."</td></tr>";
             echo "</table>";
@@ -152,7 +139,6 @@ require "includes/datos.php";
         $CostoVariableEnergia = 10*floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']); // TUve que multiplicar por diez par que figure en el chart
         $CostoVariableGluer = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
         return array($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont);
-
     }
 
     function visualizarTabla2($data2) {
@@ -181,7 +167,6 @@ require "includes/datos.php";
             echo "No se encontraron registros en la tabla.";
         }
     }
-
     function visualizarTabla3($data3) {
         $totalCostoEspacio = 0; // Inicializar la suma total del costo
     
@@ -202,7 +187,6 @@ require "includes/datos.php";
                 echo "<td>$" . number_format($costoMensual, 2, '.', ',') . "</td>";
                 echo "</tr>";
             }
-    
             // Mostrar el total del costo fijo mensual
             echo "<tr><td colspan='4'>Total</td><td>$" . number_format($totalCostoEspacio, 2, '.', ',') . "</td></tr>";
             echo "</table>";
@@ -210,8 +194,6 @@ require "includes/datos.php";
             echo "No se encontraron registros en la tabla.";
         }
     }
-    
-
     function visualizarTabla4($data4) {
         // Inicializar la suma total del costo de mano de obra
         $totalCostoManoObra = 0;
@@ -220,14 +202,11 @@ require "includes/datos.php";
             echo '<table border="1" class="responsive-table">';
             // Asegúrate de ajustar los encabezados de las columnas según tus necesidades
             echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Unidad</th><th>Horas</th><th>Costo Total</th></tr>"; 
-    
             foreach ($data4 as $row) {
                 // Calcular el costo total como el producto del valor unitario por las horas
                 $costoTotal = floatval($row['Valor unitario']) * floatval($row['Horas']);
-    
                 // Sumar al total general de costo de mano de obra
                 $totalCostoManoObra += $costoTotal;
-    
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['Descripción']) . "</td>";
                 echo "<td>$" . number_format(floatval($row['Valor unitario']), 2, '.', ',') . "</td>";
@@ -242,15 +221,7 @@ require "includes/datos.php";
         } else {
             echo "No se encontraron registros en la tabla.";
         }
-    }
-
-
-
-    
-    
+    }  
 ?>
-
-
-
 </body>
 </html>
