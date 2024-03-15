@@ -1,6 +1,5 @@
 <?php
 // DataMaq/includes/Presupuestos_businessLogic.php
-require_once 'datos.php'; 
 
 
 
