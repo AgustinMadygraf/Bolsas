@@ -78,6 +78,14 @@ require "includes/datos.php";
     echo number_format($totalCostoFijo/($MgCont*($vel*60)), 2, '.', ',');
     echo "<br>";
     include 'includes/chart.php'; 
+
+//visualizar $costoVariables
+    echo "<br>costoVariables:<br>";
+    $costoVariables =  calcularCostosVariables($data1, $precio_venta, $ComVent); //no anda
+    print_r($costoVariables); //no anda
+    echo "<br>";
+    
+
     echo "<h2>Costos fijo </h2>";
     echo "<h3>Costo fijo - Electrico</h3>";
     visualizarTabla2($data2);
