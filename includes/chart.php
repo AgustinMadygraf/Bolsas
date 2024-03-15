@@ -1,4 +1,6 @@
 <!--includes/chart.php-->
+<!--Este archivo se encarga de generar el gráfico circular que muestra el total de horas por centro de costo.-->
+<!-- Se utiliza el aricho  $datosJson -->
 <!DOCTYPE html>
 <html>
 <head>

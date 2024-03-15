@@ -61,13 +61,14 @@ require "includes/datos.php";
 <?php
     echo "<h2>Costos Variables</h2>";
 
-    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont) = VerTablaCostosVariables($data1,$precio_venta,$ComVent);
+    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta) = VerTablaCostosVariables($data1,$precio_venta,$ComVent);
     $datosJson = json_encode([
         ["Concepto", "Costo ($)"],
         ["Papel", $CostoVariablePapel],
         ["Energía", $CostoVariableEnergia],
         ["Pegamento", $CostoVariableGluer],
-        ["Mano de obra", $CostoVariableManoObra],
+        ["Mano de obra", $CostoVariableManoObra], 
+        ["Costo de Ventas", $CostoVenta],
         ["Margen de contribución", $MgCont]
     ]);    
     echo "<h3>Margen de contribución por hora:$";
@@ -116,7 +117,7 @@ require "includes/datos.php";
         $CostoVariableManoObra = floatval($data1[1]['Valor unitario']) * floatval($data1[1]['KPI']);
         $CostoVariableEnergia = 10*floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']); // TUve que multiplicar por diez par que figure en el chart
         $CostoVariableGluer = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
-        return array($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont);
+        return array($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta);
     }
 
     function visualizarTabla2($data2) {
