@@ -1,20 +1,11 @@
 <!--DataMaq/presupuestos.php-->
 <?php
 require "includes/header.php";
+require "includes/Presupuestos_businessLogic.php";
+
 
 // Define una función para validar y sanitizar valores numéricos con precisión decimal
-function sanitizeAndValidateFloat($value, $default = 0, $scale = 2) {
-    // Filtra el valor usando FILTER_SANITIZE_NUMBER_FLOAT para eliminar caracteres no deseados
-    $filteredValue = filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-    // Verifica si el valor filtrado es numérico y retorna un valor formateado a la escala deseada
-    if (is_numeric($filteredValue)) {
-        return round((float)$filteredValue, $scale);
-    }
-
-    // Si el valor filtrado no es numérico, retorna un valor predeterminado
-    return $default;
-}
 
 // Aplicando la función a las entradas GET
 $peso = isset($_GET['peso']) ? sanitizeAndValidateFloat($_GET['peso'], 0.042, 3) : 0.042; // Asume un valor predeterminado de 0.042 si no está definido
