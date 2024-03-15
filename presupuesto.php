@@ -85,13 +85,13 @@ require "includes/datos.php";
     echo "<h3> Costo Fijo - Mano de obra</h3>";
     visualizarTabla4($data4);
     function VerTablaCostosVariables($data1,$precio_venta,$ComVent) {
-        $totalCostoMarginal = 0;
+        $totalCostoVariable = 0;
         if (count($data1) > 0) {
             echo '<table border="1" class="responsive-table">';
             echo "<tr><th>Descripción</th><th>Valor unitario</th><th>Fecha</th><th>Unidad</th><th>KPI</th><th>Unidad KPI</th><th>Costo Variable</th></tr>";
             foreach ($data1 as $row) {
                 $costoMarginal = floatval($row['Valor unitario']) * floatval($row['KPI']);
-                $totalCostoMarginal += $costoMarginal; 
+                $totalCostoVariable += $costoMarginal; 
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['Descripción']) . "</td>";
                 echo "<td>$" . number_format(floatval($row['Valor unitario']), 2, '.', ',') . "</td>"; 
@@ -104,8 +104,8 @@ require "includes/datos.php";
             }
             $CostoVenta = $precio_venta * ($ComVent/100);
             echo "<tr><td>Costo de Ventas </td><td> $ComVent %</td><td colspan='4'></td><td>$$CostoVenta</td></tr>";
-            echo "<tr><td colspan='6'><strong>Total Costo Variable      </strong></td><td><strong>$".number_format($totalCostoMarginal, 2, '.', ',')."</td></strong></tr>";
-            $MgCont =$precio_venta-$totalCostoMarginal;
+            echo "<tr><td colspan='6'><strong>Total Costo Variable      </strong></td><td><strong>$".number_format($totalCostoVariable, 2, '.', ',')."</td></strong></tr>";
+            $MgCont =$precio_venta-$totalCostoVariable-$CostoVenta;
             echo "<tr><td colspan='6'><strong>Precio de venta           </strong></td><td>$" . number_format($precio_venta, 2, '.', ',') . "</td></tr>";
             echo "<tr><td colspan='6'><strong>Margen de contribución    </strong></td><td>$".number_format($MgCont, 2, '.', ',')."</td></tr>";
             echo "</table>";
