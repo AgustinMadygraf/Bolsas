@@ -18,5 +18,4 @@ function getPresupuestoData(&$peso, &$precio_venta, &$formato, &$vel, &$Trabajad
     $Trabajadores = filter_var($_GET['Trabajadores'] ?? 4, FILTER_SANITIZE_NUMBER_INT);
     $ComVent = filter_var($_GET['ComVent'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
 }
-
 ?>

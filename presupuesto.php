@@ -3,18 +3,8 @@
 require "includes/header.php";
 require "includes/Presupuestos_businessLogic.php";
 
-
-// Define una función para validar y sanitizar valores numéricos con precisión decimal
-
-
-// Aplicando la función a las entradas GET
-$peso = isset($_GET['peso']) ? sanitizeAndValidateFloat($_GET['peso'], 0.042, 3) : 0.042; // Asume un valor predeterminado de 0.042 si no está definido
-$peso = $peso / 1000; // Convertir a una unidad deseada si es necesario
-$precio_venta = isset($_GET['precio_venta']) ? sanitizeAndValidateFloat($_GET['precio_venta'], 0, 2) : 0;
-$formato = filter_var($_GET['formato'] ?? '', FILTER_SANITIZE_STRING);
-$vel = filter_var($_GET['vel'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
-$Trabajadores = filter_var($_GET['Trabajadores'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
-$ComVent = filter_var($_GET['ComVent'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
+// Obtener los datos de entrada y procesarlos usando la función importada
+getPresupuestoData($peso, $precio_venta, $formato, $vel, $Trabajadores, $ComVent);
 
 require "includes/datos.php";
 ?>
@@ -27,45 +17,42 @@ require "includes/datos.php";
     <link rel="stylesheet" href="CSS/style.css"> 
 </head>
 <body>
-<h1>Presupuesto - Formato bolsa: <?php echo $formato; ?></h1>
-<?php echo "<br>Costo de Ventas: $ComVent %<br> ";?>
+<h1>Presupuesto - Formato bolsa: <?php echo htmlspecialchars($formato); ?></h1>
+<?php echo "<br>Costo de Ventas: " . htmlspecialchars($ComVent) . "%<br> ";?>
 <form action="presupuesto.php" method="GET">
     <label for="vel1"> Velocidad de la máquina:</label>
     <select name="vel">
         <?php
-        $velocidades = [40, 60, 80, 100]; // Definir las velocidades disponibles
+        $velocidades = [40, 60, 80, 100];
         foreach ($velocidades as $velocidad) {
-            // Si $vel coincide con la velocidad actual, marcarla como seleccionada
-            echo '<option value="'.$velocidad.'"'.($vel == $velocidad ? ' selected' : '').'>'.$velocidad.'</option>';
+            echo '<option value="' . $velocidad . '"' . ($vel == $velocidad ? ' selected' : '') . '>' . $velocidad . '</option>';
         }
         ?>
     </select>
     <label for="vel2"> [bolsas por minuto]:</label>
     
-    <input type="hidden" name="peso" value="<?php echo $peso*1000; ?>">
-    <input type="hidden" name="precio_venta" value="<?php echo $precio_venta; ?>">
-    <input type="hidden" name="formato" value="<?php echo $formato; ?>">
+    <input type="hidden" name="peso" value="<?php echo htmlspecialchars($peso * 1000); ?>">
+    <input type="hidden" name="precio_venta" value="<?php echo htmlspecialchars($precio_venta); ?>">
+    <input type="hidden" name="formato" value="<?php echo htmlspecialchars($formato); ?>">
     <label for="Trabajadores"><br>Trabajadores: </label>
     <select name="Trabajadores">
         <?php
-        $opcionesTrabajadores = [4, 5, 6, 8]; // Definir las opciones de trabajadores disponibles
+        $opcionesTrabajadores = [4, 5, 6, 8];
         foreach ($opcionesTrabajadores as $opcion) {
-            // Si $Trabajadores coincide con la opción actual, marcarla como seleccionada
-            echo '<option value="'.$opcion.'"'.($Trabajadores == $opcion ? ' selected' : '').'>'.$opcion.'</option>';
+            echo '<option value="' . $opcion . '"' . ($Trabajadores == $opcion ? ' selected' : '') . '>' . $opcion . '</option>';
         }
         ?>
     </select>
     <br>
-    <label for="Costo de venta"> Costo de venta: </label>
+    <label for="Costo de venta">Costo de venta:</label>
     <select name="ComVent">
     <?php
-    $opcionesComVent = [0, 5, 10, 15, 20]; // Definir las opciones de comisión de venta disponibles
+    $opcionesComVent = [0, 5, 10, 15, 20];
     foreach ($opcionesComVent as $opcion) {
-        // Si $ComVent coincide con la opción actual, marcarla como seleccionada
-        echo '<option value="'.$opcion.'"'.($ComVent == $opcion ? ' selected' : '').'>'.$opcion.'%</option>';
+        echo '<option value="' . $opcion . '"' . ($ComVent == $opcion ? ' selected' : '') . '>' . $opcion . '%</option>';
     }
     ?>
-</select>
+    </select>
 
     <br><br>
     <input type="submit" value="Actualizar">
