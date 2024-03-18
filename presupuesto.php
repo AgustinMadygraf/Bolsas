@@ -56,7 +56,8 @@ require "includes/datos.php";
 </form>
 <h2>Costos Variables</h2>
 <?php
-    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta) = VerTablaCostosVariables($data1,$precio_venta,$ComVent);
+    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta) = DatosCostosVariables($data1,$precio_venta,$ComVent);
+    VerTablaCostosVariables($data1,$precio_venta,$ComVent);
     $datosJson = json_encode([
         ["Concepto", "Costo ($)"],
         ["Papel", $CostoVariablePapel],

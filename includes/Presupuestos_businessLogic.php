@@ -120,12 +120,21 @@ function VerTablaCostosVariables($data1,$precio_venta,$ComVent) {
     } else {
         echo "No se encontraron registros en la tabla.";
     }
+}
+
+function DatosCostosVariables($data1,$precio_venta,$ComVent) {
+    $totalCostoVariable = 0;
+    $CostoVenta = $precio_venta * ($ComVent/100);
     $CostoVariablePapel = floatval($data1[0]['Valor unitario']) * floatval($data1[0]['KPI']);
     $CostoVariableManoObra = floatval($data1[1]['Valor unitario']) * floatval($data1[1]['KPI']);
     $CostoVariableEnergia = 10*floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']); // TUve que multiplicar por diez par que figure en el chart
     $CostoVariableGluer = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
+    $MgCont =$precio_venta-$totalCostoVariable-$CostoVenta;
     return array($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta);
 }
+
+
+
 
 function visualizarTabla2($data2) {
     $totalCostoFijo = 0;
