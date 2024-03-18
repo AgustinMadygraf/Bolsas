@@ -2,10 +2,7 @@
 <?php
 require "includes/header.php";
 require "includes/Presupuestos_businessLogic.php";
-
-
 getPresupuestoData($peso, $precio_venta, $formato, $vel, $Trabajadores, $ComVent);
-
 require "includes/datos.php";
 ?>
 
@@ -17,7 +14,6 @@ require "includes/datos.php";
     <link rel="stylesheet" href="CSS/style.css"> 
 </head>
 <body>
-
 <?php includeHeader($formato, $ComVent); ?>
 
 <form action="presupuesto.php" method="GET">
@@ -30,7 +26,6 @@ require "includes/datos.php";
         ?>
     </select>
     <label for="vel2"> [bolsas por minuto]:</label>
-    
     <input type="hidden" name="peso" value="<?php echo htmlspecialchars($peso * 1000); ?>">
     <input type="hidden" name="precio_venta" value="<?php echo htmlspecialchars($precio_venta); ?>">
     <input type="hidden" name="formato" value="<?php echo htmlspecialchars($formato); ?>">
@@ -51,17 +46,13 @@ require "includes/datos.php";
     }
     ?>
     </select>
-
     <br><br>
     <input type="submit" value="Actualizar">
 </form>
 <h2>Costos Variables</h2>
 <?php
-    
     includeCostosVariables($data1, $precio_venta, $ComVent);
     includeCostosFijos($data2, $data3, $data4, $vel, $precio_venta, $ComVent);
-
-
 ?>
 </body>
 </html>
