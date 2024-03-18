@@ -67,6 +67,32 @@ function includeHeader($formato, $ComVent) {
     <?php
 }
 
+/**
+ * Incluye la tabla de costos variables en el HTML.
+ *
+ * @param array $data1 Datos de los costos variables.
+ * @param float $precio_venta Precio de venta del presupuesto.
+ * @param int $ComVent El costo de ventas.
+ * @return void
+ */
+function includeCostosVariables($data1, $precio_venta, $ComVent) {
+    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta) = DatosCostosVariables($data1,$precio_venta,$ComVent);
+    VerTablaCostosVariables($data1,$precio_venta,$ComVent);
+    $datosJson = json_encode([
+        ["Concepto", "Costo ($)"],
+        ["Papel", $CostoVariablePapel],
+        ["Energía", $CostoVariableEnergia],
+        ["Pegamento", $CostoVariableGluer],
+        ["Mano de obra", $CostoVariableManoObra], 
+        ["Costo de Ventas", $CostoVenta],
+        ["Margen de contribución", $MgCont]
+    ]);    
+    echo "<h3>Margen de contribución por hora: $";
+    echo number_format($MgCont*($vel*60), 2, '.', ',');
+    echo "</h3>";
+    include 'includes/chart.php';   
+}
+
 
 
 
