@@ -23,7 +23,6 @@ require "includes/datos.php";
     <label for="vel1"> Velocidad de la máquina:</label>
     <select name="vel">
         <?php
-        $velocidades = [40, 60, 80, 100];
         foreach ($velocidades as $velocidad) {
             echo '<option value="' . $velocidad . '"' . ($vel == $velocidad ? ' selected' : '') . '>' . $velocidad . '</option>';
         }
@@ -37,7 +36,6 @@ require "includes/datos.php";
     <label for="Trabajadores"><br>Trabajadores: </label>
     <select name="Trabajadores">
         <?php
-        $opcionesTrabajadores = [4, 5, 6, 8];
         foreach ($opcionesTrabajadores as $opcion) {
             echo '<option value="' . $opcion . '"' . ($Trabajadores == $opcion ? ' selected' : '') . '>' . $opcion . '</option>';
         }
@@ -47,7 +45,6 @@ require "includes/datos.php";
     <label for="Costo de venta">Costo de venta:</label>
     <select name="ComVent">
     <?php
-    $opcionesComVent = [0, 5, 10, 15, 20];
     foreach ($opcionesComVent as $opcion) {
         echo '<option value="' . $opcion . '"' . ($ComVent == $opcion ? ' selected' : '') . '>' . $opcion . '%</option>';
     }
