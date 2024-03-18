@@ -1,8 +1,8 @@
-<!--DataMaq/presupuestos.php-->
+<!--Bolsas/presupuestos.php-->
 <?php
 require "includes/header.php";
 require "includes/Presupuestos_businessLogic.php";
-require "app/controllers/PresupuestoController.php";
+
 
 getPresupuestoData($peso, $precio_venta, $formato, $vel, $Trabajadores, $ComVent);
 
