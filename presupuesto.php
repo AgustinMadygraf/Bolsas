@@ -59,24 +59,8 @@ require "includes/datos.php";
 <?php
     
     includeCostosVariables($data1, $precio_venta, $ComVent);
+    includeCostosFijos($data2, $data3, $data4, $vel, $precio_venta, $ComVent);
 
-    
-    echo "<h2>Costos fijo </h2>";
-    echo "<h3>Costo fijo - Electrico</h3>";
-    visualizarTabla2($data2);
-    echo "<h3> Costo Fijo - Superficie</h3>";
-    visualizarTabla3($data3);
-    echo "<h3> Costo Fijo - Mano de obra</h3>";
-    visualizarTabla4($data4);
-    list($costoElectrico, $costoSuperficie, $costoManoObra, $costoTotalFijo) = calcularCostosFijos($data2, $data3, $data4);
-    echo "<h2>Costos Fijos Totales</h2>";
-    echo "<p>Total Costo Eléctrico: $" . number_format($costoElectrico, 2) . "</p>";
-    echo "<p>Total Costo de Superficie: $" . number_format($costoSuperficie, 2) . "</p>";
-    echo "<p>Total Costo de Mano de Obra: $" . number_format($costoManoObra, 2) . "</p>";
-    echo "<p><strong>Costo Fijo Total: $" . number_format($costoTotalFijo, 2) . "</strong></p>";
-    echo "<h3>Margen de contribución por hora: $" . number_format(calcularMargenContribucionPorHora($MgCont, $vel), 2, '.', ',') . "</h3>";
-    echo "<h3>Cantidad de horas para cubrir los costos fijos: " . number_format(calcularHorasParaCubrirCostosFijos($costoTotalFijo, $MgCont, $vel), 2, '.', ',') . " horas</h3>";
-    echo "<h3>Cantidad de turnos para cubrir los costos fijos: " . number_format(calcularTurnosParaCubrirCostosFijos($costoTotalFijo, $MgCont, $vel), 2, '.', ',') . " turnos de 8 horas</h3>";
 
 ?>
 </body>
