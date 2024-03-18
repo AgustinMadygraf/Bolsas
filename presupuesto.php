@@ -54,10 +54,8 @@ require "includes/datos.php";
     <br><br>
     <input type="submit" value="Actualizar">
 </form>
-
+<h2>Costos Variables</h2>
 <?php
-    echo "<h2>Costos Variables</h2>";
-
     list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta) = VerTablaCostosVariables($data1,$precio_venta,$ComVent);
     $datosJson = json_encode([
         ["Concepto", "Costo ($)"],
@@ -79,21 +77,15 @@ require "includes/datos.php";
     visualizarTabla3($data3);
     echo "<h3> Costo Fijo - Mano de obra</h3>";
     visualizarTabla4($data4);
-
     list($costoElectrico, $costoSuperficie, $costoManoObra, $costoTotalFijo) = calcularCostosFijos($data2, $data3, $data4);
     echo "<h2>Costos Fijos Totales</h2>";
     echo "<p>Total Costo Eléctrico: $" . number_format($costoElectrico, 2) . "</p>";
     echo "<p>Total Costo de Superficie: $" . number_format($costoSuperficie, 2) . "</p>";
     echo "<p>Total Costo de Mano de Obra: $" . number_format($costoManoObra, 2) . "</p>";
     echo "<p><strong>Costo Fijo Total: $" . number_format($costoTotalFijo, 2) . "</strong></p>";
-    echo "<h3>Margen de contribución por hora: $";
-    echo number_format($MgCont*($vel*60), 2, '.', ',');
-    echo "</h3>";
-    echo "Cantidad de horas para cubrir los costos fijos: ";
-    $horasParaCubrirCostosFijos = $costoTotalFijo / ($MgCont*($vel*60));
-    echo number_format($horasParaCubrirCostosFijos, 2, '.', ',')." horas";
-    echo "<br>Cantidad de turnos para cubrir los costos fijos: ";
-    echo number_format($costoTotalFijo/($MgCont*($vel*60)*8), 2, '.', ',')." turnos de 8 horas";
+    echo "<h3>Margen de contribución por hora: $" . number_format(calcularMargenContribucionPorHora($MgCont, $vel), 2, '.', ',') . "</h3>";
+    echo "<h3>Cantidad de horas para cubrir los costos fijos: " . number_format(calcularHorasParaCubrirCostosFijos($costoTotalFijo, $MgCont, $vel), 2, '.', ',') . " horas</h3>";
+    echo "<h3>Cantidad de turnos para cubrir los costos fijos: " . number_format(calcularTurnosParaCubrirCostosFijos($costoTotalFijo, $MgCont, $vel), 2, '.', ',') . " turnos de 8 horas</h3>";
 
 ?>
 </body>

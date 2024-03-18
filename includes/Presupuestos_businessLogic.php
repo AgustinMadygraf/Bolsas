@@ -166,4 +166,20 @@ function visualizarTabla4($data4) {
     }
 }  
 
+
+function calcularMargenContribucionPorHora($margenContribucion, $velocidad, $minutosPorHora = 60) {
+    return $margenContribucion * ($velocidad * $minutosPorHora);
+}
+
+function calcularHorasParaCubrirCostosFijos($costoTotalFijo, $margenContribucion, $velocidad) {
+    $margenPorHora = calcularMargenContribucionPorHora($margenContribucion, $velocidad);
+    return $costoTotalFijo / $margenPorHora;
+}
+
+function calcularTurnosParaCubrirCostosFijos($costoTotalFijo, $margenContribucion, $velocidad, $horasPorTurno = 8) {
+    $horasParaCubrir = calcularHorasParaCubrirCostosFijos($costoTotalFijo, $margenContribucion, $velocidad);
+    return $horasParaCubrir / $horasPorTurno;
+}
+
+
 ?>
