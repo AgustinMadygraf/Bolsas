@@ -53,34 +53,6 @@ function getPresupuestoData(&$peso, &$precio_venta, &$formato, &$vel, &$Trabajad
 }
 
 
-// Clase para manejar cálculos relacionados con los costos fijos
-class CostosFijosCalculator {
-    /**
-     * Calcula los costos fijos totales a partir de los datos proporcionados.
-     *
-     * @param array $data2 Arreglo de datos relacionados con el costo eléctrico.
-     * @param array $data3 Arreglo de datos relacionados con el costo de superficie.
-     * @param array $data4 Arreglo de datos relacionados con el costo de mano de obra.
-     * @return array Un arreglo con los costos fijos individuales y el costo total fijo.
-     */
-    public static function calcularCostosFijos($data2, $data3, $data4) {
-        // Lógica de cálculo de los costos fijos
-    }
-}
-
-// Clase para manejar cálculos relacionados con los costos variables
-class CostosVariablesCalculator {
-    // Otras funciones relacionadas con los costos variables pueden ir aquí
-}
-
-// Clase para manejar visualización de tablas
-class TablasVisualizer {
-    // Otras funciones relacionadas con la visualización de tablas pueden ir aquí
-}
-
-// Funciones auxiliares globales, si es necesario, pueden ir aquí
-?>
-
 
 
 
