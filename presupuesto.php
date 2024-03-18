@@ -64,8 +64,13 @@ require "includes/datos.php";
 
 <h2>Costos Variables</h2>
 <?php
-    includeCostosVariables($data1, $precio_venta, $ComVent);
-    includeCostosFijos($data2, $data3, $data4, $vel, $precio_venta, $ComVent);
+    includeCostosVariables($data1, $precio_venta, $ComVent,$vel);
+// Después de llamar a includeCostosVariables, asegúrate de que $MgCont se haya calculado correctamente
+list($CostoVariablePapel, $CostoVariableEnergia, $CostoVariableManoObra, $CostoVariableGluer, $MgCont, $CostoVenta) = DatosCostosVariables($data1, $precio_venta, $ComVent);
+// Ahora $MgCont debería tener el valor correcto para ser utilizado en includeCostosFijos
+includeCostosFijos($data2, $data3, $data4, $vel, $precio_venta, $ComVent, $MgCont);
+
+
 ?>
 </body>
 </html>

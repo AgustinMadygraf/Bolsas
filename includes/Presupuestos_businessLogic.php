@@ -61,7 +61,7 @@ function getPresupuestoData(&$peso, &$precio_venta, &$formato, &$vel, &$Trabajad
  * @param int $ComVent El costo de ventas.
  * @return void
  */
-function includeCostosVariables($data1, $precio_venta, $ComVent) {
+function includeCostosVariables($data1, $precio_venta, $ComVent,$vel) {
     list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta) = DatosCostosVariables($data1,$precio_venta,$ComVent);
     VerTablaCostosVariables($data1,$precio_venta,$ComVent);
     $datosJson = json_encode([
@@ -91,7 +91,7 @@ function includeCostosVariables($data1, $precio_venta, $ComVent) {
  * @param int $ComVent El costo de ventas del presupuesto.
  * @return void
  */
-function includeCostosFijos($data2, $data3, $data4, $vel, $precio_venta, $ComVent) {
+function includeCostosFijos($data2, $data3, $data4, $vel, $precio_venta, $ComVent,$MgCont) {
     echo "<h2>Costos fijo </h2>";
     echo "<h3>Costo fijo - Electrico</h3>";
     visualizarTabla2($data2);
@@ -109,13 +109,6 @@ function includeCostosFijos($data2, $data3, $data4, $vel, $precio_venta, $ComVen
     echo "<h3>Cantidad de horas para cubrir los costos fijos: " . number_format(calcularHorasParaCubrirCostosFijos($costoTotalFijo, $MgCont, $vel), 2, '.', ',') . " horas</h3>";
     echo "<h3>Cantidad de turnos para cubrir los costos fijos: " . number_format(calcularTurnosParaCubrirCostosFijos($costoTotalFijo, $MgCont, $vel), 2, '.', ',') . " turnos de 8 horas</h3>";
 }
-
-
-
-
-
-
-
 
 
 
@@ -176,16 +169,17 @@ function VerTablaCostosVariables($data1,$precio_venta,$ComVent) {
         echo "No se encontraron registros en la tabla.";
     }
 }
-
+// Asegúrate de que este cálculo se realice correctamente
 function DatosCostosVariables($data1,$precio_venta,$ComVent) {
     $totalCostoVariable = 0;
-    $CostoVenta = $precio_venta * ($ComVent/100);
-    $CostoVariablePapel = floatval($data1[0]['Valor unitario']) * floatval($data1[0]['KPI']);
-    $CostoVariableManoObra = floatval($data1[1]['Valor unitario']) * floatval($data1[1]['KPI']);
-    $CostoVariableEnergia = 10*floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']); // TUve que multiplicar por diez par que figure en el chart
-    $CostoVariableGluer = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
-    $MgCont =$precio_venta-$totalCostoVariable-$CostoVenta;
-    return array($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta);
+    // Asumiendo que $data1 contiene todos los costos variables necesarios
+    foreach ($data1 as $costo) {
+        $totalCostoVariable += floatval($costo['Valor unitario']) * floatval($costo['KPI']);
+    }
+    $CostoVenta = $precio_venta * ($ComVent / 100);
+    $totalCostoVariable += $CostoVenta; // Asegúrate de incluir el costo de venta en el total
+    $MgCont = $precio_venta - $totalCostoVariable;
+    return array($CostoVariablePapel, $CostoVariableEnergia, $CostoVariableManoObra, $CostoVariableGluer, $MgCont, $CostoVenta);
 }
 
 
