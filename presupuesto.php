@@ -17,8 +17,9 @@ require "includes/datos.php";
     <link rel="stylesheet" href="CSS/style.css"> 
 </head>
 <body>
-<h1>Presupuesto - Formato bolsa: <?php echo htmlspecialchars($formato); ?></h1>
-<?php echo "<br>Costo de Ventas: " . htmlspecialchars($ComVent) . "%<br> ";?>
+
+<?php includeHeader($formato, $ComVent); ?>
+
 <form action="presupuesto.php" method="GET">
     <label for="vel1"> Velocidad de la máquina:</label>
     <select name="vel">
