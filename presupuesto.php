@@ -14,41 +14,54 @@ require "includes/datos.php";
     <link rel="stylesheet" href="CSS/style.css"> 
 </head>
 <body>
-<?php includeHeader($formato, $ComVent); ?>
+<h1>Presupuesto - Formato bolsa: <?php echo htmlspecialchars($formato); ?></h1>
 
-<form action="presupuesto.php" method="GET">
-    <label for="vel1"> Velocidad de la máquina:</label>
-    <select name="vel">
-        <?php
-        foreach ($velocidades as $velocidad) {
-            echo '<option value="' . $velocidad . '"' . ($vel == $velocidad ? ' selected' : '') . '>' . $velocidad . '</option>';
-        }
-        ?>
-    </select>
-    <label for="vel2"> [bolsas por minuto]:</label>
-    <input type="hidden" name="peso" value="<?php echo htmlspecialchars($peso * 1000); ?>">
-    <input type="hidden" name="precio_venta" value="<?php echo htmlspecialchars($precio_venta); ?>">
-    <input type="hidden" name="formato" value="<?php echo htmlspecialchars($formato); ?>">
-    <label for="Trabajadores"><br>Trabajadores: </label>
-    <select name="Trabajadores">
-        <?php
-        foreach ($opcionesTrabajadores as $opcion) {
-            echo '<option value="' . $opcion . '"' . ($Trabajadores == $opcion ? ' selected' : '') . '>' . $opcion . '</option>';
-        }
-        ?>
-    </select>
-    <br>
-    <label for="Costo de venta">Costo de venta:</label>
-    <select name="ComVent">
-    <?php
-    foreach ($opcionesComVent as $opcion) {
-        echo '<option value="' . $opcion . '"' . ($ComVent == $opcion ? ' selected' : '') . '>' . $opcion . '%</option>';
-    }
-    ?>
-    </select>
-    <br><br>
-    <input type="submit" value="Actualizar">
-</form>
+<table>
+    <tr>
+        <td><label for="vel1">Velocidad de la máquina [bolsas por minuto]:</label></td>
+        <td>
+            <select name="vel">
+                <?php
+                foreach ($velocidades as $velocidad) {
+                    echo '<option value="' . $velocidad . '"' . ($vel == $velocidad ? ' selected' : '') . '>' . $velocidad . '</option>';
+                }
+                ?>
+            </select>
+        </td>
+        <label for="vel2"></label></td>
+        <input type="hidden" name="peso" value="<?php echo htmlspecialchars($peso * 1000); ?>">
+        <input type="hidden" name="precio_venta" value="<?php echo htmlspecialchars($precio_venta); ?>">
+        <input type="hidden" name="formato" value="<?php echo htmlspecialchars($formato); ?>">
+    </tr>
+    <tr>
+        <td><label for="Trabajadores">Trabajadores:</label></td>
+        <td>
+            <select name="Trabajadores">
+                <?php
+                foreach ($opcionesTrabajadores as $opcion) {
+                    echo '<option value="' . $opcion . '"' . ($Trabajadores == $opcion ? ' selected' : '') . '>' . $opcion . '</option>';
+                }
+                ?>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><label for="Costo de venta">Costo de venta:</label></td>
+        <td>
+            <select name="ComVent">
+                <?php
+                foreach ($opcionesComVent as $opcion) {
+                    echo '<option value="' . $opcion . '"' . ($ComVent == $opcion ? ' selected' : '') . '>' . $opcion . '%</option>';
+                }
+                ?>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="submit" value="Actualizar"></td>
+    </tr>
+</table>
+
 <h2>Costos Variables</h2>
 <?php
     includeCostosVariables($data1, $precio_venta, $ComVent);

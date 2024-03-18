@@ -54,20 +54,6 @@ function getPresupuestoData(&$peso, &$precio_venta, &$formato, &$vel, &$Trabajad
 
 
 /**
- * Genera el encabezado HTML con el título y formato de bolsa.
- *
- * @param string $formato El formato de la bolsa.
- * @param int $ComVent El costo de ventas.
- * @return void
- */
-function includeHeader($formato, $ComVent) {
-    ?>
-    <h1>Presupuesto - Formato bolsa: <?php echo htmlspecialchars($formato); ?></h1>
-    <?php echo "<br>Costo de Ventas: " . htmlspecialchars($ComVent) . "%<br> ";?>
-    <?php
-}
-
-/**
  * Incluye la tabla de costos variables en el HTML.
  *
  * @param array $data1 Datos de los costos variables.
