@@ -5,6 +5,16 @@ $velocidades = [40, 60, 80, 100];
 $opcionesTrabajadores = [4, 5, 6, 8];
 $opcionesComVent = [0, 5, 10, 15, 20];
 
+
+/**
+ * Sanitiza y valida un valor flotante, asegurando que el resultado sea un flotante con el número deseado de dígitos decimales.
+ * Si el valor no es numérico, retorna un valor predeterminado.
+ *
+ * @param mixed $value El valor a sanitizar y validar.
+ * @param float $default El valor predeterminado a retornar si $value no es un número.
+ * @param int $scale El número de dígitos decimales a conservar.
+ * @return float El valor sanitizado y validado como flotante.
+ */
 function sanitizeAndValidateFloat($value, $default = 0, $scale = 2) {
     $filteredValue = filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     if (is_numeric($filteredValue)) {
@@ -13,14 +23,75 @@ function sanitizeAndValidateFloat($value, $default = 0, $scale = 2) {
     return $default;
 }
 
+/**
+ * Obtiene y prepara los datos del presupuesto a partir de los parámetros de la petición.
+ *
+ * @param float $peso La variable de salida para el peso del presupuesto.
+ * @param float $precio_venta La variable de salida para el precio de venta del presupuesto.
+ * @param string $formato La variable de salida para el formato del presupuesto.
+ * @param int $vel La variable de salida para la velocidad del presupuesto.
+ * @param int $Trabajadores La variable de salida para el número de trabajadores del presupuesto.
+ * @param int $ComVent La variable de salida para el costo de ventas del presupuesto.
+ * @return void
+ */
 function getPresupuestoData(&$peso, &$precio_venta, &$formato, &$vel, &$Trabajadores, &$ComVent) {
-    $peso = sanitizeAndValidateFloat($_GET['peso'] ?? 0.042, 0.042, 3) / 1000;
-    $precio_venta = sanitizeAndValidateFloat($_GET['precio_venta'] ?? 0, 0, 2);
-    $formato = filter_var($_GET['formato'] ?? '', FILTER_SANITIZE_STRING);
-    $vel = filter_var($_GET['vel'] ?? 40, FILTER_SANITIZE_NUMBER_INT);
-    $Trabajadores = filter_var($_GET['Trabajadores'] ?? 4, FILTER_SANITIZE_NUMBER_INT);
-    $ComVent = filter_var($_GET['ComVent'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
+    // Obtener los parámetros de la petición y aplicar sanitización/validación si es necesario
+    $rawPeso = $_GET['peso'] ?? 0.042;
+    $rawPrecioVenta = $_GET['precio_venta'] ?? 0;
+    $rawFormato = $_GET['formato'] ?? '';
+    $rawVelocidad = $_GET['vel'] ?? 40;
+    $rawTrabajadores = $_GET['Trabajadores'] ?? 4;
+    $rawComVent = $_GET['ComVent'] ?? 0;
+
+    // Sanitizar y validar los parámetros
+    $peso = sanitizeAndValidateFloat($rawPeso, 0.042, 3) / 1000;
+    $precio_venta = sanitizeAndValidateFloat($rawPrecioVenta, 0, 2);
+    $formato = filter_var($rawFormato, FILTER_SANITIZE_STRING);
+    $vel = filter_var($rawVelocidad, FILTER_SANITIZE_NUMBER_INT);
+    $Trabajadores = filter_var($rawTrabajadores, FILTER_SANITIZE_NUMBER_INT);
+    $ComVent = filter_var($rawComVent, FILTER_SANITIZE_NUMBER_INT);
 }
+
+
+// Clase para manejar cálculos relacionados con los costos fijos
+class CostosFijosCalculator {
+    /**
+     * Calcula los costos fijos totales a partir de los datos proporcionados.
+     *
+     * @param array $data2 Arreglo de datos relacionados con el costo eléctrico.
+     * @param array $data3 Arreglo de datos relacionados con el costo de superficie.
+     * @param array $data4 Arreglo de datos relacionados con el costo de mano de obra.
+     * @return array Un arreglo con los costos fijos individuales y el costo total fijo.
+     */
+    public static function calcularCostosFijos($data2, $data3, $data4) {
+        // Lógica de cálculo de los costos fijos
+    }
+}
+
+// Clase para manejar cálculos relacionados con los costos variables
+class CostosVariablesCalculator {
+    // Otras funciones relacionadas con los costos variables pueden ir aquí
+}
+
+// Clase para manejar visualización de tablas
+class TablasVisualizer {
+    // Otras funciones relacionadas con la visualización de tablas pueden ir aquí
+}
+
+// Funciones auxiliares globales, si es necesario, pueden ir aquí
+?>
+
+
+
+
+
+
+
+
+
+
+
+
 
 function calcularCostosFijos($data2, $data3, $data4) {
     $costoElectrico = 0;
