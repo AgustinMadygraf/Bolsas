@@ -57,21 +57,10 @@ require "includes/datos.php";
 </form>
 <h2>Costos Variables</h2>
 <?php
-    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta) = DatosCostosVariables($data1,$precio_venta,$ComVent);
-    VerTablaCostosVariables($data1,$precio_venta,$ComVent);
-    $datosJson = json_encode([
-        ["Concepto", "Costo ($)"],
-        ["Papel", $CostoVariablePapel],
-        ["Energía", $CostoVariableEnergia],
-        ["Pegamento", $CostoVariableGluer],
-        ["Mano de obra", $CostoVariableManoObra], 
-        ["Costo de Ventas", $CostoVenta],
-        ["Margen de contribución", $MgCont]
-    ]);    
-    echo "<h3>Margen de contribución por hora: $";
-    echo number_format($MgCont*($vel*60), 2, '.', ',');
-    echo "</h3>";
-    include 'includes/chart.php';   
+    
+    includeCostosVariables($data1, $precio_venta, $ComVent);
+
+    
     echo "<h2>Costos fijo </h2>";
     echo "<h3>Costo fijo - Electrico</h3>";
     visualizarTabla2($data2);
