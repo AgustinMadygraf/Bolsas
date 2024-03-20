@@ -1,6 +1,10 @@
 <!--Bolsas/app/controllers/PresupuestoController.php-->
 <?php
 
+$velocidades = [40, 60, 80, 100];
+$opcionesTrabajadores = [4, 8, 10, 12, 16, 22];
+$opcionesComVent = [0, 5, 10, 15, 20];
+
 function sanitizeAndValidateFloat($value, $default = 0, $scale = 2) {
     $filteredValue = filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     if (is_numeric($filteredValue)) {

@@ -1,8 +1,8 @@
 <!--DataMaq/presupuestos.php-->
 <?php
 require "includes/header.php";
-require "includes/Presupuestos_businessLogic.php";
 require "app/controllers/PresupuestoController.php";
+require "app/views/presupuesto/index.php";
 
 // Obtener los datos de entrada y procesarlos usando la función importada
 getPresupuestoData($peso, $precio_venta, $formato, $vel, $Trabajadores, $ComVent);
