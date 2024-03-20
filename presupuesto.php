@@ -60,7 +60,6 @@ require "includes/datos.php";
             <td>
                 <select name="ComVent">
                     <?php
-                    $opcionesComVent = [0, 5, 10, 15, 20];
                     foreach ($opcionesComVent as $opcion) {
                         echo '<option value="' . $opcion . '"' . ($ComVent == $opcion ? ' selected' : '') . '>' . $opcion . '%</option>';
                     }
