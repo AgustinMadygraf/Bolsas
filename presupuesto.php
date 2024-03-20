@@ -18,7 +18,6 @@ require "includes/datos.php";
 </head>
 <body>
 <h1>Presupuesto - Formato bolsa: <?php echo htmlspecialchars($formato); ?></h1>
-<?php echo "<br>Costo de Ventas: " . htmlspecialchars($ComVent) . "%<br> ";?>
 
 
 <form action="presupuesto.php" method="GET">
@@ -78,47 +77,60 @@ require "includes/datos.php";
 
 
 
+
 <?php
-    echo "<h2>Costos Variables</h2>";
+// Inicio de refactorización
+echo "<h2>Costos Variables</h2>";
 
-    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta) = calcularCostosVariables($data1, $precio_venta, $ComVent);
-    visualizarTablaCostosVariables($data1,$precio_venta,$ComVent);
-    $datosJson = json_encode([
-        ["Concepto", "Costo ($)"],
-        ["Papel", $CostoVariablePapel],
-        ["Energía", $CostoVariableEnergia],
-        ["Pegamento", $CostoVariableGluer],
-        ["Mano de obra", $CostoVariableManoObra], 
-        ["Costo de Ventas", $CostoVenta],
-        ["Margen de contribución", $MgCont]
-    ]);    
-    echo "<h3>Margen de contribución por hora: $";
-    echo number_format($MgCont*($vel*60), 2, '.', ',');
-    echo "</h3>";
-    include 'includes/chart.php';   
-    echo "<h2>Costos fijo </h2>";
-    echo "<h3>Costo fijo - Electrico</h3>";
-    visualizarTabla2($data2);
-    echo "<h3> Costo Fijo - Superficie</h3>";
-    visualizarTabla3($data3);
-    echo "<h3> Costo Fijo - Mano de obra</h3>";
-    visualizarTabla4($data4);
-    
-    list($costoElectrico, $costoSuperficie, $costoManoObra, $costoTotalFijo) = calcularCostosFijos($data2, $data3, $data4);
-    echo "<h2>Costos Fijos Totales</h2>";
-    echo "<p>Total Costo Eléctrico: $" . number_format($costoElectrico, 2) . "</p>";
-    echo "<p>Total Costo de Superficie: $" . number_format($costoSuperficie, 2) . "</p>";
-    echo "<p>Total Costo de Mano de Obra: $" . number_format($costoManoObra, 2) . "</p>";
-    echo "<p><strong>Costo Fijo Total: $" . number_format($costoTotalFijo, 2) . "</strong></p>";
-    echo "<h3>Margen de contribución por hora: $";
-    echo number_format($MgCont*($vel*60), 2, '.', ',');
-    echo "</h3>";
-    echo "Cantidad de horas para cubrir los costos fijos: ";
-    $horasParaCubrirCostosFijos = $costoTotalFijo / ($MgCont*($vel*60));
-    echo number_format($horasParaCubrirCostosFijos, 2, '.', ',')." horas";
-    echo "<br>Cantidad de turnos para cubrir los costos fijos: ";
-    echo number_format($costoTotalFijo/($MgCont*($vel*60)*8), 2, '.', ',')." turnos de 8 horas";
+// Separando la lógica de cálculo y la presentación de la tabla de costos variables
+list($CostoVariablePapel, $CostoVariableEnergia, $CostoVariableManoObra, $CostoVariableGluer, $MgCont, $CostoVenta) = calcularCostosVariables($data1, $precio_venta, $ComVent);
+visualizarTablaCostosVariables($data1, $precio_venta, $ComVent);
 
+// Preparación de datos para gráfica
+$datosJson = json_encode([
+    ["Concepto", "Costo ($)"],
+    ["Papel", $CostoVariablePapel],
+    ["Energía", $CostoVariableEnergia],
+    ["Pegamento", $CostoVariableGluer],
+    ["Mano de obra", $CostoVariableManoObra], 
+    ["Costo de Ventas", $CostoVenta],
+    ["Margen de contribución", $MgCont]
+]);
+
+// Margen de contribución por hora
+echo "<h3>Margen de contribución por hora: $";
+echo number_format($MgCont * ($vel * 60), 2, '.', ',');
+echo "</h3>";
+include 'includes/chart.php';
+
+// Sección de costos fijos
+echo "<h2>Costos fijo </h2>";
+echo "<h3>Costo fijo - Electrico</h3>";
+visualizarTabla2($data2);
+echo "<h3>Costo Fijo - Superficie</h3>";
+visualizarTabla3($data3);
+echo "<h3>Costo Fijo - Mano de obra</h3>";
+visualizarTabla4($data4);
+
+// Cálculo de costos fijos totales
+list($costoElectrico, $costoSuperficie, $costoManoObra, $costoTotalFijo) = calcularCostosFijos($data2, $data3, $data4);
+
+// Presentación de costos fijos totales
+echo "<h2>Costos Fijos Totales</h2>";
+echo "<p>Total Costo Eléctrico: $" . number_format($costoElectrico, 2) . "</p>";
+echo "<p>Total Costo de Superficie: $" . number_format($costoSuperficie, 2) . "</p>";
+echo "<p>Total Costo de Mano de Obra: $" . number_format($costoManoObra, 2) . "</p>";
+echo "<p><strong>Costo Fijo Total: $" . number_format($costoTotalFijo, 2) . "</strong></p>";
+
+// Margen de contribución y cálculo de horas/turnos necesarios para cubrir costos fijos
+echo "<h3>Margen de contribución por hora: $";
+echo number_format($MgCont * ($vel * 60), 2, '.', ',');
+echo "</h3>";
+echo "Cantidad de horas para cubrir los costos fijos: ";
+$horasParaCubrirCostosFijos = $costoTotalFijo / ($MgCont * ($vel * 60));
+echo number_format($horasParaCubrirCostosFijos, 2, '.', ',')." horas";
+echo "<br>Cantidad de turnos para cubrir los costos fijos: ";
+echo number_format($costoTotalFijo / ($MgCont * ($vel * 60) * 8), 2, '.', ',')." turnos de 8 horas";
 ?>
 </body>
 </html>
