@@ -64,19 +64,22 @@ function VerTablaCostosVariables($data1,$precio_venta,$ComVent) {
             echo "<td>$" . number_format($costoMarginal, 2, '.', ',') . "</td>";
             echo "</tr>";
         }
+        
         $CostoVenta = $precio_venta * ($ComVent/100);
-        echo "<tr><td>Costo de Ventas </td><td> $ComVent %</td><td colspan='4'></td><td>$$CostoVenta</td></tr>";
-        echo "<tr><td colspan='6'><strong>Total Costo Variable      </strong></td><td><strong>$".number_format($totalCostoVariable, 2, '.', ',')."</td></strong></tr>";
-        $MgCont =$precio_venta-$totalCostoVariable-$CostoVenta;
-        echo "<tr><td colspan='6'><strong>Precio de venta           </strong></td><td>$" . number_format($precio_venta, 2, '.', ',') . "</td></tr>";
-        echo "<tr><td colspan='6'><strong>Margen de contribución    </strong></td><td>$".number_format($MgCont, 2, '.', ',')."</td></tr>";
+        $totalCostoVariable = $totalCostoVariable + $CostoVenta;
+        $MgCont =$precio_venta-$totalCostoVariable;
+
+        echo "<tr><td>Costo de Ventas </td><td> $ComVent %</td><td colspan='4'> </td><td>$".        number_format($CostoVenta, 2, '.', ',').            "</td></tr>";
+        echo "<tr><td colspan='6'><strong>Total Costo Variable      </strong>   </td><td><strong>$".number_format($totalCostoVariable, 2, '.', ',').    "</td></strong></tr>";
+        echo "<tr><td colspan='6'><strong>Precio de venta           </strong>   </td><td>$" .       number_format($precio_venta, 2, '.', ',') .         "</td></tr>";
+        echo "<tr><td colspan='6'><strong>Margen de contribución    </strong>   </td><td>$".        number_format($MgCont, 2, '.', ',').                "</td></tr>";
         echo "</table>";
     } else {
         echo "No se encontraron registros en la tabla.";
     }
     $CostoVariablePapel = floatval($data1[0]['Valor unitario']) * floatval($data1[0]['KPI']);
     $CostoVariableManoObra = floatval($data1[1]['Valor unitario']) * floatval($data1[1]['KPI']);
-    $CostoVariableEnergia = 10*floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']); // TUve que multiplicar por diez par que figure en el chart
+    $CostoVariableEnergia = 10*floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']); 
     $CostoVariableGluer = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
     return array($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta);
 }
@@ -162,25 +165,4 @@ function visualizarTabla4($data4) {
         echo "No se encontraron registros en la tabla.";
     }
 }  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
