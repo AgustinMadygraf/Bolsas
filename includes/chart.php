@@ -7,6 +7,7 @@
     <title>Total Horas por Centro de Costo</title>
     <link rel="stylesheet" type="text/css" href="CSS/table_styles.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="C:\AppServ\www\Bolsas\includes/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(function() {
