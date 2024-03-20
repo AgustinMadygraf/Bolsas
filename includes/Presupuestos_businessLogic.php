@@ -46,7 +46,7 @@ function calcularCostosFijos($data2, $data3, $data4) {
 }
 
 
-function VerTablaCostosVariables($data1,$precio_venta,$ComVent) {
+function visualizarTablaCostosVariables($data1,$precio_venta,$ComVent) {
     $totalCostoVariable = 0;
     if (count($data1) > 0) {
         echo '<table border="1" class="responsive-table">';
@@ -76,13 +76,22 @@ function VerTablaCostosVariables($data1,$precio_venta,$ComVent) {
         echo "</table>";
     } else {
         echo "No se encontraron registros en la tabla.";
+    }}
+
+
+
+    function calcularCostosVariables($data1, $precio_venta, $ComVent) {
+        $CostoVariablePapel = floatval($data1[0]['Valor unitario']) * floatval($data1[0]['KPI']);
+        $CostoVariableManoObra = floatval($data1[1]['Valor unitario']) * floatval($data1[1]['KPI']);
+        $CostoVariableEnergia = 10 * floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']); 
+        $CostoVariableGluer = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
+        $CostoVenta = $precio_venta * ($ComVent / 100);
+        $totalCostoVariable = $CostoVariablePapel + $CostoVariableManoObra + $CostoVariableEnergia + $CostoVariableGluer + $CostoVenta;
+        $MgCont = $precio_venta - $totalCostoVariable;
+        
+        return array($CostoVariablePapel, $CostoVariableEnergia, $CostoVariableManoObra, $CostoVariableGluer, $MgCont, $CostoVenta);
     }
-    $CostoVariablePapel = floatval($data1[0]['Valor unitario']) * floatval($data1[0]['KPI']);
-    $CostoVariableManoObra = floatval($data1[1]['Valor unitario']) * floatval($data1[1]['KPI']);
-    $CostoVariableEnergia = 10*floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']); 
-    $CostoVariableGluer = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
-    return array($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta);
-}
+    
 
 function visualizarTabla2($data2) {
     $totalCostoFijo = 0;

@@ -61,7 +61,8 @@ require "includes/datos.php";
 <?php
     echo "<h2>Costos Variables</h2>";
 
-    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta) = VerTablaCostosVariables($data1,$precio_venta,$ComVent);
+    list($CostoVariablePapel, $CostoVariableEnergia,$CostoVariableManoObra,$CostoVariableGluer,$MgCont,$CostoVenta) = calcularCostosVariables($data1, $precio_venta, $ComVent);
+    visualizarTablaCostosVariables($data1,$precio_venta,$ComVent);
     $datosJson = json_encode([
         ["Concepto", "Costo ($)"],
         ["Papel", $CostoVariablePapel],
