@@ -3,6 +3,9 @@
 require "includes/header.php";
 require "app/controllers/PresupuestoController.php";
 require "app/views/presupuesto/index.php";
+require "app/models/Presupuesto.php";
+
+
 
 // Obtener los datos de entrada y procesarlos usando la función importada
 getPresupuestoData($peso, $precio_venta, $formato, $vel, $Trabajadores, $ComVent);
