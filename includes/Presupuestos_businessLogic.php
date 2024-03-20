@@ -5,13 +5,7 @@ $velocidades = [40, 60, 80, 100];
 $opcionesTrabajadores = [4, 8, 10, 12, 16, 22];
 
 
-function sanitizeAndValidateFloat($value, $default = 0, $scale = 2) {
-    $filteredValue = filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    if (is_numeric($filteredValue)) {
-        return round((float)$filteredValue, $scale);
-    }
-    return $default;
-}
+
 
 function getPresupuestoData(&$peso, &$precio_venta, &$formato, &$vel, &$Trabajadores, &$ComVent) {
     $peso = sanitizeAndValidateFloat($_GET['peso'] ?? 0.042, 0.042, 3) / 1000;
