@@ -1,7 +1,6 @@
 <!--stock.php-->
 <?php
 require "includes/header.php";
-require_once 'Stock/conn.php';
 require_once 'Stock/stockFunctions.php';
 include 'includes/db_functions.php'; 
 
