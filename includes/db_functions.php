@@ -1,4 +1,4 @@
-<!--includes/db_functions.php-->
+<!--Bolsas/includes/db_functions.php-->
 <?php
 require 'conn.php';
 

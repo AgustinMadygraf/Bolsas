@@ -1,9 +1,5 @@
-<!-- includes/conn.php -->
+<!--Bolsas/includes/conn.php -->
 <?php
-$server = "localhost";
-$usuario = "root";
-$pass = "12345678";
-$dbname = "bolsas"; 
 
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');

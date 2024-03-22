@@ -1,6 +1,10 @@
 <!--includes/GetData_2.php-->
 <?php
-require 'conn.php'; 
+$server = "localhost";
+$usuario = "root";
+$pass = "12345678";
+$dbname = "bolsas"; 
+
 $conn = new mysqli($server, $usuario, $pass, 'bolsas'); 
 
 if ($conn->connect_error) {
