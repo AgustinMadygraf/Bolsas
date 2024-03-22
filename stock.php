@@ -2,6 +2,7 @@
 <?php
 require "includes/header.php";
 require_once 'Stock/stockFunctions.php';
+require 'includes/conn_stock.php';
 include 'includes/db_functions.php'; 
 
 function obtenerFiltrosDesdeURL() {

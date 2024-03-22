@@ -1,6 +1,5 @@
 <!--Bolsas/includes/db_functions.php-->
 <?php
-require 'conn_stock.php';
 
 /**
  * Conectar a la base de datos.
