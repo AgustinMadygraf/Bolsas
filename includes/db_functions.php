@@ -1,6 +1,5 @@
 <!--Bolsas/includes/db_functions.php-->
 <?php
-
 /**
  * Conectar a la base de datos.
  *
@@ -13,7 +12,6 @@ function conectarBD() {
     }
     return $conexion;
 }
-
 /**
  * Desconectar la conexión a la base de datos.
  *
@@ -24,7 +22,6 @@ function desconectarBD($conexion) {
         die("Error al desconectar la base de datos.");
     }
 }
-
 /**
  * Obtener un array multidimensional con el resultado de la consulta SQL.
  *
@@ -38,12 +35,10 @@ function getArraySQL($sql) {
     if (!$result) {
         die("Error en la consulta SQL: " . mysqli_error($conexion));
     }
-
     $rawdata = [];
     while ($row = mysqli_fetch_assoc($result)) {
         $rawdata[] = $row;
     }
-
     desconectarBD($conexion);
     return $rawdata;
 }
