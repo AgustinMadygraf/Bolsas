@@ -28,14 +28,18 @@ function obtenerDatosValorUnitario() {
             ];
         }
     }
+    //echo "<br>". var_dump($data). "<br>"; //array(1) { [0]=> array(5) { ["Descripción"]=> string(5) "Papel" ["Valor unitario"]=> string(7) "1026.00" ["Unidad"]=> string(4) "$/kg" ["KPI"]=> string(10) "EjemploKPI" ["Unidad KPI"]=> string(8) "Kg/bolsa" } }
+
+    
     return $data;
 }
 
 $data1_aux = obtenerDatosValorUnitario();
 
+$val_unit_papel = $data1_aux[0]["Valor unitario"];
 
 $data1 = [ 
-["Descripción" => "Papel",                      "Valor unitario" =>  "1026", "Unidad" => "$/kg",    "KPI" => "$peso",           "Unidad KPI" => "Kg/bolsa"  ],
+["Descripción" => "Papel",                      "Valor unitario" =>  "$val_unit_papel", "Unidad" => "$/kg",    "KPI" => "$peso",           "Unidad KPI" => "Kg/bolsa"  ],
 ["Descripción" => "Mano de obra ($Trabajadores personas)",  "Valor unitario" =>  "2000", "Unidad" => "$/hora",  "KPI" => "$KPI_ManoObra",   "Unidad KPI" => "horas/bolsa"],
 ["Descripción" => "Energía",                    "Valor unitario" =>    "50", "Unidad" => "$/kWh",   "KPI" => "0.0012",          "Unidad KPI" => "kWh/bolsa" ],
 ["Descripción" => "Gluer",                      "Valor unitario" =>     "0", "Unidad" => "$/kg",    "KPI" => "0",               "Unidad KPI" => "kg/bolsa"  ]
