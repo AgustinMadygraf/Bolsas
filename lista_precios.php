@@ -1,6 +1,7 @@
 <?php
 require "includes/header.php";
-require 'includes/db_functions.php'; 
+require 'includes/conn_stock.php';
+include 'includes/db_functions.php'; 
 
 // Obtener fechas únicas de listado_precios
 $sqlFechas = "SELECT DISTINCT fecha_listado FROM listado_precios ORDER BY fecha_listado DESC"; 
