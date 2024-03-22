@@ -10,39 +10,23 @@ function obtenerDatosValorUnitario() {
     $resultados = getArraySQL($sql);
     
     $data = [];
-    foreach ($resultados as $fila) {
-        $descripcion = $fila['Concepto']; // Modificar según sea necesario
-        $valorUnitario = $fila['Valor']; // Modificar según sea necesario
-        $fecha = $fila['Fecha']; // Modificar según sea necesario
+    $data = $resultados;
 
-        // Aquí puedes adaptar cómo quieres usar los datos de cada fila
-        // Por ejemplo, si quieres incluir lógica específica basada en el Concepto
-        if ($descripcion == "Papel") {
-            $KPI = "EjemploKPI"; // Define cómo calcular o extraer este valor
-            $data[] = [
-                "Descripción" => $descripcion,
-                "Valor unitario" => $valorUnitario,
-                "Unidad" => "$/kg", // Asume que todos son $/kg, ajusta según sea necesario
-                "KPI" => $KPI,
-                "Unidad KPI" => "Kg/bolsa" // Asume un valor común, ajusta según sea necesario
-            ];
-        }
-    }
-    //echo "<br>". var_dump($data). "<br>"; //array(1) { [0]=> array(5) { ["Descripción"]=> string(5) "Papel" ["Valor unitario"]=> string(7) "1026.00" ["Unidad"]=> string(4) "$/kg" ["KPI"]=> string(10) "EjemploKPI" ["Unidad KPI"]=> string(8) "Kg/bolsa" } }
-
-    
-    return $data;
+    return $resultados;
 }
 
 $data1_aux = obtenerDatosValorUnitario();
-
-$val_unit_papel = $data1_aux[0]["Valor unitario"];
+//print_r($data1_aux); //Array ( [0] => Array ( [ID] => 1 [Concepto] => Papel [Unidad] => $/Kg [Valor] => 1026.00 [Fecha] => 2024-02-15 ) [1] => Array ( [ID] => 2 [Concepto] => Mano de Obra [Unidad] => $/h [Valor] => 4000.00 [Fecha] => 2024-02-15 ) [2] => Array ( [ID] => 3 [Concepto] => Energía [Unidad] => $/kWh [Valor] => 50.00 [Fecha] => 2024-02-15 ) [3] => Array ( [ID] => 4 [Concepto] => Gluer [Unidad] => $/Kg [Valor] => 0.00 [Fecha] => 2024-02-15 ) )
+$val_unit_mano_obra = $data1_aux[1]['Valor'];
+$val_unit_papel     = $data1_aux[0]['Valor'];
+$valor_unit_energia = $data1_aux[2]['Valor'];
+$valor_unit_gluer   = $data1_aux[3]['Valor'];
 
 $data1 = [ 
-["Descripción" => "Papel",                      "Valor unitario" =>  "$val_unit_papel", "Unidad" => "$/kg",    "KPI" => "$peso",           "Unidad KPI" => "Kg/bolsa"  ],
-["Descripción" => "Mano de obra ($Trabajadores personas)",  "Valor unitario" =>  "2000", "Unidad" => "$/hora",  "KPI" => "$KPI_ManoObra",   "Unidad KPI" => "horas/bolsa"],
-["Descripción" => "Energía",                    "Valor unitario" =>    "50", "Unidad" => "$/kWh",   "KPI" => "0.0012",          "Unidad KPI" => "kWh/bolsa" ],
-["Descripción" => "Gluer",                      "Valor unitario" =>     "0", "Unidad" => "$/kg",    "KPI" => "0",               "Unidad KPI" => "kg/bolsa"  ]
+["Descripción" => "Papel",                      "Valor unitario"                =>  "$val_unit_papel",      "Unidad"    => "$/kg",  "KPI" => "$peso",           "Unidad KPI" => "Kg/bolsa"  ],
+["Descripción" => "Mano de obra ($Trabajadores personas)",  "Valor unitario"    =>  "$val_unit_mano_obra",  "Unidad"    => "$/hora","KPI" => "$KPI_ManoObra",   "Unidad KPI" => "horas/bolsa"],
+["Descripción" => "Energía",                    "Valor unitario"                =>  "$valor_unit_energia",  "Unidad"    => "$/kWh", "KPI" => "0.0012",          "Unidad KPI" => "kWh/bolsa" ],
+["Descripción" => "Gluer",                      "Valor unitario"                =>  "$valor_unit_gluer",    "Unidad"    => "$/kg",  "KPI" => "0",               "Unidad KPI" => "kg/bolsa"  ]
     ];   
 
 
