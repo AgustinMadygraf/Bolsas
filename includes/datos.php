@@ -1,13 +1,47 @@
 <!--Bolsas/includes/datos.php-->
 <?php
+require 'includes/conn_bolsas.php';
+include 'includes/db_functions.php'; 
 
 $KPI_ManoObra = $Trabajadores /($vel * 60);
+
+function obtenerDatosValorUnitario() {
+    $sql = "SELECT * FROM valor_unitario";
+    $resultados = getArraySQL($sql);
+    
+    $data = [];
+    foreach ($resultados as $fila) {
+        $descripcion = $fila['Concepto']; // Modificar según sea necesario
+        $valorUnitario = $fila['Valor']; // Modificar según sea necesario
+        $fecha = $fila['Fecha']; // Modificar según sea necesario
+
+        // Aquí puedes adaptar cómo quieres usar los datos de cada fila
+        // Por ejemplo, si quieres incluir lógica específica basada en el Concepto
+        if ($descripcion == "Papel") {
+            $KPI = "EjemploKPI"; // Define cómo calcular o extraer este valor
+            $data[] = [
+                "Descripción" => $descripcion,
+                "Valor unitario" => $valorUnitario,
+                "Unidad" => "$/kg", // Asume que todos son $/kg, ajusta según sea necesario
+                "KPI" => $KPI,
+                "Unidad KPI" => "Kg/bolsa" // Asume un valor común, ajusta según sea necesario
+            ];
+        }
+    }
+    return $data;
+}
+
+$data1_aux = obtenerDatosValorUnitario();
+
+
 $data1 = [ 
 ["Descripción" => "Papel",                      "Valor unitario" =>  "1026", "Unidad" => "$/kg",    "KPI" => "$peso",           "Unidad KPI" => "Kg/bolsa"  ],
 ["Descripción" => "Mano de obra ($Trabajadores personas)",  "Valor unitario" =>  "2000", "Unidad" => "$/hora",  "KPI" => "$KPI_ManoObra",   "Unidad KPI" => "horas/bolsa"],
 ["Descripción" => "Energía",                    "Valor unitario" =>    "50", "Unidad" => "$/kWh",   "KPI" => "0.0012",          "Unidad KPI" => "kWh/bolsa" ],
 ["Descripción" => "Gluer",                      "Valor unitario" =>     "0", "Unidad" => "$/kg",    "KPI" => "0",               "Unidad KPI" => "kg/bolsa"  ]
     ];   
+
+
 
     $data2 = [ 
         ["Descripción" => "Energía máquina",    "Valor unitario" =>  "50", "Unidad" => "$/kWh", "Potencia" => "252.4",  "Horas por día" => "24",              "Días por mes" => "30"],
