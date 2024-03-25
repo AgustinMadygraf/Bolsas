@@ -1,7 +1,6 @@
 <!--DataMaq/presupuestos.php-->
 <?php
 require "includes/header.php";
-
 require 'includes/conn_bolsas.php';
 include 'includes/db_functions.php'; 
 
@@ -10,9 +9,6 @@ function obtenerDatosValorUnitario() {
     return getArraySQL($sql);
 }
 
-
-
-// Obtiene los datos
 $datosValorUnitario = obtenerDatosValorUnitario();
 ?>
 
@@ -21,16 +17,9 @@ $datosValorUnitario = obtenerDatosValorUnitario();
 <head>
     <meta charset="UTF-8">
     <title>Valores Unitarios</title>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-    </style>
+    <!--INCORPORAR ESTILOS DE BOOTSTRAP-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
@@ -54,6 +43,24 @@ $datosValorUnitario = obtenerDatosValorUnitario();
     </tr>
     <?php endforeach; ?>
 </table>
+<br>
+
+<form action="includes/procesar_proveedores.php" method="POST">
+    <tr>
+        <td>
+            <select name="Concepto">
+                <option value="Papel">Papel</option>
+                <option value="opcion2">Opción 2</option>
+                <option value="opcion3">Opción 3</option>
+            </select>
+        </td>
+        <td><input type="text" name="Unidad" placeholder="Unidad"></td>
+        <td><input type="text" name="Valor" placeholder="Valor"></td>
+        <td><input type="text" name="Fecha" placeholder="Fecha"></td>
+        <td><button type="submit" name="insertar">Insertar</button></td>
+    </tr>
+</form>
+
 
 </body>
 </html>
