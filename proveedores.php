@@ -1,4 +1,4 @@
-<!--DataMaq/presupuestos.php-->
+<!--Bolsas/presupuestos.php-->
 <?php
 require "includes/header.php";
 require 'includes/conn_bolsas.php';
@@ -8,6 +8,17 @@ function obtenerDatosValorUnitario() {
     $sql = "SELECT ID, Concepto, Unidad, Valor, Fecha FROM valor_unitario ORDER BY ID ASC";
     return getArraySQL($sql);
 }
+
+function obtenerConcepto() {
+    $sql = "SELECT DISTINCT Concepto FROM valor_unitario";
+    return getArraySQL($sql);
+}
+$concepto = obtenerConcepto();
+$concepto1 = $concepto[0];
+$concepto2 = $concepto[1];
+$concepto3 = $concepto[2];
+$concepto4 = $concepto[3];
+
 
 $datosValorUnitario = obtenerDatosValorUnitario();
 ?>
@@ -49,9 +60,10 @@ $datosValorUnitario = obtenerDatosValorUnitario();
     <tr>
         <td>
             <select name="Concepto">
-                <option value="Papel">Papel</option>
-                <option value="opcion2">Opción 2</option>
-                <option value="opcion3">Opción 3</option>
+                <option value="<?php echo $concepto1;?>"><?php echo $concepto1;?></option>
+                <option value="<?php echo $concepto2;?>"><?php echo $concepto2;?></option>
+                <option value="<?php echo $concepto3;?>"><?php echo $concepto3;?></option>
+                <option value="<?php echo $concepto4;?>"><?php echo $concepto4;?></option>
             </select>
         </td>
         <td><input type="text" name="Unidad" placeholder="Unidad"></td>
