@@ -67,4 +67,27 @@ function ejecutarInsercion($sql, $params) {
         return false;
     }
 }
+
+/**
+ * Ejecutar una operación de eliminación en la base de datos.
+ *
+ * @param string $sql La sentencia SQL preparada para ejecutar.
+ * @param array $params Los parámetros para vincular a la sentencia SQL preparada.
+ * @return bool True en caso de éxito, False en caso contrario.
+ */
+function ejecutarEliminacion($sql, $params) {
+    $conexion = conectarBD();
+    if ($stmt = mysqli_prepare($conexion, $sql)) {
+        $types = str_repeat('s', count($params));
+        mysqli_stmt_bind_param($stmt, $types, ...$params);
+
+        $resultado = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        desconectarBD($conexion);
+        return $resultado;
+    } else {
+        desconectarBD($conexion);
+        return false;
+    }
+}
 ?>
