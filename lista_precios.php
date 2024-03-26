@@ -44,16 +44,6 @@ $resultados = getArraySQL($sql);
 
 <table border="1" class="responsive-table">
     <tr>
-        <th>Descripción</th>
-        <th>Costo Unitario</th>
-    </tr>
-    <tr>
-        <td>Papel</td>
-        <td>1250</td>
-</table>
-
-<table border="1" class="responsive-table">
-    <tr>
         <th>ID_formato</th>
         <th>Formato____</th>
         <th>Color</th>
@@ -66,9 +56,6 @@ $resultados = getArraySQL($sql);
         <th>Ancho bobina papel [cm]</th>
         <th>Desarrollo [cm]</th>
         <th>Peso [gr]</th>
-        <th>Costo Papel [ARS/Kg]</th>
-        <th>Costo_Marginal Papel</th>
-        <th>porcentaje papel sobre precio [%]</th>
     </tr>
     <?php
     foreach ($resultados as $resultado) {
@@ -98,9 +85,6 @@ $resultados = getArraySQL($sql);
                 <td>{$ancho_bobina}                 </td>  
                 <td>{$desarrollo}                   </td>  
                 <td>{$peso}                         </td>      
-                <td>{$costo_papel}                  </td>
-                <td>{$costo_papel_bolsa} ARS        </td>
-                <td> {$porcentaje}%                 </td>
               </tr>";
     }
     ?>

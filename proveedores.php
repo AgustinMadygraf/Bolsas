@@ -24,7 +24,6 @@ $fechaHoy = date('Y-m-d');
 <head>
     <meta charset="UTF-8">
     <title>Valores Unitarios</title>
-    <!--INCORPORAR ESTILOS DE BOOTSTRAP-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
