@@ -31,7 +31,6 @@ $fechaHoy = date('Y-m-d');
 <body>
 
 <h2>Tabla de Valores Unitarios</h2>
-
 <table>
     <tr>
         <th>ID</th>
@@ -39,6 +38,7 @@ $fechaHoy = date('Y-m-d');
         <th>Unidad</th>
         <th>Valor</th>
         <th>Fecha</th>
+        <th>Acción</th>
     </tr>
     <?php foreach ($datosValorUnitario as $fila): ?>
     <tr>
@@ -47,9 +47,16 @@ $fechaHoy = date('Y-m-d');
         <td><?php echo htmlspecialchars($fila['Unidad']); ?></td>
         <td><?php echo htmlspecialchars($fila['Valor']); ?></td>
         <td><?php echo htmlspecialchars($fila['Fecha']); ?></td>
+        <td>
+            <form action="includes/procesar_proveedores.php" method="GET">
+                <input type="hidden" name="ID" value="<?php echo $fila['ID']; ?>">
+                <input type="submit" name="eliminar" value="Eliminar">
+            </form>
+        </td>
     </tr>
     <?php endforeach; ?>
 </table>
+
 <br>
 
 <form action="includes/procesar_proveedores.php" method="GET">

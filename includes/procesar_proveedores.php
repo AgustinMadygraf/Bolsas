@@ -11,7 +11,7 @@ function insertarProveedor($id, $concepto, $unidad, $valor, $fecha) {
 }
 
 // Ejemplo 
-// http://localhost/Bolsas/includes/procesar_proveedores.php?Concepto=Mano+de+Obra&Unidad=%24%2Fh&Valor=2200&Fecha=2024-03-26&insertar=
+// http://localhost/Bolsas/includes/procesar_proveedores.php?ID=7&eliminar=Eliminar
 
 if (isset($_GET['insertar'])) {
     // Aquí suponemos que ID no es necesario porque es autoincremental en la base de datos.
