@@ -1,26 +1,20 @@
 <!--Bolsas/presupuestos.php-->
 <?php
-require "includes/header.php";
-require 'includes/conn_bolsas.php';
-include 'includes/db_functions.php'; 
+    require "includes/header.php";
+    require 'includes/conn_bolsas.php';
+    include 'includes/db_functions.php'; 
 
-function obtenerDatosValorUnitario() {
-    $sql = "SELECT ID, Concepto, Unidad, Valor, Fecha FROM valor_unitario ORDER BY ID ASC";
-    return getArraySQL($sql);
-}
+    function obtenerDatosValorUnitario() {
+        $sql = "SELECT ID, Concepto, Unidad, Valor, Fecha FROM valor_unitario ORDER BY ID ASC";
+        return getArraySQL($sql);
+    }
 
-function obtenerConcepto() {
-    $sql = "SELECT DISTINCT Concepto FROM valor_unitario";
-    return getArraySQL($sql);
-}
-$concepto = obtenerConcepto();
-$concepto1 = $concepto[0];
-$concepto2 = $concepto[1];
-$concepto3 = $concepto[2];
-$concepto4 = $concepto[3];
-
-
-$datosValorUnitario = obtenerDatosValorUnitario();
+    function obtenerConcepto() {
+        $sql = "SELECT DISTINCT Concepto FROM valor_unitario";
+        return getArraySQL($sql);
+    }
+    $concepto = obtenerConcepto();
+    $datosValorUnitario = obtenerDatosValorUnitario();
 ?>
 
 <!DOCTYPE html>
@@ -56,14 +50,15 @@ $datosValorUnitario = obtenerDatosValorUnitario();
 </table>
 <br>
 
-<form action="includes/procesar_proveedores.php" method="POST">
+<form action="includes/procesar_proveedores.php" method="GET">
     <tr>
         <td>
             <select name="Concepto">
-                <option value="<?php echo $concepto1;?>"><?php echo $concepto1;?></option>
-                <option value="<?php echo $concepto2;?>"><?php echo $concepto2;?></option>
-                <option value="<?php echo $concepto3;?>"><?php echo $concepto3;?></option>
-                <option value="<?php echo $concepto4;?>"><?php echo $concepto4;?></option>
+                <?php foreach ($concepto as $item): ?>
+                    <option value="<?php echo htmlspecialchars($item['Concepto']); ?>">
+                        <?php echo htmlspecialchars($item['Concepto']); ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
         </td>
         <td><input type="text" name="Unidad" placeholder="Unidad"></td>
