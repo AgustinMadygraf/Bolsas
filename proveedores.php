@@ -15,6 +15,7 @@ function obtenerConceptoConUnidad() {
     return getArraySQL($sql);
 }
 $conceptoConUnidad = obtenerConceptoConUnidad();
+$fechaHoy = date('Y-m-d');
 
 ?>
 
@@ -66,7 +67,7 @@ $conceptoConUnidad = obtenerConceptoConUnidad();
             <input type="text" name="Unidad" id="unidadInput" placeholder="Unidad" readonly>
         </td>
         <td><input type="text" name="Valor" placeholder="Valor"></td>
-        <td><input type="date" name="Fecha" placeholder="Fecha"></td> 
+        <td><input type="date" name="Fecha" value="<?php echo $fechaHoy; ?>"></td>
         <td><button type="submit" name="insertar">Insertar</button></td>
         </tr>
     </tr>
