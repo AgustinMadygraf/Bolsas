@@ -1,4 +1,3 @@
-<!--Bolsas/includes/db_functions.php-->
 <?php
 /**
  * Conectar a la base de datos.
@@ -12,6 +11,7 @@ function conectarBD() {
     }
     return $conexion;
 }
+
 /**
  * Desconectar la conexión a la base de datos.
  *
@@ -22,6 +22,7 @@ function desconectarBD($conexion) {
         die("Error al desconectar la base de datos.");
     }
 }
+
 /**
  * Obtener un array multidimensional con el resultado de la consulta SQL.
  *
@@ -41,5 +42,29 @@ function getArraySQL($sql) {
     }
     desconectarBD($conexion);
     return $rawdata;
+}
+
+/**
+ * Ejecutar una operación de inserción en la base de datos.
+ *
+ * @param string $sql La sentencia SQL preparada para ejecutar.
+ * @param array $params Los parámetros para vincular a la sentencia SQL preparada.
+ * @return bool True en caso de éxito, False en caso contrario.
+ */
+function ejecutarInsercion($sql, $params) {
+    $conexion = conectarBD();
+    if ($stmt = mysqli_prepare($conexion, $sql)) {
+        // Preparar los parámetros de tipo según la cantidad de elementos en $params
+        $types = str_repeat('s', count($params)); // 's' significa string, cambia según necesidad
+        mysqli_stmt_bind_param($stmt, $types, ...$params);
+        
+        $resultado = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        desconectarBD($conexion);
+        return $resultado;
+    } else {
+        desconectarBD($conexion);
+        return false;
+    }
 }
 ?>
