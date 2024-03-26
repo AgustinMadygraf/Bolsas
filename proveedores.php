@@ -8,20 +8,14 @@ function obtenerDatosValorUnitario() {
     $sql = "SELECT ID, Concepto, Unidad, Valor, Fecha FROM valor_unitario ORDER BY ID ASC";
     return getArraySQL($sql);
 }
-
-function obtenerConcepto() {
-    $sql = "SELECT DISTINCT Concepto FROM valor_unitario";
-    return getArraySQL($sql);
-}
-
-function obtenerUnidades() {
-    $sql = "SELECT DISTINCT Unidad FROM valor_unitario";
-    return getArraySQL($sql);
-}
-
-$concepto = obtenerConcepto();
-$unidades = obtenerUnidades();
 $datosValorUnitario = obtenerDatosValorUnitario();
+
+function obtenerConceptoConUnidad() {
+    $sql = "SELECT DISTINCT Concepto, Unidad FROM valor_unitario";
+    return getArraySQL($sql);
+}
+$conceptoConUnidad = obtenerConceptoConUnidad();
+
 ?>
 
 <!DOCTYPE html>
@@ -60,30 +54,32 @@ $datosValorUnitario = obtenerDatosValorUnitario();
 <form action="includes/procesar_proveedores.php" method="GET">
     <tr>
         <td>
-            <select name="Concepto">
-                <?php foreach ($concepto as $item): ?>
-                    <option value="<?php echo htmlspecialchars($item['Concepto']); ?>">
+            <select name="Concepto" id="conceptoSelect" onchange="actualizarUnidad()">
+                <?php foreach ($conceptoConUnidad as $item): ?>
+                    <option value="<?php echo htmlspecialchars($item['Concepto']); ?>" data-unidad="<?php echo htmlspecialchars($item['Unidad']); ?>">
                         <?php echo htmlspecialchars($item['Concepto']); ?>
                     </option>
                 <?php endforeach; ?>
             </select>
         </td>
-
         <td>
-            <select name="Unidad">
-                <?php foreach ($unidades as $unidad): ?>
-                    <option value="<?php echo htmlspecialchars($unidad['Unidad']); ?>">
-                        <?php echo htmlspecialchars($unidad['Unidad']); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+            <input type="text" name="Unidad" id="unidadInput" placeholder="Unidad" readonly>
         </td>
         <td><input type="text" name="Valor" placeholder="Valor"></td>
-        <td><input type="text" name="Fecha" placeholder="Fecha"></td>
+        <td><input type="date" name="Fecha" placeholder="Fecha"></td> 
         <td><button type="submit" name="insertar">Insertar</button></td>
+        </tr>
     </tr>
 </form>
 
+<script>
+    function actualizarUnidad() {
+        var conceptoSeleccionado = document.getElementById("conceptoSelect");
+        var unidad = conceptoSeleccionado.options[conceptoSeleccionado.selectedIndex].getAttribute('data-unidad');
+        document.getElementById("unidadInput").value = unidad;
+    }
+    window.onload = actualizarUnidad;
+</script>
 
 </body>
 </html>
