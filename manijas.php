@@ -5,7 +5,7 @@ include 'includes/db_functions.php';
 
 // Datos de ejemplo para los costos
 $costos = [
-    'Papel parche'      => [1250, "$/kg", 1.50, "kg/manijas"],
+    'Papel parche'      => [1250, "$/kg", 1.776, "g/manijas"],
     'cuerda retorcida'  => [1.50, 1.50, 1.50, 1.50],
     'Energia'           => [0.30, 0.30, 1.50, 0.30],
     'ManoObra'          => [0.75, 0.75, 1.50, 0.75],
@@ -14,7 +14,6 @@ $costos = [
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,15 +32,22 @@ if (count($costos) > 0) {
     foreach ($costos as $tipo => $valores) {
         echo "<tr>";
         echo "<td>" . $tipo . "</td>"; // Nombre del tipo de costo
-        // Mostrar cada valor en la fila
-        // El primer y tercer valor serán tratados como numéricos para aplicar number_format
-        // El segundo y cuarto valor, al ser cadenas de texto (unidad y unidad KPI), se insertan directamente sin format
+        // Mostrar el precio unitario y la unidad
         echo "<td>" . number_format($valores[0], 2) . "</td>"; // Precio Unitario
         echo "<td>" . $valores[1] . "</td>"; // Unidad
-        echo "<td>" . number_format($valores[2], 2) . "</td>"; // KPI
-        echo "<td>" . $valores[3] . "</td>"; // Unidad KPI
-        // Calcular el costo variable como producto del precio unitario y el KPI
-        $costoVariable = $valores[0] * $valores[2];
+        
+        // Convertir y mostrar el KPI adecuadamente
+        $kpi = $valores[2];
+        $unidadKpi = $valores[3];
+        if (strpos($unidadKpi, 'g') !== false && strpos($valores[1], 'kg') !== false) {
+            // Convertir KPI de gramos a kilogramos si es necesario
+            $kpi /= 1000;
+        }
+        echo "<td>" . number_format($kpi, 3) . "</td>"; // KPI ajustado
+        echo "<td>" . $unidadKpi . "</td>"; // Unidad KPI
+        
+        // Calcular y mostrar el costo variable correctamente ajustado
+        $costoVariable = $valores[0] * $kpi;
         echo "<td>" . number_format($costoVariable, 2) . "</td>";
         echo "</tr>";
     }
