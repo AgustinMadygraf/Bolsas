@@ -15,14 +15,10 @@ echo "<li><a href='/Bolsas/costos_operativos.php' ".($paginaActual == 'Bolsas/co
 echo "<li><a href='/Bolsas/ventas.php' ".($paginaActual == 'Bolsas/ventas.php' ? $claseActiva : "").">Ventas</a></li>";
 echo "<li><a href='/Bolsas/stock.php' ".($paginaActual == 'Bolsas/stock.php' ? $claseActiva : "").">Stock</a></li>";
 echo "<li><a href='/Bolsas/lista_precios.php' ".($paginaActual == 'Bolsas/lista_precios.php' ? $claseActiva : "").">Lista Precios</a></li>";
+echo "<li><a href='/Bolsas/manijas.php' ".($paginaActual == 'Bolsas/manijas.php' ? $claseActiva : "").">Manijas</a></li>";
 echo "<li><a href='/Bolsas/presupuesto.php?peso=' ".($paginaActual == 'Bolsas/presupuesto.php?peso=' ? $claseActiva : "").">Presupuesto</a></li>";
 echo "<li><a href='/Bolsas/proveedores.php' ".($paginaActual == 'Bolsas/proveedores.php' ? $claseActiva : "").">Proveedores</a></li>";
 echo "<li><a href='/horas/index.php' ".($paginaActual == '/horas/index.php' ? $claseActiva : "").">Horas</a></li>";
 echo "<li><a href='/DataMaq/index.php' ".($paginaActual == '/DataMaq/index.php' ? $claseActiva : "").">DataMaq</a></li>";
 echo "<li><a href='/phpMyAdmin/' target='_blank'>PHP MyAdmin</a></li>";
 echo "</ul></div></header>";
-
-
-
-
-
