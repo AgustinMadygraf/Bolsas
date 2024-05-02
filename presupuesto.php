@@ -114,23 +114,22 @@ echo "<h3>Costo de ejecutar Venta: $" . number_format($CostoFijoVenta, 2, '.', '
 //  quiero incorporar un textbox para ingresar la cantidad de bolsas a presupuestar
 echo "<h3>Ingrese la cantidad de bolsas a presupuestar: <input type='text' id='cantidadBolsas' value='0'></h3>";
 //ahora con javascript obtener el precio de venta total multiplicando el costo total variable unitario por la cantidad de bolsas
-echo "<h3>Costo Total: $<span id='Costo_Total_JS'>0.00</span></h3>";
+echo "<h3>Costo Total: $<span id='Costo_Total_JS'>0.00</span></h3>"; 
 echo "<script>
     document.getElementById('cantidadBolsas').addEventListener('input', function() {
         var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
         var costoTotal = cantidadBolsas * $totalCostoVariable;
         var costoTotal = costoTotal + $CostoFijoVenta;
-        document.getElementById('Costo_Total_JS').innerText = costoTotal.toFixed(2);
+        document.getElementById('Costo_Total_JS').innerText = costoTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     });
 </script>";
-
 // quiero ver el precio unitario multiplicado la cantidad de bolsas con Javascript
 echo "<h3>Precio Total: $<span id='Precio_Total_JS'>0.00</span></h3>";
 echo "<script>
     document.getElementById('cantidadBolsas').addEventListener('input', function() {
         var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
         var precioTotal = cantidadBolsas * $precio_venta;
-        document.getElementById('Precio_Total_JS').innerText = precioTotal.toFixed(2);
+        document.getElementById('Precio_Total_JS').innerText = precioTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     });
 </script>";
 //ahora el margen de contribucion restando el preciototal menos el costo total
@@ -142,10 +141,9 @@ echo "<script>
         var costoTotal = costoTotal + $CostoFijoVenta;
         var precioTotal = cantidadBolsas * $precio_venta;
         var margenContribucion = precioTotal - costoTotal;
-        document.getElementById('Margen_Contribucion_JS').innerText = margenContribucion.toFixed(2);
+        document.getElementById('Margen_Contribucion_JS').innerText = margenContribucion.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     });
 </script>";
-
 
 
 
