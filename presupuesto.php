@@ -1,4 +1,4 @@
-<!--DataMaq/presupuestos.php-->
+<!--Bolsas/presupuestos.php-->
 <?php
 require "includes/header.php";
 require "app/controllers/PresupuestoController.php";
