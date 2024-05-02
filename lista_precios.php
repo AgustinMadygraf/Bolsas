@@ -59,11 +59,10 @@ $resultados = getArraySQL($sql);
     </tr>
     <?php
     foreach ($resultados as $resultado) {
-        $ancho_bobina = 2*$resultado['ancho']+2*$resultado['fuelle']+3;
-        $desarrollo = $resultado['alto']+$resultado['fuelle']/2+2;
+        $ancho_bobina = (2*$resultado['ancho']+2*$resultado['fuelle']+30)/10;
+        $desarrollo = ($resultado['alto']+$resultado['fuelle']/2+20)/10;
         $superficie = ($ancho_bobina/100 ) * ($desarrollo/100) ;
         $peso = number_format(($superficie * $resultado['gramaje']), 1, '.', ''); 
-        $peso = $peso/1000; // paso de gramos a kilogramos
         $costo_papel = 1026;
         $costo_papel_bolsa = number_format(($costo_papel * $peso / 1000), 2, '.', ''); // Cálculo original
         $porcentaje = number_format(100* $costo_papel_bolsa/($resultado['precio_u_sIVA']*1.21),2) ;
