@@ -124,6 +124,28 @@ echo "<script>
     });
 </script>";
 
+// quiero ver el precio unitario multiplicado la cantidad de bolsas con Javascript
+echo "<h3>Precio Total: $<span id='Precio_Total_JS'>0.00</span></h3>";
+echo "<script>
+    document.getElementById('cantidadBolsas').addEventListener('input', function() {
+        var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
+        var precioTotal = cantidadBolsas * $precio_venta;
+        document.getElementById('Precio_Total_JS').innerText = precioTotal.toFixed(2);
+    });
+</script>";
+//ahora el margen de contribucion restando el preciototal menos el costo total
+echo "<h3>Margen de Contribución: $<span id='Margen_Contribucion_JS'>0.00</span></h3>";
+echo "<script>
+    document.getElementById('cantidadBolsas').addEventListener('input', function() {
+        var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
+        var costoTotal = cantidadBolsas * $totalCostoVariable;
+        var costoTotal = costoTotal + $CostoFijoVenta;
+        var precioTotal = cantidadBolsas * $precio_venta;
+        var margenContribucion = precioTotal - costoTotal;
+        document.getElementById('Margen_Contribucion_JS').innerText = margenContribucion.toFixed(2);
+    });
+</script>";
+
 
 
 
