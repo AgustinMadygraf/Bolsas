@@ -129,6 +129,10 @@ echo "<script>
     document.getElementById('cantidadBolsas').addEventListener('input', function() {
         var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
         var precioTotal = cantidadBolsas * $precio_venta;
+        var costoTotal = cantidadBolsas * $totalCostoVariable + $CostoFijoVenta;
+        if (precioTotal < costoTotal) {
+            precioTotal = costoTotal;
+        }
         document.getElementById('Precio_Total_JS').innerText = precioTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     });
 </script>";
@@ -137,9 +141,11 @@ echo "<h3>Margen de Contribución: $<span id='Margen_Contribucion_JS'>0.00</span
 echo "<script>
     document.getElementById('cantidadBolsas').addEventListener('input', function() {
         var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
-        var costoTotal = cantidadBolsas * $totalCostoVariable;
-        var costoTotal = costoTotal + $CostoFijoVenta;
         var precioTotal = cantidadBolsas * $precio_venta;
+        var costoTotal = cantidadBolsas * $totalCostoVariable + $CostoFijoVenta;
+        if (precioTotal < costoTotal) {
+            precioTotal = costoTotal;
+        }
         var margenContribucion = precioTotal - costoTotal;
         document.getElementById('Margen_Contribucion_JS').innerText = margenContribucion.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     });
