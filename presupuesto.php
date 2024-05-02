@@ -103,8 +103,13 @@ $datosJson = json_encode([
 // quiero visualizar el costo variable total
 echo "<h3>Costo Variable Unitario: $" . number_format($totalCostoVariable, 2, '.', ',') . "</h3>";
 //costo fijo por cada venta
-$CostoFijoVenta = 5000;
-echo "<h3>Costo de Venta: $" . number_format($CostoFijoVenta, 2, '.', ',') . "</h3>";
+//horas para cerrar una venta
+$horas_cerrar_venta = 2;
+echo "<h3>Horas para cerrar una venta: " . number_format($horas_cerrar_venta, 2, '.', ',') . "</h3>";
+//costo fijo por hora de mano de obra
+$CostoFijoManoObra = $val_unit_mano_obra;
+$CostoFijoVenta = $horas_cerrar_venta * $CostoFijoManoObra;
+echo "<h3>Costo de ejecutar Venta: $" . number_format($CostoFijoVenta, 2, '.', ',') . "</h3>";
 
 //  quiero incorporar un textbox para ingresar la cantidad de bolsas a presupuestar
 echo "<h3>Ingrese la cantidad de bolsas a presupuestar: <input type='text' id='cantidadBolsas' value='0'></h3>";
