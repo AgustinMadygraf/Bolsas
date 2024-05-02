@@ -112,7 +112,7 @@ $CostoFijoVenta = $horas_cerrar_venta * $CostoFijoManoObra;
 echo "<h3>Costo de ejecutar Venta: $" . number_format($CostoFijoVenta, 2, '.', ',') . "</h3>";
 
 //  quiero incorporar un textbox para ingresar la cantidad de bolsas a presupuestar
-echo "<h3>Ingrese la cantidad de bolsas a presupuestar: <input type='text' id='cantidadBolsas' value='0'></h3>";
+echo "<h3>Ingrese la cantidad de bolsas a presupuestar: <input type='number' id='cantidadBolsas' value='0'></h3>";
 //ahora con javascript obtener el precio de venta total multiplicando el costo total variable unitario por la cantidad de bolsas
 echo "<h3>Costo Total: $<span id='Costo_Total_JS'>0.00</span></h3>"; 
 echo "<script>
@@ -173,17 +173,25 @@ echo "<h2>Costos Fijos Totales</h2>";
 echo "<p>Total Costo Eléctrico: $" . number_format($costoElectrico, 2) . "</p>";
 echo "<p>Total Costo de Superficie: $" . number_format($costoSuperficie, 2) . "</p>";
 echo "<p>Total Costo de Mano de Obra: $" . number_format($costoManoObra, 2) . "</p>";
-echo "<p><strong>Costo Fijo Total: $" . number_format($costoTotalFijo, 2) . "</strong></p>";
+echo "<p>(estimado) <strong>Costo Fijo Total: $" . number_format($costoTotalFijo, 2) . "</strong></p>";
+
+//cantidad de producción para alcanzar el punto de equilibrio
+echo "<h3>(estimado) Cantidad de producción para alcanzar el punto de equilibrio: ";
+$cantidadProduccion = $costoTotalFijo / $MgCont;
+echo number_format($cantidadProduccion, 2, '.', ',')." bolsas</h3>";
+
+//visualizar $$MgCont
+echo "<h3> (estimado) Margen de Contribución por unidad: $" . number_format($MgCont, 2, '.', ',') . "</h3>";
+
 
 // Margen de contribución y cálculo de horas/turnos necesarios para cubrir costos fijos
-echo "<h3>Margen de contribución por hora: $";
+echo "<h3>(estimado) Margen de contribución por hora: $";
 echo number_format($MgCont * ($vel * 60), 2, '.', ',');
 echo "</h3>";
-echo "Cantidad de horas para cubrir los costos fijos: ";
+echo "(estimado) Cantidad de horas para cubrir los costos fijos: ";
 $horasParaCubrirCostosFijos = $costoTotalFijo / ($MgCont * ($vel * 60));
 echo number_format($horasParaCubrirCostosFijos, 2, '.', ',')." horas";
-echo "<br>Cantidad de turnos para cubrir los costos fijos: ";
-echo number_format($costoTotalFijo / ($MgCont * ($vel * 60) * 8), 2, '.', ',')." turnos de 8 horas";
+
 ?>
 </body>
 </html>

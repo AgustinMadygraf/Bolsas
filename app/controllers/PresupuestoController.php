@@ -54,7 +54,11 @@ function calcularCostosVariables($data1, $precio_venta, $ComVent) {
     $CostoVariableEnergia = 10 * floatval($data1[2]['Valor unitario']) * floatval($data1[2]['KPI']); 
     $CostoVariableGluer = floatval($data1[3]['Valor unitario']) * floatval($data1[3]['KPI']);
     $CostoVenta = $precio_venta * ($ComVent / 100);
-    $totalCostoVariable = $CostoVariablePapel + $CostoVariableManoObra + $CostoVariableEnergia + $CostoVariableGluer + $CostoVenta;
+    
+    $KPI_papel_2 = 1 + 0.19047619047619;
+
+
+    $totalCostoVariable = $CostoVariablePapel * $KPI_papel_2 + $CostoVariableManoObra + $CostoVariableEnergia + $CostoVariableGluer + $CostoVenta;
     $MgCont = $precio_venta - $totalCostoVariable;
     
     return array($CostoVariablePapel, $CostoVariableEnergia, $CostoVariableManoObra, $CostoVariableGluer, $MgCont, $CostoVenta);
