@@ -87,7 +87,7 @@ echo "<h2>Costos Variables</h2>";
 
 // Separando la lógica de cálculo y la presentación de la tabla de costos variables
 list($CostoVariablePapel, $CostoVariableEnergia, $CostoVariableManoObra, $CostoVariableGluer, $MgCont, $CostoVenta) = calcularCostosVariables($data1, $precio_venta, $ComVent);
-visualizarTablaCostosVariables($data1, $precio_venta, $ComVent);
+$totalCostoVariable = visualizarTablaCostosVariables($data1, $precio_venta, $ComVent);
 
 // Preparación de datos para gráfica
 $datosJson = json_encode([
@@ -100,8 +100,27 @@ $datosJson = json_encode([
     ["Margen de contribución", $MgCont]
 ]);
 
+// quiero visualizar el costo variable total
+echo "<h3>Costo Variable Unitario: $" . number_format($totalCostoVariable, 2, '.', ',') . "</h3>";
+
+//  quiero incorporar un textbox para ingresar la cantidad de bolsas a presupuestar
+echo "<h3>Ingrese la cantidad de bolsas a presupuestar: <input type='text' id='cantidadBolsas' value='0'></h3>";
+//ahora con javascript obtener el precio de venta total multiplicando el costo total variable unitario por la cantidad de bolsas
+echo "<h3>Costo total: $<span id='CostoTotal_JS'></span></h3>";
+echo "<script>
+    document.getElementById('cantidadBolsas').addEventListener('input', function() {
+        var cantidadBolsas = document.getElementById('cantidadBolsas').value;
+        var CostoTotal_JS = cantidadBolsas * $totalCostoVariable;
+        document.getElementById('CostoTotal_JS').innerText = CostoTotal_JS.toFixed(2).replace(/\\d(?=(\\d{3})+\\.)/g, '$&,');
+    });
+</script>";
+
+
+
+
+
 // Margen de contribución por hora
-echo "<h3>Margen de contribución por hora: $";
+echo "<br><br><br><h3>Margen de contribución por hora: $";
 echo number_format($MgCont * ($vel * 60), 2, '.', ',');
 echo "</h3>";
 include 'includes/chart.php';

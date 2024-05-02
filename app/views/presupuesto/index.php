@@ -30,8 +30,10 @@ function visualizarTablaCostosVariables($data1,$precio_venta,$ComVent) {
         echo "<tr><td colspan='6'><strong>Precio de venta           </strong>   </td><td>$" .       number_format($precio_venta, 2, '.', ',') .         "</td></tr>";
         echo "<tr><td colspan='6'><strong>Margen de contribución    </strong>   </td><td>$".        number_format($MgCont, 2, '.', ',').                "</td></tr>";
         echo "</table>";
+        return $totalCostoVariable;
     } else {
         echo "No se encontraron registros en la tabla.";
+        return 0;
     }} 
 
 

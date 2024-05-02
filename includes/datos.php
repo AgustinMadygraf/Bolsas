@@ -21,15 +21,15 @@ $val_unit_mano_obra = $data1_aux[1]['Valor'];
 $val_unit_papel     = $data1_aux[0]['Valor'];
 $valor_unit_energia = $data1_aux[2]['Valor'];
 $valor_unit_gluer   = $data1_aux[3]['Valor'];
-$KPI_papel = 0.16;
-$peso_desp     = $peso*$KPI_papel; 
+$KPI_papel = 16; // % de papel desperdiciado 
+$peso_desp     = $peso*(1*$KPI_papel/(100-$KPI_papel)); 
 
 $data1 = [ 
 ["Descripción" => "Papel",                      "Valor unitario"                =>  "$val_unit_papel",      "Unidad"    => "$/kg",  "KPI" => "$peso",           "Unidad KPI" => "Kg/bolsa"  ],
 ["Descripción" => "Mano de obra ($Trabajadores personas)",  "Valor unitario"    =>  "$val_unit_mano_obra",  "Unidad"    => "$/hora","KPI" => "$KPI_ManoObra",   "Unidad KPI" => "horas/bolsa"],
 ["Descripción" => "Energía",                    "Valor unitario"                =>  "$valor_unit_energia",  "Unidad"    => "$/kWh", "KPI" => "0.0012",          "Unidad KPI" => "kWh/bolsa" ],
 ["Descripción" => "Gluer",                      "Valor unitario"                =>  "$valor_unit_gluer",    "Unidad"    => "$/kg",  "KPI" => "0.0022345",       "Unidad KPI" => "kg/bolsa"  ],
-["Descripción" => "Papel_desperdicio",          "Valor unitario"                =>  "$val_unit_papel",      "Unidad"    => "$/kg",  "KPI" => "$peso_desp",           "Unidad KPI" => "Kg/bolsa"  ],
+["Descripción" => "Papel desperdicio $KPI_papel %",          "Valor unitario"                =>  "$val_unit_papel",      "Unidad"    => "$/kg",  "KPI" => "$peso_desp",           "Unidad KPI" => "Kg/bolsa"  ],
     ];   
 
 
