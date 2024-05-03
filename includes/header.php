@@ -16,6 +16,7 @@ echo "<li><a href='/Bolsas/ventas.php' ".($paginaActual == 'Bolsas/ventas.php' ?
 echo "<li><a href='/Bolsas/stock.php' ".($paginaActual == 'Bolsas/stock.php' ? $claseActiva : "").">Stock</a></li>";
 echo "<li><a href='/Bolsas/lista_precios.php' ".($paginaActual == 'Bolsas/lista_precios.php' ? $claseActiva : "").">Lista Precios</a></li>";
 echo "<li><a href='/Bolsas/manijas.php' ".($paginaActual == 'Bolsas/manijas.php' ? $claseActiva : "").">Manijas</a></li>";
+echo "<li><a href='/Bolsas/valor_unitario.php' ".($paginaActual == 'Bolsas/valor_unitario.php' ? $claseActiva : "").">Valor Unitario</a></li>";
 echo "<li><a href='/Bolsas/presupuesto.php?peso=' ".($paginaActual == 'Bolsas/presupuesto.php?peso=' ? $claseActiva : "").">Presupuesto</a></li>";
 echo "<li><a href='/Bolsas/proveedores.php' ".($paginaActual == 'Bolsas/proveedores.php' ? $claseActiva : "").">Proveedores</a></li>";
 echo "<li><a href='/horas/index.php' ".($paginaActual == '/horas/index.php' ? $claseActiva : "").">Horas</a></li>";
