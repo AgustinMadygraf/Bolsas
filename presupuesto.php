@@ -81,6 +81,9 @@
     // Separando la lógica de cálculo y la presentación de la tabla de costos variables
     list($CostoVariablePapel, $CostoVariableEnergia, $CostoVariableManoObra, $CostoVariableGluer, $MgCont, $CostoVenta) = calcularCostosVariables($data1, $precio_venta, $ComVent);
     $totalCostoVariable = visualizarTablaCostosVariables($data1, $precio_venta, $ComVent);
+    
+    $horas_cerrar_venta = 2;
+    mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $val_unit_mano_obra,$precio_venta);
 
     // Preparación de datos para gráfica
     $datosJson = json_encode([
@@ -92,61 +95,6 @@
         ["Costo de Ventas", $CostoVenta],
         ["Margen de contribución", $MgCont]
     ]);
-
-    echo "<h3>Costo Variable Unitario: $" . number_format($totalCostoVariable, 2, '.', ',') . "</h3>";
-    //costo fijo por cada venta
-    //horas para cerrar una venta
-    $horas_cerrar_venta = 2;
-    echo "<h3>Horas para cerrar una venta: " . number_format($horas_cerrar_venta, 2, '.', ',') . "</h3>";
-    //costo fijo por hora de mano de obra
-    $CostoFijoManoObra = $val_unit_mano_obra;
-    $CostoFijoVenta = $horas_cerrar_venta * $CostoFijoManoObra;
-    echo "<h3>Costo de ejecutar Venta: $" . number_format($CostoFijoVenta, 2, '.', ',') . "</h3>";
-
-    //  quiero incorporar un textbox para ingresar la cantidad de bolsas a presupuestar
-    echo "<h3>Ingrese la cantidad de bolsas a presupuestar: <input type='number' id='cantidadBolsas' value='0'></h3>";
-    //ahora con javascript obtener el precio de venta total multiplicando el costo total variable unitario por la cantidad de bolsas
-    echo "<h3>Costo Total: $<span id='Costo_Total_JS'>0.00</span></h3>"; 
-    echo "<script>
-        document.getElementById('cantidadBolsas').addEventListener('input', function() {
-            var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
-            var costoTotal = cantidadBolsas * $totalCostoVariable;
-            var costoTotal = costoTotal + $CostoFijoVenta;
-            document.getElementById('Costo_Total_JS').innerText = costoTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        });
-    </script>";
-    // quiero ver el precio unitario multiplicado la cantidad de bolsas con Javascript
-    echo "<h3>Precio Total: $<span id='Precio_Total_JS'>0.00</span></h3>";
-    echo "<script>
-        document.getElementById('cantidadBolsas').addEventListener('input', function() {
-            var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
-            var precioTotal = cantidadBolsas * $precio_venta;
-            var costoTotal = cantidadBolsas * $totalCostoVariable + $CostoFijoVenta;
-            if (precioTotal < costoTotal) {
-                precioTotal = costoTotal;
-            }
-            document.getElementById('Precio_Total_JS').innerText = precioTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        });
-    </script>";
-    //ahora el margen de contribucion restando el preciototal menos el costo total
-    echo "<h3>Margen de Contribución: $<span id='Margen_Contribucion_JS'>0.00</span></h3>";
-    echo "<script>
-        document.getElementById('cantidadBolsas').addEventListener('input', function() {
-            var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
-            var precioTotal = cantidadBolsas * $precio_venta;
-            var costoTotal = cantidadBolsas * $totalCostoVariable + $CostoFijoVenta;
-            if (precioTotal < costoTotal) {
-                precioTotal = costoTotal;
-            }
-            var margenContribucion = precioTotal - costoTotal;
-            document.getElementById('Margen_Contribucion_JS').innerText = margenContribucion.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        });
-    </script>";
-
-    // Margen de contribución por hora
-    echo "<br><br><br><h3>Margen de contribución por hora: $";
-    echo number_format($MgCont * ($vel * 60), 2, '.', ',');
-    echo "</h3>";
     include 'includes/chart.php';
 
     // Sección de costos fijos
