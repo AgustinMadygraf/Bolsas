@@ -83,7 +83,7 @@
     $totalCostoVariable = visualizarTablaCostosVariables($data1, $precio_venta, $ComVent);
     
     $horas_cerrar_venta = 2;
-    mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $val_unit_mano_obra,$precio_venta);
+    mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $val_unit_mano_obra,$precio_venta,$MgCont,$vel);
 
     // Preparación de datos para gráfica
     $datosJson = json_encode([

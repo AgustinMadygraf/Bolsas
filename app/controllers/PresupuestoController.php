@@ -64,7 +64,7 @@ function calcularCostosVariables($data1, $precio_venta, $ComVent) {
     return array($CostoVariablePapel, $CostoVariableEnergia, $CostoVariableManoObra, $CostoVariableGluer, $MgCont, $CostoVenta);
 }
 
-function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $val_unit_mano_obra,$precio_venta) {
+function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $val_unit_mano_obra,$precio_venta,$MgCont,$vel) {
     echo "<h3>Costo Variable Unitario: $" . number_format($totalCostoVariable, 2, '.', ',') . "</h3>";
     //costo fijo por cada venta
     //horas para cerrar una venta
@@ -115,7 +115,7 @@ function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $v
     </script>";
 
     // Margen de contribución por hora
-    echo "<br><br><br><h3>Margen de contribución por hora: $";
+    echo "<br><br><br><h3>Margen de contribución por hora de producción: $";
     echo number_format($MgCont * ($vel * 60), 2, '.', ',');
     echo "</h3>";
 
@@ -144,7 +144,7 @@ function mostrarCostosFijosYContribucion($data2, $data3, $data4, $MgCont, $vel) 
     //cantidad de producción para alcanzar el punto de equilibrio
     echo "<h3>(estimado) Cantidad de producción para alcanzar el punto de equilibrio: ";
     $cantidadProduccion = $costoTotalFijo / $MgCont;
-    echo number_format($cantidadProduccion, 2, '.', ',')." bolsas</h3>";
+    echo number_format($cantidadProduccion, 0, '.', ',')." bolsas</h3>";
 
     //visualizar $$MgCont
     echo "<h3> (estimado) Margen de Contribución por unidad: $" . number_format($MgCont, 2, '.', ',') . "</h3>";
