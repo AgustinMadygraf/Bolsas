@@ -130,9 +130,9 @@ function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $v
             document.getElementById('Margen_Contribucion_JS').innerText = margenContribucion.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         });
     </script>";
-    echo "<br><br><br><h3>Margen de contribución por hora de producción: $";
+    echo "<h3>Margen de contribución por hora de producción: $";
     echo number_format($MgCont * ($vel * 60), 2, '.', ',');
-    echo "</h3>";
+    echo "</h3><br>";
 }
 
 function mostrarCostosFijosYContribucion($data2, $data3, $data4, $MgCont, $vel) {
