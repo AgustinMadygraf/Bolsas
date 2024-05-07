@@ -90,7 +90,7 @@
     list($CostoVariablePapel, $CostoVariableEnergia, $CostoVariableManoObra, $CostoVariableGluer, $MgCont, $CostoVenta) = calcularCostosVariables($data1, $precio_venta, $ComVent);
     $totalCostoVariable = visualizarTablaCostosVariables($data1, $precio_venta, $ComVent);
     
-    $horas_cerrar_venta = 2;
+    $horas_cerrar_venta = 37;
     mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $val_unit_mano_obra,$precio_venta,$MgCont,$vel);
 
     // Preparación de datos para gráfica
