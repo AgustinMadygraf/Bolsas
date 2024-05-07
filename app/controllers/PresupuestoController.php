@@ -121,6 +121,41 @@ function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $v
 
 }
 
+function mostrarCostosFijosYContribucion($data2, $data3, $data4, $MgCont, $vel) {
+    // Sección de costos fijos
+    echo "<h2>Costos fijo </h2>";
+    echo "<h3>Costo fijo - Electrico</h3>";
+    visualizarTabla2($data2);
+    echo "<h3>Costo Fijo - Superficie</h3>";
+    visualizarTabla3($data3);
+    echo "<h3>Costo Fijo - Mano de obra</h3>";
+    visualizarTabla4($data4);
+
+    // Cálculo de costos fijos totales
+    list($costoElectrico, $costoSuperficie, $costoManoObra, $costoTotalFijo) = calcularCostosFijos($data2, $data3, $data4);
+
+    // Presentación de costos fijos totales
+    echo "<h2>Costos Fijos Totales</h2>";
+    echo "<p>Total Costo Eléctrico: $" . number_format($costoElectrico, 2) . "</p>";
+    echo "<p>Total Costo de Superficie: $" . number_format($costoSuperficie, 2) . "</p>";
+    echo "<p>Total Costo de Mano de Obra: $" . number_format($costoManoObra, 2) . "</p>";
+    echo "<p>(estimado) <strong>Costo Fijo Total: $" . number_format($costoTotalFijo, 2) . "</strong></p>";
+
+    //cantidad de producción para alcanzar el punto de equilibrio
+    echo "<h3>(estimado) Cantidad de producción para alcanzar el punto de equilibrio: ";
+    $cantidadProduccion = $costoTotalFijo / $MgCont;
+    echo number_format($cantidadProduccion, 2, '.', ',')." bolsas</h3>";
+
+    //visualizar $$MgCont
+    echo "<h3> (estimado) Margen de Contribución por unidad: $" . number_format($MgCont, 2, '.', ',') . "</h3>";
 
 
+    // Margen de contribución y cálculo de horas/turnos necesarios para cubrir costos fijos
+    echo "<h3>(estimado) Margen de contribución por hora: $";
+    echo number_format($MgCont * ($vel * 60), 2, '.', ',');
+    echo "</h3>";
+    echo "(estimado) Cantidad de horas para cubrir los costos fijos: ";
+    $horasParaCubrirCostosFijos = $costoTotalFijo / ($MgCont * ($vel * 60));
+    echo number_format($horasParaCubrirCostosFijos, 2, '.', ',')." horas";
+}
 ?>
