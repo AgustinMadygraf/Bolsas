@@ -66,11 +66,17 @@ function calcularCostosVariables($data1, $precio_venta, $ComVent) {
 
 function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $val_unit_mano_obra, $precio_venta, $MgCont, $vel) {
     echo "<h3>Costo Variable Unitario: $" . number_format($totalCostoVariable, 2, '.', ',') . "</h3>";
+
+
     echo "<h3>Horas para cerrar una venta: " . number_format($horas_cerrar_venta, 2, '.', ',') . "</h3>";
     $CostoFijoManoObra = $val_unit_mano_obra;
     $CostoFijoVenta = $horas_cerrar_venta * $CostoFijoManoObra;
+
+
     echo "<h3>Costo de ejecutar Venta: $" . number_format($CostoFijoVenta, 2, '.', ',') . "</h3>";
     echo "<h3>Ingrese la cantidad de bolsas a presupuestar: <input type='number' id='cantidadBolsas' value='0'></h3>";
+
+
     echo "<h3>Costo Total: $<span id='Costo_Total_JS'>0.00</span></h3>";
     echo "<script>
         document.getElementById('cantidadBolsas').addEventListener('input', function() {
@@ -80,6 +86,8 @@ function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $v
             document.getElementById('Costo_Total_JS').innerText = costoTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         });
     </script>";
+
+
     echo "<h3>Precio Total: $<span id='Precio_Total_JS'>0.00</span></h3>";
     echo "<script>
         document.getElementById('cantidadBolsas').addEventListener('input', function() {
@@ -92,7 +100,24 @@ function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $v
             document.getElementById('Precio_Total_JS').innerText = precioTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         });
     </script>";
-    echo "<h3>Margen de Contribución: $<span id='Margen_Contribucion_JS'>0.00</span></h3>";
+
+
+    echo "<h3>Precio Unitario de cada bolsa: $<span id='Precio_Unitario_JS'> 0.00</span></h3>";
+    echo "<script>
+        document.getElementById('cantidadBolsas').addEventListener('input', function() {
+            var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
+            var precioTotal = cantidadBolsas * $precio_venta;
+            var costoTotal = cantidadBolsas * $totalCostoVariable + $CostoFijoVenta;
+            if (precioTotal < costoTotal) {
+                precioTotal = costoTotal;
+            }
+            var precioUnitario = precioTotal / cantidadBolsas;
+            document.getElementById('Precio_Unitario_JS').innerText = precioUnitario.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        });
+    </script>";
+
+
+
     echo "<script>
         document.getElementById('cantidadBolsas').addEventListener('input', function() {
             var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);

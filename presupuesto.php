@@ -26,8 +26,7 @@
     <table>
         <tr>
             <td><label for="vel1">Velocidad de la máquina [bolsas por minuto]:</label></td>
-            <td>
-                <select name="vel">
+            <td><select name="vel">
                     <?php
                     foreach ($velocidades as $velocidad) {
                         echo '<option value="' . $velocidad . '"' . ($vel == $velocidad ? ' selected' : '') . '>' . $velocidad . '</option>';
@@ -37,13 +36,9 @@
                 <label for="vel2"></label>
             </td>
         </tr>
-        <tr>
-            
-                <input type="hidden" name="peso" value="<?php echo htmlspecialchars($peso * 1000); ?>">
-                <input type="hidden" name="precio_venta" value="<?php echo htmlspecialchars($precio_venta); ?>">
-                <input type="hidden" name="formato" value="<?php echo htmlspecialchars($formato); ?>">
+            <input type="hidden" name="peso" value="<?php echo htmlspecialchars($peso * 1000); ?>">
+            <input type="hidden" name="precio_venta" value="<?php echo htmlspecialchars($precio_venta); ?>"><input type="hidden" name="formato" value="<?php echo htmlspecialchars($formato); ?>">
 
-        </tr>
         <tr>
             <td><label for="Trabajadores">Trabajadores: </label></td>
             <td>
@@ -68,10 +63,23 @@
                 </select>
             </td>
         </tr>
-        <tr>
+        <tr style="display: none;">
             <td colspan="2"><input type="submit" value="Actualizar"></td>
         </tr>
+        </tr>
     </table>
+    <script>
+        // Obtén todos los elementos select en el formulario
+        var selects = document.querySelectorAll('select');
+
+        // Para cada select, añade un event listener para el evento 'change'
+        for (var i = 0; i < selects.length; i++) {
+            selects[i].addEventListener('change', function() {
+                // Cuando se cambia una opción, envía el formulario
+                this.form.submit();
+            });
+        }
+    </script>
 </form>
 
 <?php
