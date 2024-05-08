@@ -67,14 +67,14 @@ function calcularCostosVariables($data1, $precio_venta, $ComVent) {
 function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $val_unit_mano_obra, $precio_venta, $MgCont, $vel) {
     $CostoFijoVenta = $horas_cerrar_venta * $val_unit_mano_obra;
     echo "<table>"; 
-    echo "<tr><th>Descripción</th><th>Total</th><th>Unitario</th></tr>";
-    echo "<tr><td>Ingrese la cantidad de bolsas a presupuestar:</td><td colspan='2'><input type='number' id='cantidadBolsas' value='0'></td></tr>";
-    echo "<tr><td>Costo Variable</td><td>$<span id='Costo_variable_total_JS'>0.00</span></td><td>$" . number_format($totalCostoVariable, 2, '.', ',') . "</td></tr>";
-    echo "<tr><td>Horas para cerrar una venta y despachar pedido</td><td colspan='2'>" . number_format($horas_cerrar_venta, 2, '.', ',') . "</td></tr>";
-    echo "<tr><td>Costo de ejecutar Venta</td><td colspan='2'>$" . number_format($CostoFijoVenta, 2, '.', ',') . "</td></tr>";
-    echo "<tr><td>Costo </td><td>$<span id='Costo_Total_JS'>0.00</span></td><td>$<span id='Costo_unit_JS'>0.00</span></td></tr>";
-    echo "<tr><td>Precio</td><td>$<span id='Precio_Total_JS'>0.00</span></td><td>$<span id='Precio_Unitario_JS'>0.00</span></td></tr>";
-    echo "<tr><td>Margen de contribución</td><td>$<span id='Margen_Contribucion_total_JS'>0.00</span></td><td>$<span id='Margen_Contribucion_unit_JS'>0.00</span></td></tr>";
+    echo "<tr><th>Descripción</th><th style='text-align: center;'>Total</th><th style='text-align: center;'>Unitario</th></tr>";
+    echo "<tr><td>Ingrese la cantidad de bolsas a presupuestar:</td><td colspan='2' style='text-align: center;'><input type='number' id='cantidadBolsas' value='0'></td></tr>";
+    echo "<tr><td>Costo Variable</td><td style='text-align: center;'>$<span id='Costo_variable_total_JS'>0.00</span></td><td style='text-align: center;'>$" . number_format($totalCostoVariable, 2, '.', ',') . "</td></tr>";
+    echo "<tr><td>Horas para cerrar una venta y despachar pedido</td><td colspan='2' style='text-align: center;'>" . number_format($horas_cerrar_venta, 2, '.', ',') . "</td></tr>";
+    echo "<tr><td>Costo de ejecutar Venta</td><td colspan='2' style='text-align: center;'>$" . number_format($CostoFijoVenta, 2, '.', ',') . "</td></tr>";
+    echo "<tr><td>Costo </td><td style='text-align: center;'>$<span id='Costo_Total_JS'>0.00</span></td><td style='text-align: center;'>$<span id='Costo_unit_JS'>0.00</span></td></tr>";
+    echo "<tr><td>Precio</td><td style='text-align: center;'>$<span id='Precio_Total_JS'>0.00</span></td><td style='text-align: center;'>$<span id='Precio_Unitario_JS'>0.00</span></td></tr>";
+    echo "<tr><td>Margen de contribución</td><td style='text-align: center;'>$<span id='Margen_Contribucion_total_JS'>0.00</span></td><td style='text-align: center;'>$<span id='Margen_Contribucion_unit_JS'>0.00</span></td></tr>";
     echo "</table>";
 
 

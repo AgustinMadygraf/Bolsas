@@ -84,13 +84,15 @@
 
 <?php
     // Inicio de refactorización
-    echo "<h2>Costos Variables</h2>";
+    echo "<h2>Costos del formato de bolsas selecionado</h2>";
 
     // Separando la lógica de cálculo y la presentación de la tabla de costos variables
     list($CostoVariablePapel, $CostoVariableEnergia, $CostoVariableManoObra, $CostoVariableGluer, $MgCont, $CostoVenta) = calcularCostosVariables($data1, $precio_venta, $ComVent);
     $totalCostoVariable = visualizarTablaCostosVariables($data1, $precio_venta, $ComVent);
     
-    $horas_cerrar_venta = 37;
+    $horas_cerrar_venta = 5;
+    echo "<br><br><h2>Seleccione la cantidad que desea presupuestar</h2>";
+
     mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $val_unit_mano_obra,$precio_venta,$MgCont,$vel);
 
     // Preparación de datos para gráfica
