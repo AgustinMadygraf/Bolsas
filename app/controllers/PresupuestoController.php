@@ -65,74 +65,66 @@ function calcularCostosVariables($data1, $precio_venta, $ComVent) {
 }
 
 function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $val_unit_mano_obra, $precio_venta, $MgCont, $vel) {
-    echo "<h3>Costo Variable Unitario: $" . number_format($totalCostoVariable, 2, '.', ',') . "</h3>";
+    $CostoFijoVenta = $horas_cerrar_venta * $val_unit_mano_obra;
+    echo "<table>"; 
+    echo "<tr><th>Descripción</th><th>Total</th><th>Unitario</th></tr>";
+    echo "<tr><td>Ingrese la cantidad de bolsas a presupuestar:</td><td colspan='2'><input type='number' id='cantidadBolsas' value='0'></td></tr>";
+    echo "<tr><td>Costo Variable</td><td>$<span id='Costo_variable_total_JS'>0.00</span></td><td>$" . number_format($totalCostoVariable, 2, '.', ',') . "</td></tr>";
+    echo "<tr><td>Horas para cerrar una venta y despachar pedido</td><td colspan='2'>" . number_format($horas_cerrar_venta, 2, '.', ',') . "</td></tr>";
+    echo "<tr><td>Costo de ejecutar Venta</td><td colspan='2'>$" . number_format($CostoFijoVenta, 2, '.', ',') . "</td></tr>";
+    echo "<tr><td>Costo </td><td>$<span id='Costo_Total_JS'>0.00</span></td><td>$<span id='Costo_unit_JS'>0.00</span></td></tr>";
+    echo "<tr><td>Precio</td><td>$<span id='Precio_Total_JS'>0.00</span></td><td>$<span id='Precio_Unitario_JS'>0.00</span></td></tr>";
+    echo "<tr><td>Margen de contribución</td><td>$<span id='Margen_Contribucion_total_JS'>0.00</span></td><td>$<span id='Margen_Contribucion_unit_JS'>0.00</span></td></tr>";
+    echo "</table>";
 
 
-    echo "<h3>Horas para cerrar una venta: " . number_format($horas_cerrar_venta, 2, '.', ',') . "</h3>";
-    $CostoFijoManoObra = $val_unit_mano_obra;
-    $CostoFijoVenta = $horas_cerrar_venta * $CostoFijoManoObra;
-
-
-    echo "<h3>Costo de ejecutar Venta: $" . number_format($CostoFijoVenta, 2, '.', ',') . "</h3>";
-    echo "<h3>Ingrese la cantidad de bolsas a presupuestar: <input type='number' id='cantidadBolsas' value='0'></h3>";
-
-
-    echo "<h3>Costo Total: $<span id='Costo_Total_JS'>0.00</span></h3>";
     echo "<script>
+        document.getElementById('cantidadBolsas').addEventListener('input', function() {
+            var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value) || 0;
+            var costoTotal = cantidadBolsas * $totalCostoVariable;
+            costoTotal += $CostoFijoVenta;
+            var costoUnitario = costoTotal / cantidadBolsas;
+            document.getElementById('Costo_unit_JS').innerText = costoUnitario.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+            var precioTotal = cantidadBolsas * $precio_venta;
+            if (precioTotal < costoTotal) {
+                precioTotal = costoTotal;
+            }
+            var precioUnitario = precioTotal / cantidadBolsas;
+            document.getElementById('Precio_Unitario_JS').innerText = precioUnitario.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            
+            document.getElementById('Costo_Total_JS').innerText = costoTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            
+            var margenContribucion = precioTotal - costoTotal;
+            document.getElementById('Margen_Contribucion_total_JS').innerText = margenContribucion.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            
+            var margenContribucionUnitario = precioUnitario - costoUnitario;
+            document.getElementById('Margen_Contribucion_unit_JS').innerText = margenContribucionUnitario.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        });
         document.getElementById('cantidadBolsas').addEventListener('input', function() {
             var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
             var costoTotal = cantidadBolsas * $totalCostoVariable;
-            costoTotal += $CostoFijoVenta;
-            document.getElementById('Costo_Total_JS').innerText = costoTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        });
-    </script>";
-
-
-    echo "<h3>Precio Total: $<span id='Precio_Total_JS'>0.00</span></h3>";
-    echo "<script>
-        document.getElementById('cantidadBolsas').addEventListener('input', function() {
-            var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
+            document.getElementById('Costo_variable_total_JS').innerText = costoTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            
             var precioTotal = cantidadBolsas * $precio_venta;
             var costoTotal = cantidadBolsas * $totalCostoVariable + $CostoFijoVenta;
             if (precioTotal < costoTotal) {
                 precioTotal = costoTotal;
             }
             document.getElementById('Precio_Total_JS').innerText = precioTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        });
-    </script>";
-
-
-    echo "<h3>Precio Unitario de cada bolsa: $<span id='Precio_Unitario_JS'> 0.00</span></h3>";
-    echo "<script>
-        document.getElementById('cantidadBolsas').addEventListener('input', function() {
-            var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
-            var precioTotal = cantidadBolsas * $precio_venta;
-            var costoTotal = cantidadBolsas * $totalCostoVariable + $CostoFijoVenta;
-            if (precioTotal < costoTotal) {
-                precioTotal = costoTotal;
-            }
+            
             var precioUnitario = precioTotal / cantidadBolsas;
             document.getElementById('Precio_Unitario_JS').innerText = precioUnitario.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        });
-    </script>";
-
-
-
-    echo "<script>
-        document.getElementById('cantidadBolsas').addEventListener('input', function() {
-            var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
-            var precioTotal = cantidadBolsas * $precio_venta;
-            var costoTotal = cantidadBolsas * $totalCostoVariable + $CostoFijoVenta;
-            if (precioTotal < costoTotal) {
-                precioTotal = costoTotal;
-            }
+            
             var margenContribucion = precioTotal - costoTotal;
-            document.getElementById('Margen_Contribucion_JS').innerText = margenContribucion.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('Margen_Contribucion_total_JS').innerText = margenContribucion.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            
+            var costoUnitario = costoTotal / cantidadBolsas;
+            var margenContribucionUnitario = precioUnitario - costoUnitario;
+            document.getElementById('Margen_Contribucion_unit_JS').innerText = margenContribucionUnitario.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         });
     </script>";
-    echo "<h3>Margen de contribución por hora de producción: $";
-    echo number_format($MgCont * ($vel * 60), 2, '.', ',');
-    echo "</h3><br>";
+
 }
 
 function mostrarCostosFijosYContribucion($data2, $data3, $data4, $MgCont, $vel) {
