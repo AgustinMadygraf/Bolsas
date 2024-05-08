@@ -84,7 +84,6 @@ function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $v
             var costoTotal = cantidadBolsas * $totalCostoVariable;
             costoTotal += $CostoFijoVenta;
             var costoUnitario = costoTotal / cantidadBolsas;
-            document.getElementById('Costo_unit_JS').innerText = costoUnitario.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
             var precioTotal = cantidadBolsas * $precio_venta;
             if (precioTotal < costoTotal) {
@@ -102,7 +101,11 @@ function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $v
             document.getElementById('Margen_Contribucion_unit_JS').innerText = margenContribucionUnitario.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         });
         document.getElementById('cantidadBolsas').addEventListener('input', function() {
-            var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value);
+            var cantidadBolsas = parseFloat(document.getElementById('cantidadBolsas').value) || 1;
+            var costoTotal = cantidadBolsas * $totalCostoVariable;
+            costoTotal += $CostoFijoVenta;
+            var costoUnitario = costoTotal / cantidadBolsas;
+            document.getElementById('Costo_unit_JS').innerText = costoUnitario.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             var costoTotal = cantidadBolsas * $totalCostoVariable;
             document.getElementById('Costo_variable_total_JS').innerText = costoTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             
