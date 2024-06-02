@@ -74,7 +74,7 @@ function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $v
     echo "<tr><td>Costo de ejecutar Venta</td><td colspan='2' style='text-align: center;'>$" . number_format($CostoFijoVenta, 2, '.', ',') . "</td><td></td><td></td></tr>";
     echo "<tr><td>Costo </td><td style='text-align: center;'>$<span id='Costo_Total_JS'>0.00</span></td><td style='text-align: center;'>$<span id='Costo_unit_JS'>0.00</span></td><td style='text-align: center;'>$<span id='Costo_variable_total_debito_JS'>0.00</span></td><td></td></tr>";
     echo "<tr><td>Precio</td><td style='text-align: center;'>$<span id='Precio_Total_JS'>0.00</span></td><td style='text-align: center;'>$<span id='Precio_Unitario_JS'>0.00</span></td><td></td><td style='text-align: center;'>$<span id='Precio_Total_credito_JS'>0.00</span></td></tr>";
-    echo "<tr><td>Margen de contribución</td><td style='text-align: center;'>$<span id='Margen_Contribucion_total_JS'>0.00</span></td><td style='text-align: center;'>$<span id='Margen_Contribucion_unit_JS'>0.00</span></td><td>[valor porcentual]%</td><td>$<span id='saldo_IVA_JS'>0.00</span></td></tr>";
+    echo "<tr><td>Margen de contribución</td><td style='text-align: center;'>$<span id='Margen_Contribucion_total_JS'>0.00</span></td><td style='text-align: center;'>$<span id='Margen_Contribucion_unit_JS'>0.00</span></td><td><span id='pocentaje_saldo_JS'>0.00</span> %</td><td>$<span id='saldo_IVA_JS'>0.00</span></td></tr>";
     echo "</table>";
 
 
@@ -139,6 +139,10 @@ function mostrarCalculosPresupuesto($totalCostoVariable, $horas_cerrar_venta, $v
             document.getElementById('saldo_IVA_JS').innerText = diferencia.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
             
+            var porcentaje = (diferencia / precioTotal) * 100;
+            //incorporar el porcentaje dentro la variable 'pocentaje_saldo_JS'
+            document.getElementById('pocentaje_saldo_JS').innerText = porcentaje.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
 
 
         });
